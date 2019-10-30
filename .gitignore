@@ -1,2 +1,6 @@
 # Compiled class file
 *.class
+src/out/
+.idea/
+src/.idea
+src/refactoring-java.iml

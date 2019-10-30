@@ -1,3 +1,5 @@
+package stock;
+
 import java.util.HashMap;
 
 public class Movies {
@@ -21,7 +23,7 @@ public class Movies {
         return INSTANCE;
     }
 
-    public static Movie getMovieByCode(String code) {
+    public Movie getMovieByCode(String code) {
         return movies.get(code);
     }
 }
