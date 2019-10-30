@@ -2,10 +2,10 @@ package receipt;
 
 import customer.Customer;
 import stock.Movies;
-import stock.PriceRange;
+import stock.PriceType;
 
 public class Receipt {
-    private Customer customer; // frequent points == size of movies
+    private Customer customer;
     private Movies movies;
 
     public Receipt(Customer customer) {
@@ -19,10 +19,10 @@ public class Receipt {
             stringBuilder.append("\n\t")
                     .append(movies.getMovieByCode(rental.getMovieId()).getTitle())
                     .append("\t")
-                    .append(movies.getMovieByCode(rental.getMovieId()).getPriceRange().getTotalCost(rental.getDays()));
+                    .append(movies.getMovieByCode(rental.getMovieId()).getPriceType().getTotalCost(rental.getDays()));
 
             // add bonus point
-            if (movies.getMovieByCode(rental.getMovieId()).getPriceRange() == PriceRange.NEW && rental.getDays() > 2) {
+            if (movies.getMovieByCode(rental.getMovieId()).getPriceType() == PriceType.NEW && rental.getDays() > 2) {
                 customer.addFrequentEnterPoints(1);
             }
 
@@ -32,16 +32,14 @@ public class Receipt {
         stringBuilder.append("\nAmount owed is ")
                 .append((Double) customer.getRentals().stream().map(
                         rental -> movies.getMovieByCode(rental.getMovieId())
-                                .getPriceRange()
+                                .getPriceType()
                                 .getTotalCost(rental.getDays()))
-                        .mapToDouble(Double::doubleValue).sum());
+                        .mapToDouble(Double::doubleValue)
+                        .sum()
+                );
 
-        stringBuilder.append("\nYou earned ").append(customer.getRentals().size()).append(" frequent points");
+        stringBuilder.append("\nYou earned ").append(customer.getRentals().size()).append(" frequent points\n");
 
-        String str = stringBuilder.toString();
-
-        System.out.println(str);
-
-        return str;
+        return stringBuilder.toString();
     }
 }

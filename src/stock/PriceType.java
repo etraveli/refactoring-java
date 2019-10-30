@@ -1,6 +1,6 @@
 package stock;
 
-public enum PriceRange {
+public enum PriceType {
     REGULAR(2) {
         @Override
         public double getTotalCost(int days) {
@@ -21,9 +21,10 @@ public enum PriceRange {
     };
 
     private final double price;
+
     public abstract double getTotalCost(int days);
 
-    private PriceRange(double price) {
+    PriceType(double price) {
         this.price = price;
     }
 

@@ -2,19 +2,19 @@ package stock;
 
 public class Movie {
     private String title;
-    private PriceRange priceRange;
+    private PriceType priceType;
 
-    public Movie(String title, PriceRange priceRange) {
+    public Movie(String title, PriceType priceType) {
         this.title = title;
-        this.priceRange = priceRange;
+        this.priceType = priceType;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public PriceRange getPriceRange() {
-        return priceRange;
+    public PriceType getPriceType() {
+        return priceType;
     }
 
 }

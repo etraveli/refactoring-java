@@ -1,9 +1,9 @@
 import customer.Customer;
 import receipt.Receipt;
 
-public class RentMovie {
+public class RentService {
 
-    public String rentMovies(Customer customer) {
+    public String rent(Customer customer) {
         Receipt receipt = new Receipt(customer);
         return receipt.getReceipt();
     }
