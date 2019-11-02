@@ -1,3 +1,5 @@
+package movie.dto;
+
 import java.util.List;
 
 public class Customer {

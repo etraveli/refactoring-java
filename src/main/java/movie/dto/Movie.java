@@ -1,3 +1,5 @@
+package movie.dto;
+
 public class Movie {
     private String title;
     private String code;
@@ -15,4 +17,5 @@ public class Movie {
     public String getCode() {
         return code;
     }
+
 }
