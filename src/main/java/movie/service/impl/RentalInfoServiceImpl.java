@@ -1,14 +1,14 @@
 package movie.service.impl;
 
-import movie.dto.Customer;
-import movie.dto.Movie;
-import movie.dto.MovieCodes;
-import movie.dto.MovieRental;
+import movie.dto.*;
 import movie.service.CalculateAmountForMovieService;
 import movie.service.MoviesPopulatorService;
 import movie.service.RentalInfoService;
+import movie.service.StatementOutputService;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class RentalInfoServiceImpl implements RentalInfoService {
 
@@ -22,23 +22,18 @@ public class RentalInfoServiceImpl implements RentalInfoService {
 
         double totalAmount = 0;
         int frequentEnterPoints = 0;
-
-        StringBuilder result = new StringBuilder("Rental Record for " + customer.getName() + "\n");
+        Map<String, Double> moviesAmount = new LinkedHashMap<>();
 
         for (MovieRental movieRental : customer.getRentals()) {
             double thisAmount = calculateAmountForMovieService.calculateAmountForMovie(movies, movieRental);
+            moviesAmount.put(movies.get(movieRental.getMovieId()).getTitle(), thisAmount);
             frequentEnterPoints = getFrequentEnterPoints(frequentEnterPoints, movieRental);
-
-            //print figures for this rental
-            result.append("\t").append(movies.get(movieRental.getMovieId()).getTitle()).append("\t").append(thisAmount).append("\n");
 
             totalAmount += thisAmount;
         }
-        // add footer lines
-        result.append("Amount owed is ").append(totalAmount).append("\n");
-        result.append("You earned ").append(frequentEnterPoints).append(" frequent points\n");
 
-        return result.toString();
+        return StatementOutputService.createStringStatement(new RentalStatement(totalAmount, frequentEnterPoints, moviesAmount),
+                customer.getName());
     }
 
     private int getFrequentEnterPoints(int frequentEnterPoints, MovieRental movieRental) {

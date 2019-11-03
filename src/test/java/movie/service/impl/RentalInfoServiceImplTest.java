@@ -25,7 +25,8 @@ public class RentalInfoServiceImplTest {
                 "Amount owed is 5.5\n" +
                 "You earned 2 frequent points\n";
 
-        String result = rentalInfoService.getStatementForCustomer(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+        String result = rentalInfoService.getStatementForCustomer(new Customer("C. U. Stomer",
+                Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
 
         assertThat(result, is(expected));
     }
