@@ -13,9 +13,7 @@ public class MovieRentalRepository {
 
     private static HashMap<String, Movie> movies = moviesPopulatorService.populateMovies();
 
-    public static Optional<Movie> getMovieById(String movieId){
+    public Optional<Movie> getMovieById(String movieId) {
         return movies.containsKey(movieId) ? Optional.of(movies.get(movieId)) : Optional.empty();
     }
-
-
 }

@@ -1,36 +1,39 @@
 package movie.service.impl;
 
 import movie.dto.*;
+import movie.persistence.MovieRentalRepository;
 import movie.service.CalculateAmountForMovieService;
-import movie.service.MoviesPopulatorService;
 import movie.service.RentalInfoService;
 import movie.service.StatementOutputService;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class RentalInfoServiceImpl implements RentalInfoService {
 
-    private MoviesPopulatorService moviesPopulatorService = new DummyMoviesPopulatorService();
+    private MovieRentalRepository movieRentalRepository = new MovieRentalRepository();
 
     private CalculateAmountForMovieService calculateAmountForMovieService = new CalculateAmountForMovieService();
 
     @Override
     public String getStatementForCustomer(Customer customer) {
 
-        HashMap<String, Movie> movies = moviesPopulatorService.populateMovies();
-
         double totalAmount = 0;
         int frequentEnterPoints = 0;
         Map<String, Double> moviesAmount = new LinkedHashMap<>();
 
         for (MovieRental movieRental : customer.getRentals()) {
-            double thisAmount = calculateAmountForMovieService.calculateAmountForMovie(movies, movieRental);
-            moviesAmount.put(movies.get(movieRental.getMovieId()).getTitle(), thisAmount);
-            frequentEnterPoints = getFrequentEnterPoints(frequentEnterPoints, movieRental, movies.get(movieRental.getMovieId()).getCode());
+            Optional<Movie> possibleMovie = movieRentalRepository.getMovieById(movieRental.getMovieId());
 
-            totalAmount += thisAmount;
+            if (possibleMovie.isPresent()) {
+                double thisAmount = calculateAmountForMovieService.calculateAmountForMovie(possibleMovie.get(), movieRental);
+                moviesAmount.put(possibleMovie.get().getTitle(), thisAmount);
+                frequentEnterPoints = getFrequentEnterPoints(frequentEnterPoints, movieRental, possibleMovie.get().getCode());
+
+                totalAmount += thisAmount;
+            }
+
         }
 
         return StatementOutputService.createStringStatement(new RentalStatement(totalAmount, frequentEnterPoints, moviesAmount),

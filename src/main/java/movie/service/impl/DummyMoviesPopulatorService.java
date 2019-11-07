@@ -7,6 +7,7 @@ import movie.service.MoviesPopulatorService;
 import java.util.HashMap;
 
 public class DummyMoviesPopulatorService implements MoviesPopulatorService {
+
     @Override
     public HashMap<String, Movie> populateMovies() {
         HashMap<String, Movie> movies = new HashMap<>();
