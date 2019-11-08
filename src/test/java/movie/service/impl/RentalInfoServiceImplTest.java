@@ -92,4 +92,58 @@ public class RentalInfoServiceImplTest {
 
         assertThat(result, is(expected));
     }
+
+    @Test
+    public void noMoviesShouldReturnZeroResult() {
+        String expected = "Rental Record for Iurii\n" +
+                "Amount owed is 0.0\n" +
+                "You earned 0 frequent points\n";
+
+        String result = rentalInfoService.getStatementForCustomer(
+                CustomerCreator.createCustomer("Iurii", Collections.EMPTY_LIST));
+
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void unknownMoviesShouldReturnZeroResult() {
+        String expected = "Rental Record for Iurii\n" +
+                "Amount owed is 0.0\n" +
+                "You earned 0 frequent points\n";
+
+        String result = rentalInfoService.getStatementForCustomer(
+                CustomerCreator.createCustomer("Iurii", Arrays.asList(
+                        new MovieRental("U001", 3),
+                        new MovieRental("U003", 4),
+                        new MovieRental("U004", 2),
+                        new MovieRental("U002", 6))));
+
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void fewMoviesWithoutFrequentPointsForNewAndUknownMovies() {
+        String expected = "Rental Record for Iurii\n\t" +
+                "You've Got Mail\t" +
+                "3.5\n\t" +
+                "Cars\t" +
+                "3.0\n\t" +
+                "Fast & Furious X\t" +
+                "6.0\n\t" +
+                "Matrix\t" +
+                "8.0\n" +
+                "Amount owed is 20.5\n" +
+                "You earned 4 frequent points\n";
+
+        String result = rentalInfoService.getStatementForCustomer(
+                CustomerCreator.createCustomer("Iurii", Arrays.asList(
+                        new MovieRental("F001", 3),
+                        new MovieRental("F003", 4),
+                        new MovieRental("F004", 2),
+                        new MovieRental("U004", 2),
+                        new MovieRental("U004", 2),
+                        new MovieRental("F002", 6))));
+
+        assertThat(result, is(expected));
+    }
 }
