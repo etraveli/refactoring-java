@@ -1,3 +1,6 @@
+package com.movierentals;
+
+
 import java.util.Arrays;
 
 public class Main {

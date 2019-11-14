@@ -1,3 +1,6 @@
+package com.movierentals;
+
+
 public class Movie {
     private String title;
     private String code;

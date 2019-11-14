@@ -1,3 +1,6 @@
+package com.movierentals;
+
+
 import java.util.List;
 
 public class Customer {
