@@ -18,7 +18,7 @@ public class RentalInfo {
 
     double totalAmount = 0;
     int frequentEnterPoints = 0;
-    StringBuilder result = new StringBuilder("Rental Record for " + customer.getName() + "\n");
+    StringBuilder result = new StringBuilder("Rental Record for " + customer.getName() + System.lineSeparator());
     for (MovieRental r : customer.getRentals()) {
       double thisAmount = 0;
 
@@ -45,12 +45,12 @@ public class RentalInfo {
       if (movies.get(r.getMovieId()).getCategory() == NEW && r.getDays() > 2) frequentEnterPoints++;
 
       //print figures for this rental
-      result.append("\t").append(movies.get(r.getMovieId()).getTitle()).append("\t").append(thisAmount).append("\n");
+      result.append("\t").append(movies.get(r.getMovieId()).getTitle()).append("\t").append(thisAmount).append(System.lineSeparator());
       totalAmount = totalAmount + thisAmount;
     }
     // add footer lines
-    result.append("Amount owed is ").append(totalAmount).append("\n");
-    result.append("You earned ").append(frequentEnterPoints).append(" frequent points\n");
+    result.append("Amount owed is ").append(totalAmount).append(System.lineSeparator());
+    result.append("You earned ").append(frequentEnterPoints).append(" frequent points").append(System.lineSeparator());
 
     return result.toString();
   }
