@@ -18,52 +18,68 @@ public class RentalInfo {
 
   public String createCustomerReport(Customer customer) {
 
-    double totalAmount = 0;
-    int frequentEnterPoints = 0;
-    StringBuilder result = new StringBuilder("Rental Record for " + customer.getName() + System.lineSeparator());
+    double totalAmountOwed = 0;
+    int totalFrequentBonusPoints = 0;
+    StringBuilder report = new StringBuilder("Rental Record for " + customer.getName() + System.lineSeparator());
+
     for (MovieRental rental : customer.getRentals()) {
-      double thisAmount = 0;
 
       // determine amount for each movie
-        final String movieId = rental.getMovieId();
+        final Movie movie = movieRepo.findById(rental.getMovieId());
         final int rentalDays = rental.getDays();
-        final Movie movie = movieRepo.findById(movieId);
 
         if (movie == null) {
             continue;
         }
 
+        double amountOwedForMovie = determineAmountOwedForMovie(movie, rentalDays);
+        totalAmountOwed += amountOwedForMovie;
+
+        totalFrequentBonusPoints += determineFrequentBonusPointsForMovie(movie, rentalDays);
+
+        //print figures for this rental
+      report.append("\t").append(movie.getTitle()).append("\t").append(amountOwedForMovie).append(System.lineSeparator());
+    }
+
+    // add footer lines
+    report.append("Amount owed is ").append(totalAmountOwed).append(System.lineSeparator());
+    report.append("You earned ").append(totalFrequentBonusPoints).append(" frequent points").append(System.lineSeparator());
+
+    return report.toString();
+  }
+
+    private double determineAmountOwedForMovie(Movie movie, int rentalDays) {
+        double owedAmount = 0;
+
         switch (movie.getCategory()) {
             case REGULAR:
-                thisAmount = 2;
+                owedAmount = 2;
                 if (rentalDays > 2) {
-                    thisAmount = ((rentalDays - 2) * 1.5) + thisAmount;
+                    owedAmount = ((rentalDays - 2) * 1.5) + owedAmount;
                 }
                 break;
             case NEW:
-                thisAmount = rentalDays * 3;
+                owedAmount = rentalDays * 3;
                 break;
             case CHILDREN:
-                thisAmount = 1.5;
+                owedAmount = 1.5;
                 if (rentalDays > 3) {
-                    thisAmount = ((rentalDays - 3) * 1.5) + thisAmount;
+                    owedAmount = ((rentalDays - 3) * 1.5) + owedAmount;
                 }
                 break;
         }
 
-      //add frequent bonus points
-      frequentEnterPoints++;
-      // add bonus for a two day new release rental
-      if (movie.getCategory() == NEW && rentalDays > 2) frequentEnterPoints++;
-
-      //print figures for this rental
-      result.append("\t").append(movie.getTitle()).append("\t").append(thisAmount).append(System.lineSeparator());
-      totalAmount += thisAmount;
+        return owedAmount;
     }
-    // add footer lines
-    result.append("Amount owed is ").append(totalAmount).append(System.lineSeparator());
-    result.append("You earned ").append(frequentEnterPoints).append(" frequent points").append(System.lineSeparator());
 
-    return result.toString();
-  }
+    private int determineFrequentBonusPointsForMovie(Movie movie, int rentalDays) {
+        int earnedPoints = 1;
+
+        // add bonus for a two day new release rental
+        if (NEW == movie.getCategory() && rentalDays > 2) {
+            earnedPoints++;
+        }
+
+        return earnedPoints;
+    }
 }
