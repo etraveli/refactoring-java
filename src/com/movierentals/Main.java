@@ -4,6 +4,7 @@ package com.movierentals;
 import com.movierentals.domain.Customer;
 import com.movierentals.domain.MovieRental;
 import com.movierentals.services.MovieRepository;
+import com.movierentals.services.RentalInfo;
 
 import java.util.Arrays;
 

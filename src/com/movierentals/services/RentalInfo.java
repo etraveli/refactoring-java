@@ -1,9 +1,8 @@
-package com.movierentals;
+package com.movierentals.services;
 
 
 import com.movierentals.domain.Customer;
 import com.movierentals.domain.MovieRental;
-import com.movierentals.services.MovieRepository;
 
 import static com.movierentals.domain.MovieCategory.*;
 
