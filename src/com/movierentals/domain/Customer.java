@@ -1,8 +1,6 @@
 package com.movierentals.domain;
 
 
-import com.movierentals.MovieRental;
-
 import java.util.List;
 
 public class Customer {
