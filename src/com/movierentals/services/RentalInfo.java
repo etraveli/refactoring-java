@@ -20,33 +20,33 @@ public class RentalInfo {
     double totalAmount = 0;
     int frequentEnterPoints = 0;
     StringBuilder result = new StringBuilder("Rental Record for " + customer.getName() + System.lineSeparator());
-    for (MovieRental r : customer.getRentals()) {
+    for (MovieRental rental : customer.getRentals()) {
       double thisAmount = 0;
 
       // determine amount for each movie
-      if (movieRepo.findById(r.getMovieId()).getCategory() == REGULAR) {
+      if (movieRepo.findById(rental.getMovieId()).getCategory() == REGULAR) {
         thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
+        if (rental.getDays() > 2) {
+          thisAmount = ((rental.getDays() - 2) * 1.5) + thisAmount;
         }
       }
-      if (movieRepo.findById(r.getMovieId()).getCategory() == NEW) {
-        thisAmount = r.getDays() * 3;
+      if (movieRepo.findById(rental.getMovieId()).getCategory() == NEW) {
+        thisAmount = rental.getDays() * 3;
       }
-      if (movieRepo.findById(r.getMovieId()).getCategory() == CHILDRENS) {
+      if (movieRepo.findById(rental.getMovieId()).getCategory() == CHILDRENS) {
         thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
+        if (rental.getDays() > 3) {
+          thisAmount = ((rental.getDays() - 3) * 1.5) + thisAmount;
         }
       }
 
       //add frequent bonus points
       frequentEnterPoints++;
       // add bonus for a two day new release rental
-      if (movieRepo.findById(r.getMovieId()).getCategory() == NEW && r.getDays() > 2) frequentEnterPoints++;
+      if (movieRepo.findById(rental.getMovieId()).getCategory() == NEW && rental.getDays() > 2) frequentEnterPoints++;
 
       //print figures for this rental
-      result.append("\t").append(movieRepo.findById(r.getMovieId()).getTitle()).append("\t").append(thisAmount).append(System.lineSeparator());
+      result.append("\t").append(movieRepo.findById(rental.getMovieId()).getTitle()).append("\t").append(thisAmount).append(System.lineSeparator());
       totalAmount = totalAmount + thisAmount;
     }
     // add footer lines
