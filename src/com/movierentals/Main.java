@@ -6,7 +6,6 @@ import com.movierentals.domain.MovieRental;
 import com.movierentals.services.MovieRepository;
 import com.movierentals.services.RentalInfo;
 
-import java.util.Arrays;
 
 public class Main {
 
@@ -17,7 +16,10 @@ public class Main {
                     + "Amount owed is 5.5" + System.lineSeparator()
                     + "You earned 2 frequent points" + System.lineSeparator();
 
-    final String result = new RentalInfo(new MovieRepository()).createCustomerReport(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+    final Customer customer = new Customer("C. U. Stomer",
+                                           new MovieRental("F001", 3),
+                                           new MovieRental("F002", 1));
+    final String result = new RentalInfo(new MovieRepository()).createCustomerReport(customer);
 
     if (!expected.equals(result)) {
       throw new AssertionError("Expected: " + System.lineSeparator() + expected + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
