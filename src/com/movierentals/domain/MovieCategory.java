@@ -3,7 +3,7 @@ package com.movierentals.domain;
 
 public enum MovieCategory {
     REGULAR("regular"),
-    CHILDRENS("childrens"),
+    CHILDREN("children"),
     NEW("new");
 
     private String category;
