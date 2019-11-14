@@ -3,19 +3,18 @@ package com.movierentals;
 
 public class Movie {
     private String title;
-    private String code;
+    private MovieCategory category;
 
-    public Movie(String title, String code) {
-
+    public Movie(String title, MovieCategory category) {
         this.title = title;
-        this.code = code;
+        this.category = category;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getCode() {
-        return code;
+    public MovieCategory getCategory() {
+        return category;
     }
 }

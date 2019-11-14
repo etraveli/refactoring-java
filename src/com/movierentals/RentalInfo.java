@@ -4,15 +4,17 @@ package com.movierentals;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.movierentals.MovieCategory.*;
+
 
 public class RentalInfo {
 
   public String statement(Customer customer) {
     Map<String, Movie> movies = new HashMap<>();
-    movies.put("F001", new Movie("You've Got Mail", "regular"));
-    movies.put("F002", new Movie("Matrix", "regular"));
-    movies.put("F003", new Movie("Cars", "childrens"));
-    movies.put("F004", new Movie("Fast & Furious X", "new"));
+    movies.put("F001", new Movie("You've Got Mail", REGULAR));
+    movies.put("F002", new Movie("Matrix", REGULAR));
+    movies.put("F003", new Movie("Cars", CHILDRENS));
+    movies.put("F004", new Movie("Fast & Furious X", NEW));
 
     double totalAmount = 0;
     int frequentEnterPoints = 0;
@@ -21,16 +23,16 @@ public class RentalInfo {
       double thisAmount = 0;
 
       // determine amount for each movie
-      if (movies.get(r.getMovieId()).getCode().equals("regular")) {
+      if (movies.get(r.getMovieId()).getCategory() == REGULAR) {
         thisAmount = 2;
         if (r.getDays() > 2) {
           thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
         }
       }
-      if (movies.get(r.getMovieId()).getCode().equals("new")) {
+      if (movies.get(r.getMovieId()).getCategory() == NEW) {
         thisAmount = r.getDays() * 3;
       }
-      if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
+      if (movies.get(r.getMovieId()).getCategory() == CHILDRENS) {
         thisAmount = 1.5;
         if (r.getDays() > 3) {
           thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
@@ -40,7 +42,7 @@ public class RentalInfo {
       //add frequent bonus points
       frequentEnterPoints++;
       // add bonus for a two day new release rental
-      if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
+      if (movies.get(r.getMovieId()).getCategory() == NEW && r.getDays() > 2) frequentEnterPoints++;
 
       //print figures for this rental
       result.append("\t").append(movies.get(r.getMovieId()).getTitle()).append("\t").append(thisAmount).append("\n");
