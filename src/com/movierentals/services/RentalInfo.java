@@ -2,6 +2,7 @@ package com.movierentals.services;
 
 
 import com.movierentals.domain.Customer;
+import com.movierentals.domain.Movie;
 import com.movierentals.domain.MovieRental;
 
 import static com.movierentals.domain.MovieCategory.*;
@@ -24,29 +25,35 @@ public class RentalInfo {
       double thisAmount = 0;
 
       // determine amount for each movie
-      if (movieRepo.findById(rental.getMovieId()).getCategory() == REGULAR) {
-        thisAmount = 2;
-        if (rental.getDays() > 2) {
-          thisAmount = ((rental.getDays() - 2) * 1.5) + thisAmount;
+        final String movieId = rental.getMovieId();
+        final int rentalDays = rental.getDays();
+        final Movie movie = movieRepo.findById(movieId);
+
+        switch (movie.getCategory()) {
+            case REGULAR:
+                thisAmount = 2;
+                if (rentalDays > 2) {
+                    thisAmount = ((rentalDays - 2) * 1.5) + thisAmount;
+                }
+                break;
+            case NEW:
+                thisAmount = rentalDays * 3;
+                break;
+            case CHILDRENS:
+                thisAmount = 1.5;
+                if (rentalDays > 3) {
+                    thisAmount = ((rentalDays - 3) * 1.5) + thisAmount;
+                }
+                break;
         }
-      }
-      if (movieRepo.findById(rental.getMovieId()).getCategory() == NEW) {
-        thisAmount = rental.getDays() * 3;
-      }
-      if (movieRepo.findById(rental.getMovieId()).getCategory() == CHILDRENS) {
-        thisAmount = 1.5;
-        if (rental.getDays() > 3) {
-          thisAmount = ((rental.getDays() - 3) * 1.5) + thisAmount;
-        }
-      }
 
       //add frequent bonus points
       frequentEnterPoints++;
       // add bonus for a two day new release rental
-      if (movieRepo.findById(rental.getMovieId()).getCategory() == NEW && rental.getDays() > 2) frequentEnterPoints++;
+      if (movie.getCategory() == NEW && rentalDays > 2) frequentEnterPoints++;
 
       //print figures for this rental
-      result.append("\t").append(movieRepo.findById(rental.getMovieId()).getTitle()).append("\t").append(thisAmount).append(System.lineSeparator());
+      result.append("\t").append(movie.getTitle()).append("\t").append(thisAmount).append(System.lineSeparator());
       totalAmount = totalAmount + thisAmount;
     }
     // add footer lines
