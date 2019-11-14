@@ -29,6 +29,10 @@ public class RentalInfo {
         final int rentalDays = rental.getDays();
         final Movie movie = movieRepo.findById(movieId);
 
+        if (movie == null) {
+            continue;
+        }
+
         switch (movie.getCategory()) {
             case REGULAR:
                 thisAmount = 2;
@@ -39,7 +43,7 @@ public class RentalInfo {
             case NEW:
                 thisAmount = rentalDays * 3;
                 break;
-            case CHILDRENS:
+            case CHILDREN:
                 thisAmount = 1.5;
                 if (rentalDays > 3) {
                     thisAmount = ((rentalDays - 3) * 1.5) + thisAmount;

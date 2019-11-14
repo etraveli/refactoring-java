@@ -18,7 +18,7 @@ public class MovieRepository {
         Map<String, Movie> movies = new HashMap<>();
         movies.put("F001", new Movie("You've Got Mail", REGULAR));
         movies.put("F002", new Movie("Matrix", REGULAR));
-        movies.put("F003", new Movie("Cars", CHILDRENS));
+        movies.put("F003", new Movie("Cars", CHILDREN));
         movies.put("F004", new Movie("Fast & Furious X", NEW));
         return movies;
     }
