@@ -1,10 +1,13 @@
 package com.movierentals;
 
 
+import com.movierentals.domain.Customer;
+import com.movierentals.domain.Movie;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.movierentals.MovieCategory.*;
+import static com.movierentals.domain.MovieCategory.*;
 
 
 public class RentalInfo {

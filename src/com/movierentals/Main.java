@@ -1,6 +1,8 @@
 package com.movierentals;
 
 
+import com.movierentals.domain.Customer;
+
 import java.util.Arrays;
 
 public class Main {

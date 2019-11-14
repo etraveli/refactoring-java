@@ -1,4 +1,4 @@
-package com.movierentals;
+package com.movierentals.domain;
 
 
 public enum MovieCategory {

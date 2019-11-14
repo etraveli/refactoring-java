@@ -1,5 +1,7 @@
-package com.movierentals;
+package com.movierentals.domain;
 
+
+import com.movierentals.MovieRental;
 
 import java.util.List;
 
