@@ -17,12 +17,13 @@ public class Main {
                     + "Amount owed is 5.5" + System.lineSeparator()
                     + "You earned 2 frequent points" + System.lineSeparator();
 
-    final String result = new RentalInfo(new MovieRepository()).statement(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+    final String result = new RentalInfo(new MovieRepository()).createCustomerReport(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
 
     if (!expected.equals(result)) {
       throw new AssertionError("Expected: " + System.lineSeparator() + expected + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
     }
 
     System.out.println("Success");
+    System.out.println(result);
   }
 }

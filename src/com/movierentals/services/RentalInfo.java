@@ -15,7 +15,7 @@ public class RentalInfo {
     this.movieRepo = movieRepo;
   }
 
-  public String statement(Customer customer) {
+  public String createCustomerReport(Customer customer) {
 
     double totalAmount = 0;
     int frequentEnterPoints = 0;
