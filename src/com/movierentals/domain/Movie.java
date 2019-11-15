@@ -2,6 +2,7 @@ package com.movierentals.domain;
 
 
 public class Movie {
+
     private String title;
     private MovieCategory category;
 

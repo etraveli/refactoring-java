@@ -10,43 +10,42 @@ import static com.movierentals.domain.MovieCategory.*;
 
 public class RentalInfo {
 
-  private MovieRepository movieRepo;
+    private MovieRepository movieRepo;
 
-  public RentalInfo(MovieRepository movieRepo) {
-    this.movieRepo = movieRepo;
-  }
-
-  public String createCustomerReport(Customer customer) {
-
-    double totalAmountOwed = 0;
-    int totalFrequentBonusPoints = 0;
-    StringBuilder report = new StringBuilder("Rental Record for " + customer.getName() + System.lineSeparator());
-
-    for (MovieRental rental : customer.getRentals()) {
-
-      // determine amount for each movie
-        final Movie movie = movieRepo.findById(rental.getMovieId());
-        final int rentalDays = rental.getDays();
-
-        if (movie == null) {
-            continue;
-        }
-
-        double amountOwedForMovie = determineAmountOwedForMovie(movie, rentalDays);
-        totalAmountOwed += amountOwedForMovie;
-
-        totalFrequentBonusPoints += determineFrequentBonusPointsForMovie(movie, rentalDays);
-
-        //print figures for this rental
-      report.append("\t").append(movie.getTitle()).append("\t").append(amountOwedForMovie).append(System.lineSeparator());
+    public RentalInfo(MovieRepository movieRepo) {
+        this.movieRepo = movieRepo;
     }
 
-    // add footer lines
-    report.append("Amount owed is ").append(totalAmountOwed).append(System.lineSeparator());
-    report.append("You earned ").append(totalFrequentBonusPoints).append(" frequent points").append(System.lineSeparator());
+    public String createCustomerReport(Customer customer) {
 
-    return report.toString();
-  }
+        double totalAmountOwed = 0;
+        int totalFrequentBonusPoints = 0;
+        StringBuilder report = new StringBuilder("Rental Record for " + customer.getName() + System.lineSeparator());
+
+        for (MovieRental rental : customer.getRentals()) {
+
+            final Movie movie = movieRepo.findById(rental.getMovieId());
+            final int rentalDays = rental.getDays();
+
+            if (movie == null) {
+                continue;
+            }
+
+            double amountOwedForMovie = determineAmountOwedForMovie(movie, rentalDays);
+            totalAmountOwed += amountOwedForMovie;
+
+            totalFrequentBonusPoints += determineFrequentBonusPointsForMovie(movie, rentalDays);
+
+            //print figures for this rental
+            report.append("\t").append(movie.getTitle()).append("\t").append(amountOwedForMovie).append(System.lineSeparator());
+        }
+
+        // add footer lines
+        report.append("Amount owed is ").append(totalAmountOwed).append(System.lineSeparator());
+        report.append("You earned ").append(totalFrequentBonusPoints).append(" frequent points").append(System.lineSeparator());
+
+        return report.toString();
+    }
 
     private double determineAmountOwedForMovie(Movie movie, int rentalDays) {
         double owedAmount = 0;

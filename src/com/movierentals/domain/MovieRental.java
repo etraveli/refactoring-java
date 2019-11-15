@@ -2,6 +2,7 @@ package com.movierentals.domain;
 
 
 public class MovieRental {
+
     private String movieId;
     private int days;
 
