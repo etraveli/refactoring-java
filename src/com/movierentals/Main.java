@@ -23,9 +23,9 @@ public class Main {
 
         if (!expected.equals(result)) {
             throw new AssertionError("Expected: " + System.lineSeparator()
-                                             + expected + System.lineSeparator() + System.lineSeparator()
-                                             + "Got: " + System.lineSeparator()
-                                             + result);
+                                      + expected + System.lineSeparator() + System.lineSeparator()
+                                      + "Got: " + System.lineSeparator()
+                                      + result);
         }
 
         System.out.println("Success");
