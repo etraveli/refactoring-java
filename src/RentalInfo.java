@@ -1,50 +1,50 @@
-import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+
+import database.DatabaseClass;
+import entities.Customer;
+import entities.Movie;
+import entities.MovieCode;
+import entities.MovieRental;
 
 public class RentalInfo {
 
-  public String statement(Customer customer) {
-    HashMap<String, Movie> movies = new HashMap();
-    movies.put("F001", new Movie("You've Got Mail", "regular"));
-    movies.put("F002", new Movie("Matrix", "regular"));
-    movies.put("F003", new Movie("Cars", "childrens"));
-    movies.put("F004", new Movie("Fast & Furious X", "new"));
+	// COMMENTS Moved data handling to seperate class as this layer to be considered as Service
+	private DatabaseClass databaseClass;
 
-    double totalAmount = 0;
-    int frequentEnterPoints = 0;
-    String result = "Rental Record for " + customer.getName() + "\n";
-    for (MovieRental r : customer.getRentals()) {
-      double thisAmount = 0;
+	public RentalInfo(DatabaseClass databaseClass) {
+		this.databaseClass = databaseClass;
+	}
 
-      // determine amount for each movie
-      if (movies.get(r.getMovieId()).getCode().equals("regular")) {
-        thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-        }
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("new")) {
-        thisAmount = r.getDays() * 3;
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
-        thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-        }
-      }
+	public List<Movie> getAllMovies() {
+		return databaseClass.getAllMovies();
+	}
 
-      //add frequent bonus points
-      frequentEnterPoints++;
-      // add bonus for a two day new release rental
-      if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
+	public String statement(Customer customer) {
+		double totalAmount = 0;
+		int frequentEnterPoints = 0;
+		// COMMENT Replacing String concatenation with StringBuilder
+		StringBuilder result = new StringBuilder("Rental Record for " + customer.getName() + System.lineSeparator());
+		for (MovieRental rental : customer.getRentals()) {
+			// COMMENT Using Optional as it may or may not exists in DB
+			Optional<Movie> movie = databaseClass.getMovieById(rental.getMovieId());
+			if (!movie.isPresent()) {
+				continue;
+			}
+			double price = movie.get().getCode() != null ? movie.get().getCode().getRentalRecordPrice(rental.getDays()) : 0;
+			if (price != 0) {
+				frequentEnterPoints = getFrequentEnterPoints(frequentEnterPoints, movie.get().getCode(), rental.getDays());
+			}
+			result.append("\t").append(movie.get().getTitle()).append("\t").append(price).append(System.lineSeparator());
+			totalAmount = totalAmount + price;
+		}
+		result.append("Amount owed is ").append(totalAmount).append(System.lineSeparator());
+		result.append("You earned ").append(frequentEnterPoints).append(" frequent points").append(System.lineSeparator());
 
-      //print figures for this rental
-      result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
-      totalAmount = totalAmount + thisAmount;
-    }
-    // add footer lines
-    result += "Amount owed is " + totalAmount + "\n";
-    result += "You earned " + frequentEnterPoints + " frequent points\n";
+		return result.toString();
+	}
 
-    return result;
-  }
+	private int getFrequentEnterPoints(int frequentEnterPoints, MovieCode movieCode, int days) {
+		return (movieCode.equals(MovieCode.NEW) && days > 2) ? frequentEnterPoints + 2 : frequentEnterPoints + 1;
+	}
 }
