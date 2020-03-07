@@ -1,3 +1,5 @@
+package com.etraveli.movierental;
+
 import java.util.HashMap;
 
 public class RentalInfo {
