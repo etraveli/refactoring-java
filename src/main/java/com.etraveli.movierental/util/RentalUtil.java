@@ -24,25 +24,26 @@ public class RentalUtil {
   public static String createStatement(Customer customer) {
     double totalAmount = 0;
     int frequentEnterPoints = 0;
-    String result = "Rental Record for " + customer.getName() + "\n";
+    StringBuilder result = new StringBuilder();
+    appendStrings(result, "Rental Record for ", customer.getName(), "\n");
+
     for (MovieRental rental : customer.getRentals()) {
         CodeType codeType = movies.get(rental.getMovieId()).getCode();
         double thisAmount = calculateAmount(codeType, rental);
 
-      //add frequent bonus points
-      frequentEnterPoints++;
-      // add bonus for a two day new release rental
-      if (codeType == CodeType.NEW && rental.getDays() > 2) frequentEnterPoints++;
+        //add frequent bonus points
+        frequentEnterPoints++;
+        // add bonus for a two day new release rental
+        if (codeType == CodeType.NEW && rental.getDays() > 2) frequentEnterPoints++;
 
-      //print figures for this rental
-      result += "\t" + movies.get(rental.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
-      totalAmount = totalAmount + thisAmount;
+        appendStrings(result, "\t", movies.get(rental.getMovieId()).getTitle(), "\t", thisAmount, "\n");
+        totalAmount = totalAmount + thisAmount;
     }
-    // add footer lines
-    result += "Amount owed is " + totalAmount + "\n";
-    result += "You earned " + frequentEnterPoints + " frequent points\n";
 
-    return result;
+    appendStrings(result, "Amount owed is ", totalAmount, "\nYou earned ", frequentEnterPoints, " frequent points\n");
+
+
+    return result.toString();
   }
 
     private static double calculateAmount(CodeType codeType, MovieRental rental) {
@@ -64,6 +65,12 @@ public class RentalUtil {
                 return currentAmount;
             default:
                 throw new RuntimeException("Given codeType: " + codeType + " does not exist");
+        }
+    }
+
+    private static void appendStrings(StringBuilder result, Object... strings) {
+        for(Object appendString: strings) {
+            result.append(appendString);
         }
     }
 }
