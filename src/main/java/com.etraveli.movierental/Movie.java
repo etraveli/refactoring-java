@@ -1,10 +1,15 @@
 package com.etraveli.movierental;
 
-public class Movie {
-    private String title;
-    private String code;
+import com.etraveli.movierental.enumeration.CodeType;
+import com.sun.istack.internal.NotNull;
 
-    public Movie(String title, String code) {
+public class Movie {
+    @NotNull
+    private String title;
+    @NotNull
+    private CodeType code;
+
+    public Movie(String title, CodeType code) {
 
         this.title = title;
         this.code = code;
@@ -14,7 +19,7 @@ public class Movie {
         return title;
     }
 
-    public String getCode() {
+    public CodeType getCode() {
         return code;
     }
 }

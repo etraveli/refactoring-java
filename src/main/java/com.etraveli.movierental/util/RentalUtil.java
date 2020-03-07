@@ -3,6 +3,7 @@ package com.etraveli.movierental.util;
 import com.etraveli.movierental.Movie;
 import com.etraveli.movierental.Customer;
 import com.etraveli.movierental.MovieRental;
+import com.etraveli.movierental.enumeration.CodeType;
 
 import java.util.HashMap;
 
@@ -14,43 +15,27 @@ public class RentalUtil {
   private static HashMap<String, Movie> movies = new HashMap<>();
 
   static {
-    movies.put("F001", new Movie("You've Got Mail", "regular"));
-    movies.put("F002", new Movie("Matrix", "regular"));
-    movies.put("F003", new Movie("Cars", "childrens"));
-    movies.put("F004", new Movie("Fast & Furious X", "new"));
+    movies.put("F001", new Movie("You've Got Mail", CodeType.REGULAR));
+    movies.put("F002", new Movie("Matrix", CodeType.REGULAR));
+    movies.put("F003", new Movie("Cars", CodeType.CHILDREN));
+    movies.put("F004", new Movie("Fast & Furious X", CodeType.NEW));
   }
 
   public static String createStatement(Customer customer) {
     double totalAmount = 0;
     int frequentEnterPoints = 0;
     String result = "Rental Record for " + customer.getName() + "\n";
-    for (MovieRental r : customer.getRentals()) {
-      double thisAmount = 0;
-
-      // determine amount for each movie
-      if (movies.get(r.getMovieId()).getCode().equals("regular")) {
-        thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-        }
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("new")) {
-        thisAmount = r.getDays() * 3;
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
-        thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-        }
-      }
+    for (MovieRental rental : customer.getRentals()) {
+        CodeType codeType = movies.get(rental.getMovieId()).getCode();
+        double thisAmount = calculateAmount(codeType, rental);
 
       //add frequent bonus points
       frequentEnterPoints++;
       // add bonus for a two day new release rental
-      if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
+      if (codeType == CodeType.NEW && rental.getDays() > 2) frequentEnterPoints++;
 
       //print figures for this rental
-      result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
+      result += "\t" + movies.get(rental.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
       totalAmount = totalAmount + thisAmount;
     }
     // add footer lines
@@ -59,4 +44,26 @@ public class RentalUtil {
 
     return result;
   }
+
+    private static double calculateAmount(CodeType codeType, MovieRental rental) {
+        double currentAmount;
+        switch (codeType) {
+            case REGULAR:
+                currentAmount = 2;
+                if (rental.getDays() > 2) {
+                    currentAmount = ((rental.getDays() - 2) * 1.5) + currentAmount;
+                }
+                return currentAmount;
+            case NEW:
+                return rental.getDays() * 3;
+            case CHILDREN:
+                currentAmount = 1.5;
+                if (rental.getDays() > 3) {
+                    currentAmount = ((rental.getDays() - 3) * 1.5) + currentAmount;
+                }
+                return currentAmount;
+            default:
+                throw new RuntimeException("Given codeType: " + codeType + " does not exist");
+        }
+    }
 }
