@@ -13,6 +13,7 @@ public class RentalUtil {
   }
 
   private static HashMap<String, Movie> movies = new HashMap<>();
+  private static StringBuilder resultBuilder = new StringBuilder();
 
   static {
     movies.put("F001", new Movie("You've Got Mail", CodeType.REGULAR));
@@ -21,11 +22,11 @@ public class RentalUtil {
     movies.put("F004", new Movie("Fast & Furious X", CodeType.NEW));
   }
 
-  public static String createStatement(Customer customer) {
+  public synchronized static String createStatement(Customer customer) {
     double totalAmount = 0;
     int frequentEnterPoints = 0;
-    StringBuilder result = new StringBuilder();
-    appendStrings(result, "Rental Record for ", customer.getName(), "\n");
+
+    appendStrings(resultBuilder, "Rental Record for ", customer.getName(), "\n");
 
     for (MovieRental rental : customer.getRentals()) {
         CodeType codeType = movies.get(rental.getMovieId()).getCode();
@@ -36,14 +37,15 @@ public class RentalUtil {
         // add bonus for a two day new release rental
         if (codeType == CodeType.NEW && rental.getDays() > 2) frequentEnterPoints++;
 
-        appendStrings(result, "\t", movies.get(rental.getMovieId()).getTitle(), "\t", thisAmount, "\n");
+        appendStrings(resultBuilder, "\t", movies.get(rental.getMovieId()).getTitle(), "\t", thisAmount, "\n");
         totalAmount = totalAmount + thisAmount;
     }
 
-    appendStrings(result, "Amount owed is ", totalAmount, "\nYou earned ", frequentEnterPoints, " frequent points\n");
+    appendStrings(resultBuilder, "Amount owed is ", totalAmount, "\nYou earned ", frequentEnterPoints, " frequent points\n");
 
-
-    return result.toString();
+      String result = resultBuilder.toString();
+      resultBuilder.setLength(0); //clear builder
+      return result;
   }
 
     private static double calculateAmount(CodeType codeType, MovieRental rental) {
