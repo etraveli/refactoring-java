@@ -1,16 +1,26 @@
-package com.etraveli.movierental;
+package com.etraveli.movierental.util;
+
+import com.etraveli.movierental.Movie;
+import com.etraveli.movierental.Customer;
+import com.etraveli.movierental.MovieRental;
 
 import java.util.HashMap;
 
-public class RentalInfo {
+public class RentalUtil {
 
-  public String statement(Customer customer) {
-    HashMap<String, Movie> movies = new HashMap();
+  private RentalUtil() {
+  }
+
+  private static HashMap<String, Movie> movies = new HashMap<>();
+
+  static {
     movies.put("F001", new Movie("You've Got Mail", "regular"));
     movies.put("F002", new Movie("Matrix", "regular"));
     movies.put("F003", new Movie("Cars", "childrens"));
     movies.put("F004", new Movie("Fast & Furious X", "new"));
+  }
 
+  public static String createStatement(Customer customer) {
     double totalAmount = 0;
     int frequentEnterPoints = 0;
     String result = "Rental Record for " + customer.getName() + "\n";
