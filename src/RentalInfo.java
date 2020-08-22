@@ -5,8 +5,10 @@ public class RentalInfo {
 	public String statement(Customer customer, HashMap<String, Movie> movies) {
     	double totalAmount = 0;
 		int frequentEnterPoints = 0;
-		String result = "Rental Record for " + customer.getName() + "\n";
-		//Changing variable to meaningful name
+		//converted to string builder for easy readability
+		StringBuilder result = new StringBuilder();
+		result.append("Rental Record for ").append(customer.getName()).append("\n");
+		//Changing variable to meaningful name 
 		for (MovieRental rental : customer.getRentals()) {
 			double thisAmount = 0;
 
@@ -44,13 +46,13 @@ public class RentalInfo {
 			if (currentRentalMovieCode == "new" && rental.getDays() > 2) frequentEnterPoints++;
 
 			//print figures for this rental
-			result += "\t" + currentRentalMovieTitle + "\t" + thisAmount + "\n";
+			result.append("\t").append(currentRentalMovieTitle).append("\t").append(thisAmount).append("\n");
 			totalAmount = totalAmount + thisAmount;
 		}
 		// add footer lines
-		result += "Amount owed is " + totalAmount + "\n";
-		result += "You earned " + frequentEnterPoints + " frequent points\n";
-
-		return result;
+		result.append("Amount owed is ").append(totalAmount).append("\n");
+		result.append("You earned ").append(frequentEnterPoints).append(" frequent points").append("\n");
+		
+		return result.toString();
 	}
 }

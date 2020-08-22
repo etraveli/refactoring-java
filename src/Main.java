@@ -5,7 +5,13 @@ import java.util.List;
 public class Main {
 
 	public static void main(String[] args) {
-		String expected = "Rental Record for C. U. Stomer\n\tYou've Got Mail\t3.5\n\tMatrix\t2.0\nAmount owed is 5.5\nYou earned 2 frequent points\n";
+		//converted to string builder for easy readability
+		StringBuilder expected = new StringBuilder();
+		expected.append("Rental Record for C. U. Stomer").append("\n");
+		expected.append("\t").append("You've Got Mail").append("\t").append("3.5").append("\n");
+		expected.append("\t").append("Matrix").append("\t").append("2.0").append("\n");
+		expected.append("Amount owed is 5.5").append("\n");
+		expected.append("You earned 2 frequent points").append("\n");
 	
 		//Initializing customer 
 		Customer customer = customerCreation();
@@ -13,11 +19,11 @@ public class Main {
 		//Initializing movies 
 		HashMap<String, Movie> movies = moviesCreation();
 		
-		//Adding movies as function argument to make inputs in a single place
+		//Adding movies as function argument to make inputs in a single place 
 		String result = new RentalInfo().statement(customer, movies);
 	
-	    if (!result.equals(expected)) {
-	    throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected) + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
+	    if (!result.equals(expected.toString())) {
+	    throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected.toString()) + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
 	    }
 	
 	    System.out.println("Success");
