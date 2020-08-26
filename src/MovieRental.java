@@ -1,21 +1,21 @@
 public class MovieRental {
-    // now considering the actual Movie "id"
-    private int movieId;
+    // now considering the actual Movie
+    private Movie movie;
     // "rentalDays" is more descriptive than "days"
     private int rentalDays;
 
-    public MovieRental(int movieId, int rentalDays) {
-        this.movieId = movieId;
+    public MovieRental(Movie movie, int rentalDays) {
+        this.movie = movie;
         this.rentalDays = rentalDays;
     }
 
-    // in case the Movie id needs to be changed/updated
-    public void setMovieId(int id) {
-        this.movieId = id;
+    // in case the Movie needs to be changed/updated
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 
-    public int getMovieId() {
-        return movieId;
+    public Movie getMovie() {
+        return movie;
     }
 
     // in case the number of rental days needs to be changed/updated
