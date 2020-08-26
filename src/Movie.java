@@ -20,7 +20,7 @@ public class Movie {
         this.id = nextId;
         this.title = title;
         this.tag = tag;
-        this.nextId++;
+        Movie.nextId++;
     }
 
     // used at object creation time
