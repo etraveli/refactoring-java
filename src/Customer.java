@@ -12,7 +12,7 @@ public class Customer {
         this.id = nextId;
         this.name = name;
         this.currentRentalList = rentals;
-        this.nextId++;
+        Customer.nextId++;
     }
 
     // used at object creation time
