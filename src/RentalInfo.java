@@ -1,49 +1,41 @@
-import java.util.HashMap;
-
 public class RentalInfo {
 
-  public String statement(Customer customer) {
-    HashMap<String, Movie> movies = new HashMap();
-    movies.put("F001", new Movie("You've Got Mail", "regular"));
-    movies.put("F002", new Movie("Matrix", "regular"));
-    movies.put("F003", new Movie("Cars", "childrens"));
-    movies.put("F004", new Movie("Fast & Furious X", "new"));
+  public String getCustomerStatement(Customer customer) {
 
     double totalAmount = 0;
     int frequentEnterPoints = 0;
-    String result = "Rental Record for " + customer.getName() + "\n";
-    for (MovieRental r : customer.getRentals()) {
+    String result = String.format("Rental Record for %s (ID: %d)" + System.lineSeparator(), customer.getName(),
+        customer.getId());
+    for (MovieRental rented : customer.getCurrentRentalList()) {
       double thisAmount = 0;
-
-      // determine amount for each movie
-      if (movies.get(r.getMovieId()).getCode().equals("regular")) {
-        thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-        }
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("new")) {
-        thisAmount = r.getDays() * 3;
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
-        thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-        }
+      int rentedDays = rented.getRentalDays();
+      switch (rented.getMovie().getTag()) {
+        case REGULAR:
+          thisAmount = rentedDays > 2 ? 2 + ((rentedDays - 2) * 1.5) : 2;
+          break;
+        case NEW:
+          thisAmount = rentedDays * 3;
+          // add bonus for a 2+ day new release rental
+          if (rentedDays > 2)
+            frequentEnterPoints += 1;
+          break;
+        case CHILDREN:
+          thisAmount = rentedDays > 3 ? 3 + ((rentedDays - 3) * 1.5) : 1.5;
+          break;
       }
 
-      //add frequent bonus points
-      frequentEnterPoints++;
-      // add bonus for a two day new release rental
-      if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
+      // add frequent bonus points
+      frequentEnterPoints += 1;
 
-      //print figures for this rental
-      result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
-      totalAmount = totalAmount + thisAmount;
+      // print figures for this rental
+      result += String.format("\t%s\t%s" + System.lineSeparator(), rented.getMovie().getTitle(),
+          String.valueOf(thisAmount));
+      totalAmount += thisAmount;
     }
     // add footer lines
-    result += "Amount owed is " + totalAmount + "\n";
-    result += "You earned " + frequentEnterPoints + " frequent points\n";
+    result += String.format(
+        "Amount owed is %s" + System.lineSeparator() + "You earned %d frequent points" + System.lineSeparator(),
+        String.valueOf(totalAmount), frequentEnterPoints);
 
     return result;
   }
