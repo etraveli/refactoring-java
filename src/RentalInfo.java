@@ -1,50 +1,72 @@
 import java.util.HashMap;
+import java.util.Map;
 
 public class RentalInfo {
 
-  public String statement(Customer customer) {
-    HashMap<String, Movie> movies = new HashMap();
-    movies.put("F001", new Movie("You've Got Mail", "regular"));
-    movies.put("F002", new Movie("Matrix", "regular"));
-    movies.put("F003", new Movie("Cars", "childrens"));
-    movies.put("F004", new Movie("Fast & Furious X", "new"));
+  /**
+   * Make it static because it is just for calculation, no instance data. So, no
+   * need to create object of RentalInfo
+   */
+  public static Statement generateStatement(Customer customer) {
+    // Handel some corner cases
+    if (customer == null || customer.getRentals().isEmpty()) {
+      return new Statement();
+    }
+
+    DataAccess dataAccess = new DataAccess();
+    Map<String, Movie> movies = dataAccess.getAllMovies();
 
     double totalAmount = 0;
     int frequentEnterPoints = 0;
-    String result = "Rental Record for " + customer.getName() + "\n";
-    for (MovieRental r : customer.getRentals()) {
-      double thisAmount = 0;
+    Map<String, Double> moviesAmounts = new HashMap<String, Double>();
+    // Declare the reference outside the loop
+    String currMovieCode;
+
+    for (MovieRental rental : customer.getRentals()) {
+
+      double currAmount = 0;
+      currMovieCode = movies.get(rental.getMovieId()).getCode();
 
       // determine amount for each movie
-      if (movies.get(r.getMovieId()).getCode().equals("regular")) {
-        thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-        }
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("new")) {
-        thisAmount = r.getDays() * 3;
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
-        thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-        }
+
+      /**
+       * Using 'switch' is not just more readable but also it is better in performance
+       * than separated if conditions and if-else chain
+       */
+      switch (currMovieCode) {
+        case Const.Code.REGULAR:
+          currAmount = 2;
+          if (rental.getDays() > 2) {
+            currAmount = currAmount + ((rental.getDays() - 2) * 1.5);
+          }
+          break;
+        case Const.Code.NEW:
+          currAmount = rental.getDays() * 3;
+          // add bonus for a two day new release rental
+          if (rental.getDays() > 2) {
+            frequentEnterPoints++;
+          }
+          break;
+        case Const.Code.CHILDREN:
+          currAmount = 1.5;
+          if (rental.getDays() > 3) {
+            currAmount = currAmount + ((rental.getDays() - 3) * 1.5);
+          }
       }
 
-      //add frequent bonus points
+      // add frequent bonus points
       frequentEnterPoints++;
-      // add bonus for a two day new release rental
-      if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
 
-      //print figures for this rental
-      result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
-      totalAmount = totalAmount + thisAmount;
+      moviesAmounts.put(movies.get(rental.getMovieId()).getTitle(), currAmount);
+      totalAmount = totalAmount + currAmount;
     }
-    // add footer lines
-    result += "Amount owed is " + totalAmount + "\n";
-    result += "You earned " + frequentEnterPoints + " frequent points\n";
 
-    return result;
+    Statement statement = new Statement();
+    statement.setCustomerName(customer.getName());
+    statement.setTotalAmount(totalAmount);
+    statement.setFrequentEnterPoints(frequentEnterPoints);
+    statement.setMoviesAmounts(moviesAmounts);
+
+    return statement;
   }
 }
