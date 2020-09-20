@@ -26,5 +26,4 @@ public class MovieDataStorage {
 		}
 		movies.add(movie);
 	}
-
 }
