@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class RentalInfo {
 	
   final static String ERROR_MESSAGE = "Error";
@@ -13,7 +10,9 @@ public class RentalInfo {
 
     double totalAmount = 0;
     int frequentEnterPoints = 0;
+    
     String result = "Rental Record for " + customer.getName() + "\n";
+    
     for (MovieRental r : customer.getRentals()) {
       Movie rentedMovie = MovieDataStorage.getMovieById(r.getMovieId());
       if (rentedMovie == null) continue;
@@ -26,24 +25,24 @@ public class RentalInfo {
       switch(rentedMovie.getCode()) {
     	case REGULAR:
     		thisAmount = 2;
-          if (r.getDays() > 2) {
-            thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-          }
-          break;
+    		if (r.getDays() > 2) {
+    			thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
+            }
+    		break;
           
     	case CHILDREN:
-    		 thisAmount = 1.5;
-           if (r.getDays() > 3) {
-             thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-           }
-           break;
+    		thisAmount = 1.5;
+    		if (r.getDays() > 3) {
+    			thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
+    		}
+    		break;
            
     	case NEW:
     		thisAmount = r.getDays() * 3;
     		// add bonus for more than two days new release rental
     		if (r.getDays() > 2) {
     			frequentEnterPoints++;
-            }
+    		}
       }
 
       // add frequent bonus points

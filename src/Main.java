@@ -19,7 +19,7 @@ public class Main {
 		testInvalidMovie();
 		testCustomerIsNull();
 		testMovieRentalIsNull();
-    
+		
 		System.out.println("Success");
 	}
   
