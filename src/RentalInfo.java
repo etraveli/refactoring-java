@@ -5,7 +5,7 @@ public class RentalInfo {
 	final static double AMOUNT_REGULAR = 2.0;
 	final static double AMOUNT_CHILDREN = 1.5;
 	
-	// We made this basically a util class
+	// We made this basically a utils class
 	// Method is broken down into smaller unit method.
 	// Very easy to read
 	

@@ -52,7 +52,7 @@ public class Main {
 		checkSuccess(expected, result);
 	}
   
-	//When customer is null
+	//When rental info are null
 	public static void testMovieRentalIsNull() {
 		String expected = "Error";
 
