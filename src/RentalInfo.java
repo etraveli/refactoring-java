@@ -1,50 +1,59 @@
-import java.util.HashMap;
 
 public class RentalInfo {
 
-  public String statement(Customer customer) {
-    HashMap<String, Movie> movies = new HashMap();
-    movies.put("F001", new Movie("You've Got Mail", "regular"));
-    movies.put("F002", new Movie("Matrix", "regular"));
-    movies.put("F003", new Movie("Cars", "childrens"));
-    movies.put("F004", new Movie("Fast & Furious X", "new"));
+	public String statement(Customer customer) {
+		if(customer == null) {
+			return "No Customer Error";
+		}
+		
+		double totalRentalAmount = 0;
+		int frequentEnterPoints = 0;
 
-    double totalAmount = 0;
-    int frequentEnterPoints = 0;
-    String result = "Rental Record for " + customer.getName() + "\n";
-    for (MovieRental r : customer.getRentals()) {
-      double thisAmount = 0;
+		// using StringBuilder instead of String
+		StringBuilder result = new StringBuilder("Rental Record for " + customer.getName() + "\n");
 
-      // determine amount for each movie
-      if (movies.get(r.getMovieId()).getCode().equals("regular")) {
-        thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-        }
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("new")) {
-        thisAmount = r.getDays() * 3;
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
-        thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-        }
-      }
+		// In case if Customer has no Rentals
+		if (customer.getRentals() == null) {
+			result.append("\t" + "No Movie List" + "\n");
+			return result.toString();
+		}
 
-      //add frequent bonus points
-      frequentEnterPoints++;
-      // add bonus for a two day new release rental
-      if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
+		for (MovieRental rentals : customer.getRentals()) {
+			double movieRentalAmount = 0;
 
-      //print figures for this rental
-      result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
-      totalAmount = totalAmount + thisAmount;
-    }
-    // add footer lines
-    result += "Amount owed is " + totalAmount + "\n";
-    result += "You earned " + frequentEnterPoints + " frequent points\n";
+			Movie movie = Movie.getMovieById(rentals.getMovieId());
 
-    return result;
-  }
+			if (movie != null) {
+
+				if (rentals.getDays() < 1) {
+					result.append("\t" + movie.getTitle() + "\t" + rentals.getDays() + "(Invalid Days)\n");
+					continue;
+				}
+
+				// Get Movie Rental from Movie Class
+				movieRentalAmount = movie.getRental(rentals.getDays());
+
+				// add frequent bonus points
+				frequentEnterPoints++;
+				
+				// add bonus for a two day new release rental
+				if(movie.isBonusEligible(rentals.getDays())) {
+					frequentEnterPoints++;
+				}
+
+				// print figures for this rental
+				result.append("\t" + movie.getTitle() + "\t" + movieRentalAmount + "\n");
+				totalRentalAmount = totalRentalAmount + movieRentalAmount;
+				
+			} else {
+				result.append("\t" + rentals.getMovieId() + "(Invalid Id)" + "\t" + movieRentalAmount + "\n");
+			}
+
+		}
+		// add footer lines
+		result.append("Amount owed is " + totalRentalAmount + "\n");
+		result.append("You earned " + frequentEnterPoints + " frequent points\n");
+
+		return result.toString();
+	}
 }
