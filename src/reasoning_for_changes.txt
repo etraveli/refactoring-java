@@ -1,0 +1,21 @@
+Assumptions:
+   the movies are not digital copies
+   there are not multiple copies of the same movie
+   since the customer is hardcoded, the chance for renting the same movie by two customers is 0
+
+The MovieRental class is removed and the properties and methods are added in Movie class as, in my opinion, the content
+  is relevant to the Movie and also, i think, it reduces this way the total coupling.
+
+In the Movie class, the days properties could also be Integer which is nullable, but since this is a simple test, I decided
+  to leave it as an int and assign 0 as a default value. If it was Integer, the default would be null but more checks
+  would be required during the result calculation to ensure that we are not retrieving a null value for rented days.
+
+The RentalInfo is removed because the content is relevant to the customer and also this way the procedure to calculate the
+  resulted amount can be simplified a bit by accessing in-class properties directly instead of getting info from a HashMap
+  inside the loop.
+
+The reason I broke down the statement() method is only because I think that smaller methods are easier to read the code.
+  In the determineAmount() method I used return inside each if-statement to avoid going through the entier method when
+  not required. The calculateAmount() was created because I think that if a method (event an one line method) could be
+  extracted to help readability, it can be worth it to do so. In the statement() method, the change for calculating
+  frequentEnterPoints was made just because I find this way simpler to write.
