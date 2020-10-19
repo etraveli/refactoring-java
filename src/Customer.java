@@ -28,14 +28,17 @@ public class Customer {
                 return "Error message: " + ex.getMessage();
             }
 
-            bonusPoints += rentalBonus;
-
             String title = r.getMovieTitle();
 
             //print figures for this rental
-            result.append("\t").append(title).append("\t").append(rentalAmount).append("\n");
-            totalAmount = totalAmount + rentalAmount;
+            result.append("\t")
+                    .append(title).append("\t")
+                    .append(rentalAmount).append("\n");
+
+            bonusPoints += rentalBonus;
+            totalAmount += rentalAmount;
         }
+
         // add footer lines
         result.append("Amount owed is ").append(totalAmount).append("\n");
         result.append("You earned ").append(bonusPoints).append(" frequent points\n");

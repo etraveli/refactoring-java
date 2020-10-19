@@ -11,35 +11,42 @@ public class MovieRental {
 
     public MovieRental(String movieId, int days) {
         this.days = days;
-        movie = getTestMovies().stream().filter(m -> movieId.equals(m.getId())).findAny().get();
+        movie = getTestMovies().stream()
+                .filter(m -> movieId.equals(m.getId()))
+                .findAny()
+                .orElse(null);
     }
 
     public double getAmount() throws Exception {
         double amount = 0;
         String code = movie.getCode();
 
-        if (code.equals("regular")) {
-            amount = 2;
-            if (days > 2) {
-                amount = ((days - 2) * 1.5) + amount;
+        switch (code) {
+            case "regular" -> {
+                amount = 2;
+                if (days > 2) {
+                    amount = ((days - 2) * 1.5) + amount;
+                }
             }
-        } else if (code.equals("new")) {
-            amount = days * 3;
-        } else if (code.equals("childrens")) {
-            amount = 1.5;
-            if (days > 3) {
-                amount = ((days - 3) * 1.5) + amount;
+            case "new" -> {
+                amount = days * 3;
+            }
+            case "childrens" -> {
+                amount = 1.5;
+                if (days > 3) {
+                    amount = ((days - 3) * 1.5) + amount;
+                }
             }
         }
-        if (amount == 0) {
+        if (amount <= 0) {
             throw new Exception("Could not calculate amount due");
         }
         return amount;
     }
 
-    public int getBonusPoints() {
-
+    public int getBonusPoints() throws NullPointerException {
         String code = movie.getCode();
+
         //add one frequent bonus point
         int bonusPoint = 1;
 
