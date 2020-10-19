@@ -1,9 +1,9 @@
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Customer {
-    private String name;
+    private final String name;
     private List<MovieRental> rentals;
 
     public Customer(String name, List<MovieRental> rentals) {
@@ -20,55 +20,84 @@ public class Customer {
     }
 
     public String statement() {
-        HashMap<String, Movie> movies = new HashMap();
-        movies.put("F001", new Movie("You've Got Mail", "regular"));
-        movies.put("F002", new Movie("Matrix", "regular"));
-        movies.put("F003", new Movie("Cars", "childrens"));
-        movies.put("F004", new Movie("Fast & Furious X", "new"));
+
+        Map<String, Movie> movies = getTestMovies();
 
         double totalAmount = 0;
         int frequentEnterPoints = 0;
-        String result = "Rental Record for " + name + "\n";
+
+        StringBuilder result = new StringBuilder("Rental Record for " + name + "\n");
 
         for (MovieRental r : rentals) {
-            double thisAmount = 0;
 
-            // determine amount for each movie
-            if (movies.get(r.getMovieId()).getCode().equals("regular")) {
-                thisAmount = 2;
-                if (r.getDays() > 2) {
-                    thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-                }
-            }
-            if (movies.get(r.getMovieId()).getCode().equals("new")) {
-                thisAmount = r.getDays() * 3;
-            }
-            if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
-                thisAmount = 1.5;
-                if (r.getDays() > 3) {
-                    thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-                }
+            double thisAmount;
+
+            try {
+                Movie movie = movies.get(r.getMovieId());
+                String movieCode = movie.getCode();
+                int days = r.getDays();
+
+                thisAmount = getAmount(movieCode, days);
+
+            } catch (Exception ex) {
+                return "Error message: " + ex.getMessage();
             }
 
             //add frequent bonus points
             frequentEnterPoints++;
+
             // add bonus for a two day new release rental
-            if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
+            if (movies.get(r.getMovieId()).getCode().equals("new") && r.getDays() > 2) {
+                frequentEnterPoints++;
+            }
 
             //print figures for this rental
-            result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
+            result.append("\t").append(movies.get(r.getMovieId()).getTitle()).append("\t").append(thisAmount).append("\n");
             totalAmount = totalAmount + thisAmount;
         }
         // add footer lines
-        result += "Amount owed is " + totalAmount + "\n";
-        result += "You earned " + frequentEnterPoints + " frequent points\n";
+        result.append("Amount owed is ").append(totalAmount).append("\n");
+        result.append("You earned ").append(frequentEnterPoints).append(" frequent points\n");
 
-        return result;
+        return result.toString();
     }
 
+    private Map<String, Movie> getTestMovies() {
+        return Map.of("F001", new Movie("F001","You've Got Mail", "regular"),
+                "F002", new Movie("F002", "Matrix", "regular"),
+                "F003", new Movie("F003", "Cars", "childrens"),
+                "F004", new Movie("F004","Fast & Furious X", "new"));
+    }
+
+    /*
     public static Customer getTestData() {
         List<MovieRental> testDataRentals = Arrays.asList(
                 new MovieRental("F001", 3), new MovieRental("F002", 1));
         return new Customer("C. U. Stomer", testDataRentals);
+    }
+     */
+
+    private double getAmount(String code, int days) throws Exception{
+        double amount = 0;
+
+        if (code.equals("regular")) {
+            amount = 2;
+            if (days > 2) {
+                amount = ((days - 2) * 1.5) + amount;
+            }
+        }
+        else if (code.equals("new")) {
+            amount = days * 3;
+        }
+        else if (code.equals("childrens")) {
+            amount = 1.5;
+            if (days > 3) {
+                amount = ((days - 3) * 1.5) + amount;
+            }
+        }
+        if (amount == 0) {
+            throw new Exception("Could not calculate amount due");
+        }
+        return amount;
     }
 }
