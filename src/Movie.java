@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Movie {
 
     private final String id;
@@ -11,13 +13,26 @@ public class Movie {
         this.code = code;
     }
 
-    public String getId() { return id; }
-
     public String getTitle() {
         return title;
     }
 
     public String getCode() {
         return code;
+    }
+
+    public String getId() { return id; }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return id.equals(movie.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

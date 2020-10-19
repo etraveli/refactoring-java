@@ -1,33 +1,31 @@
-public class MovieRental {
-    private String movieId;
-    private int days;
+import java.util.List;
 
-    public MovieRental(String movieId, int days) {
-        this.movieId = movieId;
+public class MovieRental {
+    private int days;
+    private Movie movie;
+
+    public MovieRental(Movie movie, int days) {
+        this.movie = movie;
         this.days = days;
     }
 
-    public String getMovieId() {
-        return movieId;
+    public MovieRental(String movieId, int days) {
+        this.days = days;
+        movie = getTestMovies().stream().filter(m -> movieId.equals(m.getId())).findAny().get();
     }
 
-    public int getDays() {
-        return days;
-    }
-
-    public double getAmount(String movieCode) throws Exception {
+    public double getAmount() throws Exception {
         double amount = 0;
+        String code = movie.getCode();
 
-        if (movieCode.equals("regular")) {
+        if (code.equals("regular")) {
             amount = 2;
             if (days > 2) {
                 amount = ((days - 2) * 1.5) + amount;
             }
-        }
-        else if (movieCode.equals("new")) {
+        } else if (code.equals("new")) {
             amount = days * 3;
-        }
-        else if (movieCode.equals("childrens")) {
+        } else if (code.equals("childrens")) {
             amount = 1.5;
             if (days > 3) {
                 amount = ((days - 3) * 1.5) + amount;
@@ -39,14 +37,27 @@ public class MovieRental {
         return amount;
     }
 
-    public int getBonusPoints(String movieCode) {
+    public int getBonusPoints() {
+
+        String code = movie.getCode();
         //add one frequent bonus point
         int bonusPoint = 1;
 
         // add bonus for a two day new release rental
-        if (movieCode.equals("new") && days > 2) {
+        if (code.equals("new") && days > 2) {
             bonusPoint++;
         }
         return bonusPoint;
+    }
+
+    public String getMovieTitle() {
+        return movie.getTitle();
+    }
+
+    private static List<Movie> getTestMovies() {
+        return List.of(new Movie("F001", "You've Got Mail", "regular"),
+                new Movie("F002", "Matrix", "regular"),
+                new Movie("F003", "Cars", "childrens"),
+                new Movie("F004", "Fast & Furious X", "new"));
     }
 }
