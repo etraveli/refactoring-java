@@ -12,12 +12,11 @@ public class Customer {
     public String statement() {
 
         double totalAmount = 0;
-        int bonusPoints = 0;
-
+        int totalBonus = 0;
         StringBuilder result = new StringBuilder("Rental Record for " + name + "\n");
 
         for (Rental r : rentals) {
-
+            String title = r.getMovieTitle();
             double rentalAmount;
             int rentalBonus;
 
@@ -25,23 +24,21 @@ public class Customer {
                 rentalAmount = r.getAmount();
                 rentalBonus = r.getBonusPoints();
             } catch (Exception ex) {
-                return "Error message: " + ex.getMessage();
+                return "Something went wrong: " + ex.getMessage();
             }
-
-            String title = r.getMovieTitle();
 
             //print figures for this rental
             result.append("\t")
                     .append(title).append("\t")
                     .append(rentalAmount).append("\n");
 
-            bonusPoints += rentalBonus;
+            totalBonus += rentalBonus;
             totalAmount += rentalAmount;
         }
 
         // add footer lines
         result.append("Amount owed is ").append(totalAmount).append("\n");
-        result.append("You earned ").append(bonusPoints).append(" frequent points\n");
+        result.append("You earned ").append(totalBonus).append(" frequent points\n");
 
         return result.toString();
     }

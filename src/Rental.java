@@ -16,7 +16,7 @@ public class Rental {
             case "regular" -> {
                 amount = 2;
                 if (days > 2) {
-                    amount = ((days - 2) * 1.5) + amount;
+                    amount += ((days - 2) * 1.5);
                 }
             }
             case "new" -> {
@@ -25,7 +25,7 @@ public class Rental {
             case "childrens" -> {
                 amount = 1.5;
                 if (days > 3) {
-                    amount = ((days - 3) * 1.5) + amount;
+                    amount += ((days - 3) * 1.5);
                 }
             }
         }
@@ -36,12 +36,11 @@ public class Rental {
     }
 
     public int getBonusPoints() throws NullPointerException {
-        String code = movie.getCode();
-
         //add one frequent bonus point
         int bonusPoint = 1;
 
-        // add bonus for a two day new release rental
+        // add one bonus point for a two day new release rental
+        String code = movie.getCode();
         if (code.equals("new") && days > 2) {
             bonusPoint++;
         }
@@ -51,5 +50,4 @@ public class Rental {
     public String getMovieTitle() {
         return movie.getTitle();
     }
-
 }

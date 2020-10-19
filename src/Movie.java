@@ -4,7 +4,7 @@ public class Movie {
 
     private final String id;
     private final String title;
-    private String code;
+    private final String code;
 
     public Movie(String id, String title, String code) {
         this.id = id;
