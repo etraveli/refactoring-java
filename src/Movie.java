@@ -4,7 +4,6 @@ public class Movie {
 
     private final String id;
     private final String title;
-    //should this be an enum
     private String code;
 
     public Movie(String id, String title, String code) {
@@ -21,7 +20,6 @@ public class Movie {
         return code;
     }
 
-    public String getId() { return id; }
 
     @Override
     public boolean equals(Object o) {

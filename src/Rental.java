@@ -1,20 +1,11 @@
-import java.util.List;
 
-public class MovieRental {
+public class Rental {
     private int days;
     private Movie movie;
 
-    public MovieRental(Movie movie, int days) {
+    public Rental(Movie movie, int days) {
         this.movie = movie;
         this.days = days;
-    }
-
-    public MovieRental(String movieId, int days) {
-        this.days = days;
-        movie = getTestMovies().stream()
-                .filter(m -> movieId.equals(m.getId()))
-                .findAny()
-                .orElse(null);
     }
 
     public double getAmount() throws Exception {
@@ -61,10 +52,4 @@ public class MovieRental {
         return movie.getTitle();
     }
 
-    private static List<Movie> getTestMovies() {
-        return List.of(new Movie("F001", "You've Got Mail", "regular"),
-                new Movie("F002", "Matrix", "regular"),
-                new Movie("F003", "Cars", "childrens"),
-                new Movie("F004", "Fast & Furious X", "new"));
-    }
 }

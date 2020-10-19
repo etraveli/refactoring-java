@@ -19,9 +19,9 @@ public class Main {
   }
 
   private static Customer getTestCustomer() {
-    List<MovieRental> testRentals = List.of(
-            new MovieRental("F001", 3),
-            new MovieRental(new Movie("F002","Matrix", "regular"), 1));
+    List<Rental> testRentals = List.of(
+            new Rental(new Movie("F001", "You've Got Mail", "regular"), 3),
+            new Rental(new Movie("F002","Matrix", "regular"), 1));
     return new Customer("C. U. Stomer", testRentals);
   }
 }

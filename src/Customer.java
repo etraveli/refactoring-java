@@ -2,9 +2,9 @@ import java.util.List;
 
 public class Customer {
     private final String name;
-    private List<MovieRental> rentals;
+    private List<Rental> rentals;
 
-    public Customer(String name, List<MovieRental> rentals) {
+    public Customer(String name, List<Rental> rentals) {
         this.name = name;
         this.rentals = rentals;
     }
@@ -16,7 +16,7 @@ public class Customer {
 
         StringBuilder result = new StringBuilder("Rental Record for " + name + "\n");
 
-        for (MovieRental r : rentals) {
+        for (Rental r : rentals) {
 
             double rentalAmount;
             int rentalBonus;
