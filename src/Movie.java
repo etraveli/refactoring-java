@@ -2,6 +2,7 @@ public class Movie {
 
     private final String id;
     private final String title;
+    //should this be an enum
     private String code;
 
     public Movie(String id, String title, String code) {

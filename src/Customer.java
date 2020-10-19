@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -30,30 +29,23 @@ public class Customer {
 
         for (MovieRental r : rentals) {
 
-            double thisAmount;
+            double rentalAmount;
+            int rentalBonus;
 
             try {
                 Movie movie = movies.get(r.getMovieId());
-                String movieCode = movie.getCode();
-                int days = r.getDays();
-
-                thisAmount = getAmount(movieCode, days);
-
+                String code = movie.getCode();
+                rentalAmount = r.getAmount(code);
+                rentalBonus = r.getBonusPoints(code);
             } catch (Exception ex) {
                 return "Error message: " + ex.getMessage();
             }
 
-            //add frequent bonus points
-            frequentEnterPoints++;
-
-            // add bonus for a two day new release rental
-            if (movies.get(r.getMovieId()).getCode().equals("new") && r.getDays() > 2) {
-                frequentEnterPoints++;
-            }
+            frequentEnterPoints += rentalBonus;
 
             //print figures for this rental
-            result.append("\t").append(movies.get(r.getMovieId()).getTitle()).append("\t").append(thisAmount).append("\n");
-            totalAmount = totalAmount + thisAmount;
+            result.append("\t").append(movies.get(r.getMovieId()).getTitle()).append("\t").append(rentalAmount).append("\n");
+            totalAmount = totalAmount + rentalAmount;
         }
         // add footer lines
         result.append("Amount owed is ").append(totalAmount).append("\n");
@@ -67,37 +59,5 @@ public class Customer {
                 "F002", new Movie("F002", "Matrix", "regular"),
                 "F003", new Movie("F003", "Cars", "childrens"),
                 "F004", new Movie("F004","Fast & Furious X", "new"));
-    }
-
-    /*
-    public static Customer getTestData() {
-        List<MovieRental> testDataRentals = Arrays.asList(
-                new MovieRental("F001", 3), new MovieRental("F002", 1));
-        return new Customer("C. U. Stomer", testDataRentals);
-    }
-     */
-
-    private double getAmount(String code, int days) throws Exception{
-        double amount = 0;
-
-        if (code.equals("regular")) {
-            amount = 2;
-            if (days > 2) {
-                amount = ((days - 2) * 1.5) + amount;
-            }
-        }
-        else if (code.equals("new")) {
-            amount = days * 3;
-        }
-        else if (code.equals("childrens")) {
-            amount = 1.5;
-            if (days > 3) {
-                amount = ((days - 3) * 1.5) + amount;
-            }
-        }
-        if (amount == 0) {
-            throw new Exception("Could not calculate amount due");
-        }
-        return amount;
     }
 }
