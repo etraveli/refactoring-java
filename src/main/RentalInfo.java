@@ -19,34 +19,39 @@ public class RentalInfo {
   public String statement(Customer customer) {
 
     double totalAmount = 0;
-    int frequentEnterPoints = 0;
+    int bonusPoints = 0;
     StringBuilder result = new StringBuilder("Rental Record for " + customer.getName() + "\n");
-    for (MovieRental r : customer.getRentals()) {
-      double thisAmount = 0;
 
-      MovieCode movieCode = movies.get(r.getMovieId()).getCode();
+    if(customer.getRentals() != null &&  !customer.getRentals().isEmpty()) {
+      for (MovieRental r : customer.getRentals()) {
+        double rentalAmount = 0;
 
-      // compute amount for each movie
-      thisAmount = computeAmount(movieCode, r.getDays());
+        MovieCode movieCode = movies.get(r.getMovieId()).getCode();
 
-      //compute bonus
-      frequentEnterPoints = computeBonusPoints(movieCode,r.getDays(),frequentEnterPoints);
+        // compute amount for this rental
+        rentalAmount = computeRentalAmount(movieCode, r.getDays());
 
-      //print figures for this rental
-      result.append("\t").append(movies.get(r.getMovieId()).getTitle()).append("\t").append(thisAmount).append("\n");
+        //compute bonus
+        bonusPoints = computeBonusPoints(movieCode, r.getDays(), bonusPoints);
 
-      totalAmount = totalAmount + thisAmount;
+        //print figures for this rental
+        result.append("\t").append(movies.get(r.getMovieId()).getTitle()).append("\t").append(rentalAmount).append("\n");
+
+        totalAmount = totalAmount + rentalAmount;
+      }
+
+      // add footer lines
+      result.append("Amount owed is ").append(totalAmount).append("\n");
+      result.append("You earned ").append(bonusPoints).append(" frequent points\n");
     }
-
-    // add footer lines
-    result.append("Amount owed is ").append(totalAmount).append("\n");
-    result.append("You earned ").append(frequentEnterPoints).append(" frequent points\n");
+    else
+      result =  result.replace(0,result.length(), "Rental record for customer not found.");
 
     return result.toString();
   }
 
 
-  public static double computeAmount(MovieCode movieCode, int daysRented) {
+  public static double computeRentalAmount(MovieCode movieCode, int daysRented) {
     double movieRentalAmount = 0;
     if (movieCode.equals(MovieCode.REGULAR)) {
       movieRentalAmount = 2;
@@ -66,12 +71,12 @@ public class RentalInfo {
     return movieRentalAmount;
   }
 
-  public static int computeBonusPoints(MovieCode movieCode, int daysRented, int frequentEnterPoints){
+  public static int computeBonusPoints(MovieCode movieCode, int daysRented, int bonusPoints){
     // add bonus for a two day new release rental
     if (movieCode.equals(MovieCode.NEW) && daysRented > 2)
-      frequentEnterPoints++;
+      bonusPoints++;
     //add bonus for the rental
-    return ++frequentEnterPoints;
+    return ++bonusPoints;
   }
 
 

@@ -6,7 +6,10 @@ import main.RentalInfo;
 import org.junit.jupiter.api.Test;
 
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -32,4 +35,23 @@ class RentalInfoTest{
 
         assertNotEquals(expected,result);
     }
+
+    @Test
+    public void statement_emptyMovieRentals_expectEmptyRentalMessage_test(){
+        String expected = "Rental record for customer not found.";
+
+        String result = new RentalInfo().statement(new Customer("C. U. Stomer", Collections.emptyList()));
+
+        assertEquals(expected,result);
+    }
+    @Test
+    public void statement_nullMovieRentals_expectEmptyRentalMessage_test(){
+        String expected = "Rental record for customer not found.";
+
+        String result = new RentalInfo().statement(new Customer("C. U. Stomer", null));
+
+        assertEquals(expected,result);
+    }
+
+
 }
