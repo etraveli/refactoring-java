@@ -1,3 +1,7 @@
+import main.Customer;
+import main.MovieRental;
+import main.RentalInfo;
+
 import java.util.Arrays;
 
 public class Main {
