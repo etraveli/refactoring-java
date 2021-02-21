@@ -1,6 +1,6 @@
-import main.Customer;
-import main.MovieRental;
-import main.RentalService;
+import java.Customer;
+import java.MovieRental;
+import java.RentalService;
 
 import java.util.Arrays;
 

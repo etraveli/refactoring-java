@@ -1,8 +1,8 @@
 package test;
 
-import main.Customer;
-import main.MovieRental;
-import main.RentalService;
+import java.Customer;
+import java.MovieRental;
+import java.RentalService;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.Collections;

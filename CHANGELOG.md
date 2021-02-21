@@ -7,6 +7,7 @@
 - Made the `movies` hashMap a constant. 
 - Added comments
 - Added specific test cases for the `getStatment` method
+- Moved all classes o the java directory, so they are separated from the tests
 
 
 ####Good to have but not implemented :
