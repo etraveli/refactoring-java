@@ -27,4 +27,9 @@ public class InMemoryMapMovieRepository implements MovieRepository {
     public void add(Movie movie) {
         movies.put(movie.getId(), movie);
     }
+
+    @Override
+    public boolean exists(String id) {
+        return movies.containsKey(id);
+    }
 }
