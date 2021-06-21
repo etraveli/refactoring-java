@@ -20,6 +20,7 @@ public enum RentalCategory {
         }
     };
 
+    // avoiding magic numbers
     private static final int CHILDRENS_DAYS_LIMIT = 3;
     private static final double CHILDRENS_ADDITIONAL_COST = 1.5;
 
@@ -36,5 +37,6 @@ public enum RentalCategory {
         return this.basePrice;
     }
 
+    // better than switch in case of adding a additional value
     public abstract double getCost(int days);
 }

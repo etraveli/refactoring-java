@@ -1,13 +1,14 @@
 package model;
 
-import java.util.List;
+import java.util.Set;
 
 public class Customer {
 
     private String name;
-    private List<MovieRental> rentals;
+    // assumption: a customer can rent only one copy of a movie
+    private Set<MovieRental> rentals;
 
-    public Customer(String name, List<MovieRental> rentals) {
+    public Customer(String name, Set<MovieRental> rentals) {
         this.name = name;
         this.rentals = rentals;
     }
@@ -16,7 +17,7 @@ public class Customer {
         return name;
     }
 
-    public List<MovieRental> getRentals() {
+    public Set<MovieRental> getRentals() {
         return rentals;
     }
 }

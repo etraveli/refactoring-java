@@ -8,11 +8,12 @@ import repository.MovieRepository;
 
 public class RentalService {
 
+  // avoiding magic numbers
   private static final int ENTER_POINTS_DAY_LIMIT = 2;
   private static final int DEFAULT_ENTER_POINTS = 1;
   private static final int BONUS_ENTER_POINTS = 1;
 
-  private MovieRepository movieRepository;
+  private final MovieRepository movieRepository;
 
   public RentalService(MovieRepository movieRepository) {
     this.movieRepository = movieRepository;
@@ -28,7 +29,7 @@ public class RentalService {
 
     for(MovieRental rental : customer.getRentals()) {
       if (!movieRepository.exists(rental.getMovieId())) {
-        result.append("No movie with ID ").append(rental.getMovieId()).append(" found.\n");
+        result.append("\t").append("No movie with ID ").append(rental.getMovieId()).append(" found.\n");
         continue;
       }
 
@@ -41,7 +42,6 @@ public class RentalService {
       frequentEnterPoints += getRentalEnterPoints(movie, rentalDays);
     }
 
-    // add footer lines
     result.append("Amount owed is ").append(totalAmount).append("\n");
     result.append("You earned ").append(frequentEnterPoints).append(" frequent points\n");
 
