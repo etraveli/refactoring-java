@@ -1,31 +1,18 @@
 package rentalservice;
-import java.util.HashMap;
-
 import domain.Customer;
 import domain.Movie;
 import domain.MovieRental;
+import movieservice.MovieService;
 
 public class RentalInfo {
 
-	private HashMap<String, Movie> movies = new HashMap<>();
-
 	private double totalAmount = 0;
 	private int frequentRenterPoints = 0;
-	
-	public RentalInfo() {
-		loadMovies();
-	}
+	private MovieService movies = MovieService.getInstance();
 	
 	private void resetCounters() {
 		totalAmount = 0;
 		frequentRenterPoints = 0;
-	}
-
-	private void loadMovies() {
-		movies.put("F001", new Movie("You've Got Mail", "regular"));
-		movies.put("F002", new Movie("Matrix", "regular"));
-		movies.put("F003", new Movie("Cars", "childrens"));
-		movies.put("F004", new Movie("Fast & Furious X", "new"));
 	}
 
 	private Movie getMovieById(String movieId) {
