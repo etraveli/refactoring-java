@@ -1,3 +1,4 @@
+package domain;
 public class Movie {
     private String title;
     private String category;

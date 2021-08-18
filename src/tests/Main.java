@@ -1,4 +1,9 @@
+package tests;
 import java.util.Arrays;
+
+import domain.Customer;
+import domain.MovieRental;
+import rentalservice.RentalInfo;
 
 public class Main {
 

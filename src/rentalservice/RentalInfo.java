@@ -1,4 +1,9 @@
+package rentalservice;
 import java.util.HashMap;
+
+import domain.Customer;
+import domain.Movie;
+import domain.MovieRental;
 
 public class RentalInfo {
 
@@ -53,8 +58,9 @@ public class RentalInfo {
 		int points = 1;
 		
 		// add bonus for a two day new release rental
-		if (category.equals("new") && days > 2)
+		if (category.equals("new") && days > 2) {
 			points ++;
+		}
 		
 		return points;
 	}
