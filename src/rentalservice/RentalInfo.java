@@ -1,4 +1,7 @@
 package rentalservice;
+
+import java.security.InvalidAlgorithmParameterException;
+
 import domain.Customer;
 import domain.Movie;
 import domain.MovieRental;
@@ -9,72 +12,35 @@ public class RentalInfo {
 	private double totalAmount = 0;
 	private int frequentRenterPoints = 0;
 	private MovieService movies = MovieService.getInstance();
-	
+	private PricingService pricing = PricingService.getInstance();
+
 	private void resetCounters() {
 		totalAmount = 0;
 		frequentRenterPoints = 0;
 	}
 
-	private Movie getMovieById(String movieId) {
-		return movies.get(movieId);
-	}
-	
-	private double regularPricing(int days) {
-		double baseprice = 2;
-		
-		if (days > 2) {
-			return ((days - 2) * 1.5) + baseprice;
-		}
-		
-		return baseprice;
-	}
-	
-	private double newPricing(int days) {
-		return days * 3;
-	}
-	
-	private double childrensPricing(int days) {
-		double baseprice = 1.5;
-		if (days > 3) {
-			return ((days - 3) * 1.5) + baseprice;
-		}
-		return baseprice;
-	}
-	
 	private int getFrequentRenterPointsFor(String category, int days) {
 		int points = 1;
-		
+
 		// add bonus for a two day new release rental
 		if (category.equals("new") && days > 2) {
-			points ++;
+			points++;
 		}
-		
+
 		return points;
 	}
 
-	public String statement(Customer customer) {
-		
+	public String statement(Customer customer) throws InvalidAlgorithmParameterException {
+
 		resetCounters();
-		
+
 		String result = "Rental Record for " + customer.getName() + "\n";
 
 		for (MovieRental rental : customer.getRentals()) {
-			Movie rentedMovie = getMovieById(rental.getMovieId());
-			
-			double amount = 0;
+			Movie rentedMovie = movies.getMovieById(rental.getMovieId());
 
 			// determine amount for each movie
-			if (rentedMovie.getCategory().equals("regular")) {
-				amount = regularPricing(rental.getDays());
-			}
-			
-			if (rentedMovie.getCategory().equals("new")) {
-				amount = newPricing(rental.getDays());
-			}
-			
-			if (rentedMovie.getCategory().equals("childrens")) {
-				amount = childrensPricing(rental.getDays());
-			}
+			double amount = pricing.getPriceFor(rental);
 
 			frequentRenterPoints += getFrequentRenterPointsFor(rentedMovie.getCategory(), rental.getDays());
 
