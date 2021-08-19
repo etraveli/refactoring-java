@@ -1,25 +1,39 @@
 package tests;
-import java.util.Arrays;
+
+import java.security.InvalidAlgorithmParameterException;
 
 import domain.Customer;
-import domain.MovieRental;
 import rentalservice.RentalInfo;
 
 public class Main {
 
-  public static void main(String[] args) {
-	  movieRentalTest();
-  }
-  
-  public static void movieRentalTest() {
-	    String expected = "Rental Record for C. U. Stomer\n\tYou've Got Mail\t3.5\n\tMatrix\t2.0\nAmount owed is 5.5\nYou earned 2 frequent points\n";
+	public static void main(String[] args) {
+		try {
+			movieRentalTest();
+		} catch (InvalidAlgorithmParameterException e) {
+			System.err.println("Error in application");
+			e.printStackTrace();
+		}
+	}
 
-	    String result = new RentalInfo().statement(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+	public static void movieRentalTest() throws InvalidAlgorithmParameterException {
+		String expected = "Rental Record for C. U. Stomer\n"
+				+ "\tYou've Got Mail\t3.5\n"
+				+ "\tMatrix\t2.0\n"
+				+ "Amount owed is 5.5\n"
+				+ "You earned 2 frequent points\n";
 
-	    if (!result.equals(expected)) {
-	      throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected) + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
-	    }
+		final Customer customer = new Customer("C. U. Stomer");
+		customer.rent("F001", 3);
+		customer.rent("F002", 1);
 
-	    System.out.println("Success");
-  }
+		String result = new RentalInfo().statement(customer);
+
+		if (!result.equals(expected)) {
+			throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected)
+					+ System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
+		}
+
+		System.out.println("Success");
+	}
 }
