@@ -1,7 +1,5 @@
 package rentalservice;
 
-import java.security.InvalidAlgorithmParameterException;
-
 import domain.Customer;
 import domain.Movie;
 import domain.MovieRental;
@@ -30,7 +28,7 @@ public class RentalInfo {
 		return points;
 	}
 
-	public String statement(Customer customer) throws InvalidAlgorithmParameterException {
+	public String statement(Customer customer) throws IllegalArgumentException {
 
 		resetCounters();
 

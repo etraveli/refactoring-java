@@ -1,7 +1,5 @@
 package tests;
 
-import java.security.InvalidAlgorithmParameterException;
-
 import domain.Customer;
 import rentalservice.RentalInfo;
 
@@ -10,13 +8,13 @@ public class Main {
 	public static void main(String[] args) {
 		try {
 			movieRentalTest();
-		} catch (InvalidAlgorithmParameterException e) {
+		} catch (IllegalArgumentException e) {
 			System.err.println("Error in application");
 			e.printStackTrace();
 		}
 	}
 
-	public static void movieRentalTest() throws InvalidAlgorithmParameterException {
+	public static void movieRentalTest() throws IllegalArgumentException {
 		String expected = "Rental Record for C. U. Stomer\n"
 				+ "\tYou've Got Mail\t3.5\n"
 				+ "\tMatrix\t2.0\n"
