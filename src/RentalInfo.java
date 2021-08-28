@@ -1,50 +1,62 @@
+
+
 import java.util.HashMap;
 
 public class RentalInfo {
 
-  public String statement(Customer customer) {
-    HashMap<String, Movie> movies = new HashMap();
-    movies.put("F001", new Movie("You've Got Mail", "regular"));
-    movies.put("F002", new Movie("Matrix", "regular"));
-    movies.put("F003", new Movie("Cars", "childrens"));
-    movies.put("F004", new Movie("Fast & Furious X", "new"));
-
-    double totalAmount = 0;
-    int frequentEnterPoints = 0;
-    String result = "Rental Record for " + customer.getName() + "\n";
-    for (MovieRental r : customer.getRentals()) {
-      double thisAmount = 0;
-
-      // determine amount for each movie
-      if (movies.get(r.getMovieId()).getCode().equals("regular")) {
-        thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
+    public String statement(Customer customer) {
+        MovieLibrary movies = new MovieLibrary();
+        String finalResult = "";
+        try {
+            finalResult = "Rental Record for " + customer.getCustomerName() + "\n";
+            finalResult += calculateTotalRent(movies.getMoviesFromLibrary(), customer);
+        } catch (NullPointerException e) {
+            finalResult = "Customer name is missing!";
         }
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("new")) {
-        thisAmount = r.getDays() * 3;
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
-        thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-        }
-      }
-
-      //add frequent bonus points
-      frequentEnterPoints++;
-      // add bonus for a two day new release rental
-      if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
-
-      //print figures for this rental
-      result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
-      totalAmount = totalAmount + thisAmount;
+        return finalResult;
     }
-    // add footer lines
-    result += "Amount owed is " + totalAmount + "\n";
-    result += "You earned " + frequentEnterPoints + " frequent points\n";
 
-    return result;
-  }
+    public String calculateTotalRent(HashMap<String, Movie> movies, Customer customer) {
+        String result = "";
+        double totalRent = 0;
+        int frequentCheckInBonus = 0;
+
+        try {
+            for (MovieRental rentedMovie : customer.getRentedMovies()) {
+                double rent = 0;
+                MovieType movieType = movies.get(rentedMovie.getRentedMovieId()).getMovieType();
+                // Calculate Rent for each movie
+                if (movieType == MovieType.REGULAR) {
+                    rent = movieType.getTotalRent(rentedMovie);
+                } else if (movieType == MovieType.NEW) {
+                    rent = movieType.getTotalRent(rentedMovie);
+                    if (rentedMovie.getMovieRentedDays() > 2) {
+                        // add bonus for a two day new release rental
+                        frequentCheckInBonus++;
+                    }
+                } else if (movieType == MovieType.CHILDRENS) {
+                    rent = movieType.getTotalRent(rentedMovie);
+                } else {
+                    System.out.println("Movie Type not found!");
+                }
+
+                //add frequent bonus points
+                frequentCheckInBonus++;
+
+                //print figures for this rental
+                result += "\t" + movies.get(rentedMovie.getRentedMovieId()).getMovieTitle() + "\t" + rent + "\n";
+                totalRent = totalRent + rent;
+            }
+            // add footer lines
+            result += "Amount owed is " + totalRent + "\n";
+            result += "You earned " + frequentCheckInBonus + " frequent points\n";
+
+
+        } catch (Exception NullPointerException) {
+            result = "Movie Type not found!";
+        }
+
+        return result;
+    }
+
 }

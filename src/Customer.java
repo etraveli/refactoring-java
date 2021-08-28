@@ -1,19 +1,26 @@
+/**
+ * Customer class contains information like customer name and movies he/she have rented.
+ */
+
 import java.util.List;
 
 public class Customer {
-    private String name;
-    private List<MovieRental> rentals;
+    private String customerName;
+    private List<MovieRental> rentedMovies;
 
     public Customer(String name, List<MovieRental> rentals) {
-        this.name = name;
-        this.rentals = rentals;
+        customerName = name;
+        rentedMovies = rentals;
+
+
+
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public List<MovieRental> getRentals() {
-        return rentals;
+    public List<MovieRental> getRentedMovies() {
+        return rentedMovies;
     }
 }

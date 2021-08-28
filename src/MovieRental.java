@@ -1,17 +1,21 @@
+/**
+ * This class holds information about the rented movie id and the number of days that movie is rented.
+ * */
+
 public class MovieRental {
-    private String movieId;
-    private int days;
+    private String rentedMovieId;
+    private int movieRentedDays;
 
     public MovieRental(String movieId, int days) {
-        this.movieId = movieId;
-        this.days = days;
+        rentedMovieId = movieId;
+        movieRentedDays = days;
     }
 
-    public String getMovieId() {
-        return movieId;
+    public String getRentedMovieId() {
+        return rentedMovieId;
     }
 
-    public int getDays() {
-        return days;
+    public int getMovieRentedDays() {
+        return movieRentedDays;
     }
 }

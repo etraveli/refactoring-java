@@ -1,18 +1,22 @@
+/**
+ * The class holds information about movie title and the type of movie it is.
+ * Type of movie are regular, new, children and other.
+ * */
 public class Movie {
-    private String title;
-    private String code;
+    private String movieTitle;
+    private MovieType movieType;
 
-    public Movie(String title, String code) {
+    public Movie(String title, MovieType code) {
 
-        this.title = title;
-        this.code = code;
+        movieTitle = title;
+        movieType = code;
     }
 
-    public String getTitle() {
-        return title;
+    public String getMovieTitle() {
+        return movieTitle;
     }
 
-    public String getCode() {
-        return code;
+    public MovieType getMovieType() {
+        return movieType;
     }
 }
