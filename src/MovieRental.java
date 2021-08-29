@@ -11,11 +11,11 @@ public class MovieRental {
         movieRentedDays = days;
     }
 
-    public String getRentedMovieId() {
+    public String getMovieId() {
         return rentedMovieId;
     }
 
-    public int getMovieRentedDays() {
+    public int getRentedDays() {
         return movieRentedDays;
     }
 }

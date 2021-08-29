@@ -8,19 +8,19 @@ public enum MovieType {
     REGULAR(2) {
         @Override
         public double getTotalRent(MovieRental rentedMovie) {
-            return ((rentedMovie.getMovieRentedDays() > regularMovieLimit) ? ((rentedMovie.getMovieRentedDays() - regularMovieLimit) * AdditionalRent) + getRent() : getRent());
+            return ((rentedMovie.getRentedDays() > regularMovieLimit) ? ((rentedMovie.getRentedDays() - regularMovieLimit) * AdditionalRent) + getRent() : getRent());
         }
     },
     NEW(3) {
         @Override
         public double getTotalRent(MovieRental rentedMovie) {
-            return (rentedMovie.getMovieRentedDays() * getRent());
+            return (rentedMovie.getRentedDays() * getRent());
         }
     },
     CHILDRENS(1.5) {
         @Override
         public double getTotalRent(MovieRental rentedMovie) {
-            return ((rentedMovie.getMovieRentedDays() > newMovieLimit) ? ((rentedMovie.getMovieRentedDays() - newMovieLimit) * AdditionalRent) + getRent() : getRent());
+            return ((rentedMovie.getRentedDays() > newMovieLimit) ? ((rentedMovie.getRentedDays() - newMovieLimit) * AdditionalRent) + getRent() : getRent());
         }
     };
 

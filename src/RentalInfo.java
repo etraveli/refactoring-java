@@ -8,7 +8,8 @@ public class RentalInfo {
         MovieLibrary movies = new MovieLibrary();
         String finalResult = "";
         try {
-            finalResult = "Rental Record for " + customer.getCustomerName() + "\n";
+            // Creating customer record
+            finalResult = "Rental Record for " + customer.getName() + "\n";
             finalResult += calculateTotalRent(movies.getMoviesFromLibrary(), customer);
         } catch (NullPointerException e) {
             finalResult = "Customer name is missing!";
@@ -22,16 +23,16 @@ public class RentalInfo {
         int frequentCheckInBonus = 0;
 
         try {
-            for (MovieRental rentedMovie : customer.getRentedMovies()) {
+            for (MovieRental rentedMovie : customer.getMovies()) {
                 double rent = 0;
-                MovieType movieType = movies.get(rentedMovie.getRentedMovieId()).getMovieType();
-                // Calculate Rent for each movie
+                MovieType movieType = movies.get(rentedMovie.getMovieId()).getMovieType();
+                // Calculate Rent for each movie depending on movie type
                 if (movieType == MovieType.REGULAR) {
                     rent = movieType.getTotalRent(rentedMovie);
                 } else if (movieType == MovieType.NEW) {
                     rent = movieType.getTotalRent(rentedMovie);
-                    if (rentedMovie.getMovieRentedDays() > 2) {
-                        // add bonus for a two day new release rental
+                    if (rentedMovie.getRentedDays() > 2) {
+                        // Extra check-in point for movie type "NEW"
                         frequentCheckInBonus++;
                     }
                 } else if (movieType == MovieType.CHILDRENS) {
@@ -43,20 +44,16 @@ public class RentalInfo {
                 //add frequent bonus points
                 frequentCheckInBonus++;
 
-                //print figures for this rental
-                result += "\t" + movies.get(rentedMovie.getRentedMovieId()).getMovieTitle() + "\t" + rent + "\n";
+                //print figures for this each rental movie
+                result += "\t" + movies.get(rentedMovie.getMovieId()).getMovieTitle() + "\t" + rent + "\n";
                 totalRent = totalRent + rent;
             }
-            // add footer lines
+            // Calculating total rent and check-in points
             result += "Amount owed is " + totalRent + "\n";
             result += "You earned " + frequentCheckInBonus + " frequent points\n";
-
-
         } catch (Exception NullPointerException) {
             result = "Movie Type not found!";
         }
-
         return result;
     }
-
 }

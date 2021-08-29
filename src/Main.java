@@ -10,7 +10,7 @@ import static java.lang.Boolean.TRUE;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         //movieMenu();
         //userInput();
         movieRentalTest();
@@ -34,7 +34,7 @@ public class Main {
 
             if (!moviesRented.isEmpty()) {
                 for (MovieRental movieCheck : moviesRented) {
-                    if (movieCheck.getRentedMovieId().compareToIgnoreCase(movieId) != 0 &&
+                    if (movieCheck.getMovieId().compareToIgnoreCase(movieId) != 0 &&
                             (movieLibrary.getMoviesFromLibrary().containsKey(movieId))) {
                         //rentals.add(new MovieRental(movieId, noOfdaysToRent));
                         moviesRented.add(new MovieRental(movieId, noOfdaysToRent));
@@ -60,7 +60,7 @@ public class Main {
 
     }
 
-    public static void movieMenu() throws InterruptedException {
+    public static void movieMenu() {
         System.out.println("**************************");
         System.out.println("***Movies Rental System***");
         System.out.println("**************************");
@@ -87,9 +87,5 @@ public class Main {
         if (!actualResult.equals(expectedResult)) {
             throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expectedResult) + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + actualResult);
         }
-        System.out.println(actualResult);
-
-
-
     }
 }

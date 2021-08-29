@@ -16,11 +16,11 @@ public class Customer {
 
     }
 
-    public String getCustomerName() {
+    public String getName() {
         return customerName;
     }
 
-    public List<MovieRental> getRentedMovies() {
+    public List<MovieRental> getMovies() {
         return rentedMovies;
     }
 }
