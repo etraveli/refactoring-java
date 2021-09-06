@@ -10,6 +10,9 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class Customer {
+
     private String name;
+
     private List<MovieRental> rentals;
+
 }

@@ -14,5 +14,7 @@ public class Movie {
 
     private MovieType movieType;
 
+    private double amount;
+
 
 }

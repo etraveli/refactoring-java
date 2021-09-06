@@ -10,34 +10,25 @@ import java.util.HashMap;
 
 public class RentalService {
 
-    public String createRentalStatement(Customer customer) {
-
-        StringBuilder result = new StringBuilder("Rental Record for " + customer.getName() + "\n");
+    public RentalResult createRentalStatement(Customer customer) {
 
         RentalResult rentalResult = generateRentalResult(customer);
 
-        result.append(rentalResult.getResult());
-
-        // add footer lines
-        result.append("Amount owed is " + rentalResult.getTotalAmount() + "\n");
-        result.append("You earned " + rentalResult.getFrequentEnterPoints() + " frequent points\n");
-
-        return result.toString();
+        return rentalResult;
     }
 
 
     public RentalResult generateRentalResult(Customer customer) {
 
-        StringBuilder result = new StringBuilder();
         double totalAmount = 0;
         int frequentEnterPoints = 0;
-        HashMap<String, Movie> movies = MovieHelper.generateMoviesMap();
+        HashMap<String, Movie> movieMap = MovieHelper.generateMoviesMap();
 
         //TODO please do all null checks
         for (MovieRental r : customer.getRentals()) {
             double thisAmount;
 
-            switch (movies.get(r.getMovieId()).getMovieType()) {
+            switch (movieMap.get(r.getMovieId()).getMovieType()) {
                 case REGULAR:
                     thisAmount = 2;
                     if (r.getDays() > 2) {
@@ -63,13 +54,14 @@ public class RentalService {
 
             //add frequent bonus points
             frequentEnterPoints++;
-
+            movieMap.get(r.getMovieId()).setAmount(thisAmount);
             //print figures for this rental
-            result.append("\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n");
+            //TODO liste icerisine at ! Listeyi sonra kontrol et !!!
+            movieMap.get(r.getMovieId()).setAmount(thisAmount);
             totalAmount = totalAmount + thisAmount;
         }
         //TODO you can use builder pattern there
-        RentalResult rentalResult = new RentalResult(result, totalAmount, frequentEnterPoints);
+        RentalResult rentalResult = new RentalResult(totalAmount, frequentEnterPoints, movieMap);
         return rentalResult;
     }
 }
