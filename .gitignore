@@ -2,3 +2,4 @@
 *.class
 .idea/
 refactoring-java.iml
+target/classes/log4j.properties
