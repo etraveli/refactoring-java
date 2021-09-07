@@ -16,6 +16,6 @@ Note: the Git history must be included.
 ## To run the test:
 
 ```
-javac src/*.java
-java -cp src Main
+Please execute Main.java class directly.
+or please execute this command inside refactoring java project    mvn exec:java -Dexec.mainClass="run.Main" 
 ```

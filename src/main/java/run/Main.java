@@ -9,8 +9,9 @@ import service.RentalService;
 import java.util.Arrays;
 import java.util.HashMap;
 
-
-
+/**
+ * Main class which runs the project and tests if the inputs getting the exact results for the Rental Results of Movies
+ */
 public class Main {
 
     public static final String F001_MOVIE_CODE = "F001";
