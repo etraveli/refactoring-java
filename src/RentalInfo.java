@@ -41,7 +41,8 @@ public class RentalInfo {
 	      //add frequent bonus points
 	      frequentEnterPoints++;
 	      // add bonus for a two day new release rental
-	      if (MovieCodeType.NEW.equals(movies.get(r.getMovieId()).getCode()) && r.getDays() > 2) frequentEnterPoints++;
+	      if (MovieCodeType.NEW.equals(movies.get(r.getMovieId()).getCode()) 
+	    		  && r.getDays() > ApplicationConfiguration.DEFAULT_DAYS_FOR_NEW_MOVIES_TO_GET_BONUS_POINTS) frequentEnterPoints++;
 	
 	      //print figures for this rental
 	      result.append("\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n");

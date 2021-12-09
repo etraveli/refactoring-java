@@ -48,4 +48,10 @@ public class ApplicationConfiguration {
 
 	/** Per day charge after crossing the default days for children movies */
 	public static final double PER_DAY_RATE_AFTER_DEFAULT_DAYS_FOR_CHILDREN_MOVIES = 1.5;
+
+	/**
+	 * Constant indication a number of days for new movies after which client will
+	 * get the frequent entering bonus points
+	 */
+	public static final int DEFAULT_DAYS_FOR_NEW_MOVIES_TO_GET_BONUS_POINTS = 2;
 }
