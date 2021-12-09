@@ -17,21 +17,26 @@ public class RentalInfo {
 
       // determine amount for each movie
       if (movies.get(r.getMovieId()) != null) {
-	      if (MovieCodeType.REGULAR.equals(movies.get(r.getMovieId()).getCode())) {
-	        thisAmount = 2;
-	        if (r.getDays() > 2) {
-	          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-	        }
-	      }
-	      if (MovieCodeType.NEW.equals(movies.get(r.getMovieId()).getCode())) {
-	        thisAmount = r.getDays() * 3;
-	      }
-	      if (MovieCodeType.CHILDRENS.equals(movies.get(r.getMovieId()).getCode())) {
-	        thisAmount = 1.5;
-	        if (r.getDays() > 3) {
-	          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-	        }
-	      }
+    	  if (MovieCodeType.REGULAR.equals(movies.get(r.getMovieId()).getCode())) {
+  	        thisAmount = ApplicationConfiguration.FIXED_RATE_TILL_DEFAULT_DAYS_FOR_REGULAR_MOVIES;
+  	        if (r.getDays() > ApplicationConfiguration.DEFAULT_DAYS_FOR_REGULAR_MOVIES) {
+  	          thisAmount = ((r.getDays() - ApplicationConfiguration.DEFAULT_DAYS_FOR_REGULAR_MOVIES) 
+  	        		  * ApplicationConfiguration.PER_DAY_RATE_AFTER_DEFAULT_DAYS_FOR_REGULAR_MOVIES) + thisAmount;
+  	        }
+  	      }
+  	      
+  			// here we can have same formula as above which will allow client to add same
+  			// config as above from Application configuration class
+  	      if (MovieCodeType.NEW.equals(movies.get(r.getMovieId()).getCode())) {
+  	        thisAmount = r.getDays() * ApplicationConfiguration.FIXED_RATE_TILL_DEFAULT_DAYS_FOR_NEW_MOVIES;
+  	      }
+  	      if (MovieCodeType.CHILDRENS.equals(movies.get(r.getMovieId()).getCode())) {
+  	        thisAmount = ApplicationConfiguration.FIXED_RATE_TILL_DEFAULT_DAYS_FOR_CHILDREN_MOVIES;
+  	        if (r.getDays() > ApplicationConfiguration.DEFAULT_DAYS_FOR_CHILDREN_MOVIES) {
+  	          thisAmount = ((r.getDays() - ApplicationConfiguration.DEFAULT_DAYS_FOR_CHILDREN_MOVIES) 
+  	        		  * ApplicationConfiguration.PER_DAY_RATE_AFTER_DEFAULT_DAYS_FOR_CHILDREN_MOVIES) + thisAmount;
+  	        }
+  	      }
 	
 	      //add frequent bonus points
 	      frequentEnterPoints++;
