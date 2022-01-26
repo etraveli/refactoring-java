@@ -1,2 +1,9 @@
 # Compiled class file
 *.class
+/bin/
+*.md
+*.idea
+*.classpath
+*.project
+*.iml
+*.settings
