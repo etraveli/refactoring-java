@@ -25,7 +25,7 @@ public class PricingService {
     try {
       Price priceStrategy = getPriceByCategory(rentedMovie.getCategory());
 
-      return priceStrategy.getPriceFor(rental.getDays());
+      return priceStrategy.getPriceBasedOnCategory(rental.getDays());
     } catch (IllegalArgumentException e) {
       throw new IllegalArgumentException("Could not determine price for movieId: " + rental.getMovieId());
     }

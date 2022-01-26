@@ -16,8 +16,8 @@ public class Main {
 
   public static void movieRentalTest() throws IllegalArgumentException {
     String expected = "Rental Record for C. U. Stomer\n"
-        + "\tYou've Got Mail\t3.5\n"
-        + "\tMatrix\t2.0\n"
+        + "You've Got Mail\t3.5\n"
+        + "Matrix\t2.0\n"
         + "Amount owed is 5.5\n"
         + "You earned 2 frequent points\n";
 

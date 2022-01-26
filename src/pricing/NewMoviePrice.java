@@ -3,7 +3,7 @@ package pricing;
 public class NewMoviePrice implements Price {
 
   @Override
-  public double getPriceFor(int days) {
+  public double getPriceBasedOnCategory(int days) {
     return days * 3;
   }
 

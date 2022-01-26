@@ -48,7 +48,7 @@ public class RentalInfo {
     }
     // add footer lines
     result.append("Amount owed is ").append(totalAmount).append("\n");
-    result.append("You earned ").append(frequentRenterPoints).append(" frequent points \n");
+    result.append("You earned ").append(frequentRenterPoints).append(" frequent points\n");
 
     return result.toString();
   }

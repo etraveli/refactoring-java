@@ -3,7 +3,7 @@ package pricing;
 public class RegularMoviePrice implements Price {
 
   @Override
-  public double getPriceFor(int days) {
+  public double getPriceBasedOnCategory(int days) {
     double baseprice = 2;
 
     if (days > 2) {
