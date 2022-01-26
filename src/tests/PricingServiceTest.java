@@ -17,27 +17,27 @@ public class PricingServiceTest {
 
     MovieRental rental = new MovieRental("F001", 1);
 
-    assertTrue(pricing.getPriceFor(rental) > 0, "");
+    assertTrue(pricing.getPriceForMovie(rental) > 0, "");
   }
 
   @Test
   public void testNewPrice() {
     MovieRental rental = new MovieRental("F004", 1);
 
-    assertTrue(pricing.getPriceFor(rental) > 0, "");
+    assertTrue(pricing.getPriceForMovie(rental) > 0, "");
   }
 
   @Test
   public void testChildrensPrice() {
     MovieRental rental = new MovieRental("F003", 1);
 
-    assertTrue(pricing.getPriceFor(rental) > 0, "");
+    assertTrue(pricing.getPriceForMovie(rental) > 0, "");
   }
 
   @Test
   public void testUnknownPrice() {
     MovieRental rental = new MovieRental("T001", 1);
 
-    assertThrows(IllegalArgumentException.class, () -> pricing.getPriceFor(rental));
+    assertThrows(IllegalArgumentException.class, () -> pricing.getPriceForMovie(rental));
   }
 }

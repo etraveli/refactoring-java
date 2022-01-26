@@ -31,24 +31,25 @@ public class RentalInfo {
 
     resetCounters();
 
-    String result = "Rental Record for " + customer.getName() + "\n";
+    StringBuilder result = new StringBuilder();
+     result.append("Rental Record for ").append(customer.getName()).append("\n");
 
     for (MovieRental rental : customer.getRentals()) {
       Movie rentedMovie = movies.getMovieById(rental.getMovieId());
 
       // determine amount for each movie
-      double amount = pricing.getPriceFor(rental);
+      double amount = pricing.getPriceForMovie(rental);
 
       frequentRenterPoints += getFrequentRenterPointsFor(rentedMovie.getCategory(), rental.getDays());
 
       // print figures for this rental
-      result += "\t" + rentedMovie.getTitle() + "\t" + amount + "\n";
+      result.append(rentedMovie.getTitle()).append("\t").append(amount).append("\n");
       totalAmount = totalAmount + amount;
     }
     // add footer lines
-    result += "Amount owed is " + totalAmount + "\n";
-    result += "You earned " + frequentRenterPoints + " frequent points\n";
+    result.append("Amount owed is ").append(totalAmount).append("\n");
+    result.append("You earned ").append(frequentRenterPoints).append(" frequent points \n");
 
-    return result;
+    return result.toString();
   }
 }

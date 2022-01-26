@@ -14,14 +14,13 @@ public class MovieService {
     movies.put("F002", new Movie("Matrix", "regular"));
     movies.put("F003", new Movie("Cars", "childrens"));
     movies.put("F004", new Movie("Fast & Furious X", "new"));
-    movies.put("T001", new Movie("This is a test", "N/N"));
+    movies.put("T001", new Movie("Unknown Pricing", "N/N"));
   }
 
   public static MovieService getInstance() {
-    if (instance != null) {
-      return instance;
-    }
+    if (instance == null) {
     instance = new MovieService();
+    }
     return instance;
   }
 

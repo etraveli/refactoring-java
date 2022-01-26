@@ -19,7 +19,7 @@ public class PricingService {
     return instance;
   }
 
-  public double getPriceFor(MovieRental rental) throws IllegalArgumentException {
+  public double getPriceForMovie(MovieRental rental) throws IllegalArgumentException {
     Movie rentedMovie = movies.getMovieById(rental.getMovieId());
 
     try {
