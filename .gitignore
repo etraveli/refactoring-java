@@ -1,2 +1,15 @@
 # Compiled class file
 *.class
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Ignore Gradle wrapper and sub directory
+gradlew
+gradle
+
+# Ignore IDEA
+.idea
