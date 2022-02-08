@@ -1,4 +1,8 @@
+package refactoring.java;
+
 import java.util.Arrays;
+import refactoring.java.model.Customer;
+import refactoring.java.model.MovieRental;
 
 public class Main {
 

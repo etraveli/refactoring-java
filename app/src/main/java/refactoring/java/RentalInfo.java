@@ -1,4 +1,9 @@
+package refactoring.java;
+
 import java.util.HashMap;
+import refactoring.java.model.Customer;
+import refactoring.java.model.Movie;
+import refactoring.java.model.MovieRental;
 
 public class RentalInfo {
 
