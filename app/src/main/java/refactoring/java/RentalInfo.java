@@ -6,37 +6,50 @@ import refactoring.java.model.MovieRental;
 
 public class RentalInfo {
 
-  public String statement(Customer customer) {
+  public String createStatement(Customer customer) {
     MovieRepository movies = new MovieRepository();
     PriceCalculator priceCalculator = new PriceCalculator();
-    double totalAmount = 0;
-    int frequentEnterPoints = 0;
+    double totalRentalAmount = 0;
+    int loyaltyPoints = 0;
 
-    String result = "Rental Record for " + customer.getName() + "\n";
+    StringBuilder statement = new StringBuilder();
+    statement.append("Rental Record for ");
+    statement.append(customer.getName());
+    statement.append("\n");
 
-    for (MovieRental r : customer.getRentals()) {
-      double thisAmount = 0;
-      Movie movie = movies.findById(r.getMovieId());
+    for (MovieRental rental : customer.getRentals()) {
+      double rentalAmount = 0;
+      Movie movie = movies.findById(rental.getMovieId());
 
       if (movie == null) {
-        System.err.println("Movie with id =" + r.getMovieId() + " does not exist.");
+        System.err.println("Movie with id =" + rental.getMovieId() + " does not exist.");
         continue;
       }
 
-      PriceCalculationResult priceCalculationResult = priceCalculator.computePriceAndPoints(movie.getCategory(), r.getDays());
+      PriceCalculationResult priceCalculationResult = priceCalculator.computePriceAndPoints(movie.getCategory(), rental.getDays());
 
-      thisAmount = priceCalculationResult.getPrice();
-      frequentEnterPoints += priceCalculationResult.getPoints();
+      rentalAmount = priceCalculationResult.getPrice();
+      loyaltyPoints += priceCalculationResult.getPoints();
 
-      //print figures for this rental
-      result += "\t" + movies.findById(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
-      totalAmount = totalAmount + thisAmount;
+      // Print figures for this rental
+      statement.append("\t");
+      statement.append(movie.getTitle());
+      statement.append("\t");
+      statement.append(rentalAmount);
+      statement.append("\n");
+
+      totalRentalAmount = totalRentalAmount + rentalAmount;
     }
 
-    // add footer lines
-    result += "Amount owed is " + totalAmount + "\n";
-    result += "You earned " + frequentEnterPoints + " frequent points\n";
+    // Add footer lines
+    statement.append("Amount owed is ");
+    statement.append(totalRentalAmount);
+    statement.append("\n");
 
-    return result;
+    statement.append("You earned ");
+    statement.append(loyaltyPoints);
+    statement.append(" frequent points\n");
+
+    return statement.toString();
   }
 }
