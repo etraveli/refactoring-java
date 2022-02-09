@@ -13,8 +13,8 @@ class MovieTest {
     }
 
     @Test
-    void getCode() {
-        Movie movie = new Movie(null, "regular");
-        assertEquals(movie.getCode(), "regular");
+    void getCategory() {
+        Movie movie = new Movie(null, MovieCategory.REGULAR);
+        assertEquals(movie.getCategory(), MovieCategory.REGULAR);
     }
 }
