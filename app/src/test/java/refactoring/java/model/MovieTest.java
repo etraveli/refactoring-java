@@ -9,12 +9,12 @@ class MovieTest {
     @Test
     void getTitle() {
         Movie movie = new Movie("The Godfather", null);
-        assertEquals(movie.getTitle(), "The Godfather");
+        assertEquals("The Godfather", movie.getTitle());
     }
 
     @Test
     void getCategory() {
         Movie movie = new Movie(null, MovieCategory.REGULAR);
-        assertEquals(movie.getCategory(), MovieCategory.REGULAR);
+        assertEquals(MovieCategory.REGULAR, movie.getCategory());
     }
 }

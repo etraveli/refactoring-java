@@ -3,9 +3,8 @@
 <li><strike>Create a package for model classes</strike></li>
 <li><strike>Create unit tests</strike></li>
 <li><strike>Create an enum for the movie codes</strike></li>
-<li>Create a price interface</li>
-<li>Separate pricing from statement creation</li>
+<li><strike>Create a class for the MovieRepository</strike>strike></li>
+<li><strike>Separate pricing from statement creation</strike>strike></li>
 <li>Check for null pointers</li>
 <li>Use StringBuilder instead of concatenation</li>
-<li>Create a class for the MovieRepository</li>
 <li>Improve variable names</li>

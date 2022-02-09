@@ -12,7 +12,7 @@ class CustomerTest {
     @Test
     void getName() {
         Customer customer = new Customer("Arne Anka", null);
-        assertEquals(customer.getName(), "Arne Anka");
+        assertEquals("Arne Anka", customer.getName());
     }
 
     @Test
@@ -24,8 +24,8 @@ class CustomerTest {
         Customer customer = new Customer(null, rentals);
 
         assertNotNull(customer.getRentals());
-        assertEquals(customer.getRentals().size(), 2);
-        assertEquals(customer.getRentals().get(0).getMovieId(), "F001");
-        assertEquals(customer.getRentals().get(1).getMovieId(), "F002");
+        assertEquals(2, customer.getRentals().size());
+        assertEquals("F001", customer.getRentals().get(0).getMovieId());
+        assertEquals("F002", customer.getRentals().get(1).getMovieId());
     }
 }
