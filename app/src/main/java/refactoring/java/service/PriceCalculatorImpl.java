@@ -2,6 +2,9 @@ package refactoring.java.service;
 
 import refactoring.java.model.MovieCategory;
 
+/**
+ * Implements price calculation for movie rentals.
+ */
 public class PriceCalculatorImpl implements PriceCalculator {
 
     @Override

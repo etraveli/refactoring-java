@@ -1,5 +1,8 @@
 package refactoring.java.statement;
 
+/**
+ * Generates the statement report.
+ */
 public class StatementReportGenerator {
 
     String generateStatementReport(StatementData statementData) {

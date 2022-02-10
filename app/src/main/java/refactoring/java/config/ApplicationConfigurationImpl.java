@@ -4,6 +4,9 @@ import refactoring.java.service.LoyaltyPointsCalculator;
 import refactoring.java.service.MovieRepository;
 import refactoring.java.service.PriceCalculator;
 
+/**
+ * Implements application configuration.
+ */
 public class ApplicationConfigurationImpl implements ApplicationConfiguration {
     LoyaltyPointsCalculator loyaltyPointsCalculator;
     MovieRepository movieRepository;

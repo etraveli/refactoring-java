@@ -1,5 +1,8 @@
 package refactoring.java.statement;
 
+/**
+ * Statement data for an individual line item (e g a rented movie).
+ */
 public class StatementLineItem {
     String title;
     double amount;

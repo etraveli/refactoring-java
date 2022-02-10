@@ -5,6 +5,9 @@ import refactoring.java.model.MovieCategory;
 
 import java.util.HashMap;
 
+/**
+ * Implements a simple "database" of our movies.
+ */
 public class MovieRepositoryImpl implements MovieRepository {
     HashMap<String, Movie> movies = new HashMap<>();
 

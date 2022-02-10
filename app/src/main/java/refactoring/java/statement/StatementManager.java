@@ -3,6 +3,11 @@ package refactoring.java.statement;
 import refactoring.java.config.ApplicationConfiguration;
 import refactoring.java.model.Customer;
 
+/**
+ * Manages statement production.
+ * First calculates the basis for the report.
+ * Then generates the actual report.
+ */
 public class StatementManager {
     private ApplicationConfiguration applicationConfiguration;
 

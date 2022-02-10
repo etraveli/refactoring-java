@@ -8,7 +8,9 @@ import refactoring.java.service.LoyaltyPointsCalculator;
 import refactoring.java.service.MovieRepository;
 import refactoring.java.service.PriceCalculator;
 
-
+/**
+ * Computes amount and points and prepares the statement to be generated.
+ */
 public class StatementCalculator {
 
     MovieRepository movieRepository;

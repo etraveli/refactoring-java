@@ -3,6 +3,9 @@ package refactoring.java.statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Holds data necessary to produce a statement.
+ */
 public class StatementData {
     private String name;
     private List<StatementLineItem> lineItems;
