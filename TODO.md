@@ -8,4 +8,7 @@
 <li><strike>Check for null pointers</strike></li>
 <li><strike>Use StringBuilder instead of concatenation</strike></li>
 <li><strike>Improve variable names</strike></li>
+<li>Separate price calculation from loyalty points calculation.</li>
+<li>Separate statement calculation from statement creation</li>
+<li>Introduce configuration interface that holds references to price and loyalty point calculators</li>
 <li>Format all source files to use same indentation standard</li>

@@ -3,24 +3,8 @@ package refactoring.java;
 import refactoring.java.model.MovieCategory;
 
 public class PriceCalculator {
-    PriceCalculationResult computePriceAndPoints(MovieCategory category, int days) {
-        double price = computePrice(category, days);
-        int points = computePoints(category, days);
 
-        return new PriceCalculationResult(price, points);
-    }
-
-    private int computePoints(MovieCategory category, int days) {
-        int points = 1;
-
-        if (category == MovieCategory.NEW && days > 2) {
-            points++;
-        }
-
-        return points;
-    }
-
-    private double computePrice(MovieCategory category, int days) {
+    public double computePrice(MovieCategory category, int days) {
         int includedDays = 0;
         double initialAmount = 0.0;
         double dailyAmount = 0.0;

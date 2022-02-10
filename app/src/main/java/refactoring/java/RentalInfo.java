@@ -9,6 +9,7 @@ public class RentalInfo {
   public String createStatement(Customer customer) {
     MovieRepository movies = new MovieRepository();
     PriceCalculator priceCalculator = new PriceCalculator();
+    LoyaltyPointsCalculator loyaltyPointsCalculator = new LoyaltyPointsCalculator();
     double totalRentalAmount = 0;
     int loyaltyPoints = 0;
 
@@ -26,10 +27,8 @@ public class RentalInfo {
         continue;
       }
 
-      PriceCalculationResult priceCalculationResult = priceCalculator.computePriceAndPoints(movie.getCategory(), rental.getDays());
-
-      rentalAmount = priceCalculationResult.getPrice();
-      loyaltyPoints += priceCalculationResult.getPoints();
+      rentalAmount = priceCalculator.computePrice(movie.getCategory(), rental.getDays());
+      loyaltyPoints += loyaltyPointsCalculator.computePoints(movie.getCategory(), rental.getDays());
 
       // Print figures for this rental
       statement.append("\t");
