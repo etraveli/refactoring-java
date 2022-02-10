@@ -6,6 +6,8 @@ import refactoring.java.service.PriceCalculator;
 
 public interface ApplicationConfiguration {
     public LoyaltyPointsCalculator getLoyaltyPointsCalculator();
+
     public MovieRepository getMovieRepository();
+
     public PriceCalculator getPriceCalculator();
 }

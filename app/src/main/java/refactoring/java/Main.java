@@ -1,7 +1,5 @@
 package refactoring.java;
 
-import java.util.Arrays;
-
 import refactoring.java.config.ApplicationConfiguration;
 import refactoring.java.config.ApplicationConfigurationImpl;
 import refactoring.java.model.Customer;
@@ -11,23 +9,25 @@ import refactoring.java.service.MovieRepositoryImpl;
 import refactoring.java.service.PriceCalculatorImpl;
 import refactoring.java.statement.StatementManager;
 
+import java.util.Arrays;
+
 public class Main {
 
-  public static void main(String[] args) {
-    ApplicationConfiguration applicationConfiguration = new ApplicationConfigurationImpl(
-            new LoyaltyPointsCalculatorImpl(),
-            new MovieRepositoryImpl(),
-            new PriceCalculatorImpl()
-    );
+    public static void main(String[] args) {
+        ApplicationConfiguration applicationConfiguration = new ApplicationConfigurationImpl(
+                new LoyaltyPointsCalculatorImpl(),
+                new MovieRepositoryImpl(),
+                new PriceCalculatorImpl()
+        );
 
-    String expected = "Rental Record for C. U. Stomer\n\tYou've Got Mail\t3.5\n\tMatrix\t2.0\nAmount owed is 5.5\nYou earned 2 frequent points\n";
+        String expected = "Rental Record for C. U. Stomer\n\tYou've Got Mail\t3.5\n\tMatrix\t2.0\nAmount owed is 5.5\nYou earned 2 frequent points\n";
 
-    String result = new StatementManager(applicationConfiguration).createStatement(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+        String result = new StatementManager(applicationConfiguration).createStatement(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
 
-    if (!result.equals(expected)) {
-      throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected) + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
+        if (!result.equals(expected)) {
+            throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected) + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
+        }
+
+        System.out.println("Success");
     }
-
-    System.out.println("Success");
-  }
 }
