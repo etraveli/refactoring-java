@@ -3,6 +3,7 @@ package refactoring.java;
 import java.util.Arrays;
 import refactoring.java.model.Customer;
 import refactoring.java.model.MovieRental;
+import refactoring.java.statement.RentalInfo;
 
 public class Main {
 
