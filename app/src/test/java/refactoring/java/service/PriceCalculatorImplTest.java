@@ -1,15 +1,15 @@
-package refactoring.java;
+package refactoring.java.service;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static refactoring.java.model.MovieCategory.*;
 
-class PriceCalculatorTest {
+class PriceCalculatorImplTest {
 
     @Test
     void computePriceAndPointsChildren() {
-        PriceCalculator priceCalculator = new PriceCalculator();
+        PriceCalculatorImpl priceCalculator = new PriceCalculatorImpl();
 
         double price = priceCalculator.computePrice(CHILDRENS, 7);
         assertEquals(7.5, price);
@@ -17,7 +17,7 @@ class PriceCalculatorTest {
 
     @Test
     void computePriceAndPointsNew() {
-        PriceCalculator priceCalculator = new PriceCalculator();
+        PriceCalculatorImpl priceCalculator = new PriceCalculatorImpl();
 
         double price = priceCalculator.computePrice(NEW, 4);
         assertEquals(12.0, price);
@@ -25,7 +25,7 @@ class PriceCalculatorTest {
 
     @Test
     void computePriceAndPointsRegular() {
-        PriceCalculator priceCalculator = new PriceCalculator();
+        PriceCalculatorImpl priceCalculator = new PriceCalculatorImpl();
 
         double price = priceCalculator.computePrice(REGULAR, 1);
         assertEquals(2.0, price);

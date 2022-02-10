@@ -1,9 +1,10 @@
-package refactoring.java;
+package refactoring.java.service;
 
 import refactoring.java.model.MovieCategory;
 
-public class PriceCalculator {
+public class PriceCalculatorImpl implements PriceCalculator {
 
+    @Override
     public double computePrice(MovieCategory category, int days) {
         int includedDays = 0;
         double initialAmount = 0.0;

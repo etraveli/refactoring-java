@@ -1,8 +1,9 @@
-package refactoring.java;
+package refactoring.java.service;
 
 import refactoring.java.model.MovieCategory;
 
-public class LoyaltyPointsCalculator {
+public class LoyaltyPointsCalculatorImpl implements LoyaltyPointsCalculator {
+    @Override
     public int computePoints(MovieCategory category, int days) {
         int points = 1;
 

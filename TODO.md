@@ -10,5 +10,6 @@
 <li><strike>Improve variable names</strike></li>
 <li><strike>Separate price calculation from loyalty points calculation</strike></li>
 <li><strike>Separate statementData calculation from statementData creation</strike></li>
-<li>Introduce configuration interface that holds references to movie repositury, price and loyalty point calculators</li>
+<li><strike>Introduce configuration interface that holds references to movie repository, price and loyalty point calculators</strike></li>
 <li>Format all source files to use same indentation standard</li>
+<li>Write RELEASE NOTES</li>

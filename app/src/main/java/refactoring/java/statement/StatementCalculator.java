@@ -1,11 +1,13 @@
 package refactoring.java.statement;
 
-import refactoring.java.LoyaltyPointsCalculator;
-import refactoring.java.MovieRepository;
-import refactoring.java.PriceCalculator;
+import refactoring.java.config.ApplicationConfiguration;
 import refactoring.java.model.Customer;
 import refactoring.java.model.Movie;
 import refactoring.java.model.MovieRental;
+import refactoring.java.service.LoyaltyPointsCalculator;
+import refactoring.java.service.MovieRepository;
+import refactoring.java.service.PriceCalculator;
+
 
 public class StatementCalculator {
 
@@ -13,12 +15,10 @@ public class StatementCalculator {
     PriceCalculator priceCalculator;
     LoyaltyPointsCalculator loyaltyPointsCalculator;
 
-    public StatementCalculator(MovieRepository movieRepository,
-                               PriceCalculator priceCalculator,
-                               LoyaltyPointsCalculator loyaltyPointsCalculator) {
-        this.movieRepository = movieRepository;
-        this.priceCalculator = priceCalculator;
-        this.loyaltyPointsCalculator = loyaltyPointsCalculator;
+    public StatementCalculator(ApplicationConfiguration applicationConfiguration) {
+        this.movieRepository = applicationConfiguration.getMovieRepository();
+        this.priceCalculator = applicationConfiguration.getPriceCalculator();
+        this.loyaltyPointsCalculator = applicationConfiguration.getLoyaltyPointsCalculator();
     }
 
     public StatementData computeStatement(Customer customer) {

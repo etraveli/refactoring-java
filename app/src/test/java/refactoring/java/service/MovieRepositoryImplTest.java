@@ -1,14 +1,14 @@
-package refactoring.java;
+package refactoring.java.service;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MovieRepositoryTest {
+class MovieRepositoryImplTest {
 
     @Test
     void findById() {
-        MovieRepository movies = new MovieRepository();
+        MovieRepositoryImpl movies = new MovieRepositoryImpl();
 
         assertNotNull(movies.findById("F001"));
         assertEquals("You've Got Mail", movies.findById("F001").getTitle());
@@ -16,7 +16,7 @@ class MovieRepositoryTest {
 
     @Test
     void findByIdFail() {
-        MovieRepository movies = new MovieRepository();
+        MovieRepositoryImpl movies = new MovieRepositoryImpl();
 
         assertNull(movies.findById("X123"));
     }
