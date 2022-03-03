@@ -1,3 +1,9 @@
+package services;
+
+import models.Customer;
+import models.Movie;
+import models.MovieRental;
+
 import java.util.HashMap;
 
 public class RentalInfo {
