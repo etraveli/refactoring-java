@@ -33,7 +33,7 @@ public enum MovieCode {
     private Integer daysToCompareForFrequentEnterPoints;
 
     /**
-     * Constructor for generic parameterized enum for movie code,
+     * Constructor for dynamic parameterized enum for movie code,
      * in which we can create new enum, and is going to affect
      * the logic of the amount and frequentEnterPoints
      * @param startingAmount
