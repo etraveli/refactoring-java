@@ -1,5 +1,8 @@
+package models;
+
 public class MovieRental {
     private String movieId;
+    private Movie movie;
     private int days;
 
     public MovieRental(String movieId, int days) {
@@ -13,5 +16,13 @@ public class MovieRental {
 
     public int getDays() {
         return days;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 }
