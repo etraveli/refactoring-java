@@ -1,8 +1,11 @@
 import java.util.HashMap;
+import org.apache.log4j.Logger;
 
 public class RentalInfo {
+  Logger logger = Logger.getLogger(RentalInfo.class);
 
   public String statement(Customer customer) {
+    logger.info("Rental statement");
     HashMap<String, Movie> movies = new HashMap();
     movies.put("F001", new Movie("You've Got Mail", "regular"));
     movies.put("F002", new Movie("Matrix", "regular"));

@@ -16,6 +16,5 @@ Note: the Git history must be included.
 ## To run the test:
 
 ```
-javac src/*.java
-java -cp src Main
+mvn test
 ```
