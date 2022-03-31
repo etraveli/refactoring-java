@@ -1,2 +1,8 @@
 # Compiled class file
 *.class
+.gitignore
+*.iml
+
+.idea/
+out/
+target/
