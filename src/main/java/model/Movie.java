@@ -10,5 +10,5 @@ import lombok.Data;
 public class Movie {
 
   private String title;
-  private String code;
+  private MovieType type;
 }

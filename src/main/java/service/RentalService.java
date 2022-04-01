@@ -4,6 +4,7 @@ import dao.MovieRepo;
 import javax.inject.Inject;
 import model.Customer;
 import model.MovieRental;
+import model.MovieType;
 import org.apache.log4j.Logger;
 
 public class RentalService {
@@ -27,16 +28,16 @@ public class RentalService {
       double thisAmount = 0;
 
       // determine amount for each movie
-      if (movieRepo.getMovieById(r.getMovieId()).getCode().equals("regular")) {
+      if (MovieType.REGULAR.equals(movieRepo.getMovieById(r.getMovieId()).getType())) {
         thisAmount = 2;
         if (r.getDays() > 2) {
           thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
         }
       }
-      if (movieRepo.getMovieById(r.getMovieId()).getCode().equals("new")) {
+      if (MovieType.NEW.equals(movieRepo.getMovieById(r.getMovieId()).getType())) {
         thisAmount = r.getDays() * 3;
       }
-      if (movieRepo.getMovieById(r.getMovieId()).getCode().equals("childrens")) {
+      if (MovieType.CHILDREN.equals(movieRepo.getMovieById(r.getMovieId()).getType())) {
         thisAmount = 1.5;
         if (r.getDays() > 3) {
           thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
@@ -46,7 +47,7 @@ public class RentalService {
       //add frequent bonus points
       frequentEnterPoints++;
       // add bonus for a two day new release rental
-      if (movieRepo.getMovieById(r.getMovieId()).getCode() == "new" && r.getDays() > 2) {
+      if (MovieType.NEW.equals(movieRepo.getMovieById(r.getMovieId()).getType()) && r.getDays() > 2) {
         frequentEnterPoints++;
       }
 
