@@ -28,13 +28,8 @@ public class RentalService {
    * @param customer customer object along with movie rental information
    * @return The Rental statement for all the movies rented by the customer
    */
-  public String getStatement(Customer customer) {
+  public RentalResult getStatement(Customer customer) {
     logger.info("Getting Rental statement");
-    //Could be replaced to a separate validator class with custom exceptions
-    if (Objects.isNull(customer) || Objects.isNull(customer.getName())) {
-      logger.warn("Invalid customer or name");
-      throw new RuntimeException("Invalid Customer or customer name");
-    }
     RentalResult rentalResult = RentalResult.builder().customerName(customer.getName())
         .build();
     List<MovieResult> movieResults = new ArrayList<>();
@@ -49,6 +44,6 @@ public class RentalService {
     rentalResult.setResults(movieResults);
     rentalResult.setTotalAmount(totalAmount);
     rentalResult.setBonusPoints(bonusPoints);
-    return rentalResult.toString();
+    return rentalResult;
   }
 }

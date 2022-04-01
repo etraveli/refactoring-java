@@ -1,12 +1,17 @@
 package service;
 
+import static model.MovieType.CHILDREN;
+import static model.MovieType.NEW;
+import static model.MovieType.REGULAR;
+
 import dao.MovieRepo;
+import helper.PriceConfig;
+import helper.PriceConfigMap;
 import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import model.MovieRental;
 import model.MovieResult;
-import model.MovieType;
 import org.apache.log4j.Logger;
 
 @Singleton
@@ -20,34 +25,27 @@ public class PriceCalculator {
   }
 
   public MovieResult calculate(MovieRental movieRental) {
-    MovieResult movieResult = null;
     //Get movie from movie Repo
     var movie = movieRepo.getMovieById(movieRental.getMovieId());
-    if (Objects.nonNull(movie)) {
-      double thisAmount = 0;
-      // determine amount for each movie
-      if (MovieType.REGULAR.equals(movie.getType())) {
-        thisAmount = 2;
-        if (movieRental.getDays() > 2) {
-          thisAmount = ((movieRental.getDays() - 2) * 1.5) + thisAmount;
-        }
-      }
-      if (MovieType.NEW.equals(movie.getType())) {
-        thisAmount = movieRental.getDays() * 3;
-      }
-      if (MovieType.CHILDREN.equals(movie.getType())) {
-        thisAmount = 1.5;
-        if (movieRental.getDays() > 3) {
-          thisAmount = ((movieRental.getDays() - 3) * 1.5) + thisAmount;
-        }
-      }
-      movieResult =  MovieResult.builder().movieTitle(movie.getTitle()).amount(thisAmount).build();
-    }
-    else {
+    if (Objects.isNull(movie)) {
       logger.warn("No movies found for id: " + movieRental.getMovieId());
-      movieResult = MovieResult.builder().movieId(movieRental.getMovieId()).build();
+      return MovieResult.builder().movieId(movieRental.getMovieId()).build();
     }
-
-    return movieResult;
+    double amount;
+    PriceConfig config;
+    //Combine Regular and Children types as it has same calculation logic
+    if (REGULAR.equals(movie.getType()) || CHILDREN.equals(movie.getType())) {
+      config = PriceConfigMap.getPriceConfig(movie.getType());
+      amount = config.getBasePrice();
+      if (movieRental.getDays() > config.getBasePriceDays()) {
+        amount += (movieRental.getDays() - config.getBasePriceDays()) * config.getPricePerDay();
+      }
+    } else if (NEW.equals(movie.getType())) {
+      config = PriceConfigMap.getPriceConfig(movie.getType());
+      amount = movieRental.getDays() * config.getPricePerDay();
+    } else {
+      throw new IllegalArgumentException("Invalid type in price calculation");
+    }
+    return MovieResult.builder().movieTitle(movie.getTitle()).amount(amount).build();
   }
 }
