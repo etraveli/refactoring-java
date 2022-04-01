@@ -1,8 +1,10 @@
 package dao;
 
 import java.util.HashMap;
+import javax.inject.Singleton;
 import model.Movie;
 
+@Singleton
 public class MovieRepo {
 
   private static HashMap<String, Movie> movies = new HashMap();

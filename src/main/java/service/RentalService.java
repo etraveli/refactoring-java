@@ -1,17 +1,21 @@
 package service;
 
 import dao.MovieRepo;
-import java.util.HashMap;
+import javax.inject.Inject;
 import model.Customer;
-import model.Movie;
 import model.MovieRental;
 import org.apache.log4j.Logger;
 
 public class RentalService {
 
-  Logger logger = Logger.getLogger(RentalService.class);
+  private static final Logger logger = Logger.getLogger(RentalService.class);
 
-  private MovieRepo movieRepo = new MovieRepo();
+  private final MovieRepo movieRepo;
+
+  @Inject
+  public RentalService(MovieRepo movieRepo) {
+    this.movieRepo = movieRepo;
+  }
 
   public String getStatement(Customer customer) {
     logger.info("Rental statement");
