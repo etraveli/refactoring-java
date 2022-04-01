@@ -2,7 +2,6 @@ import di.DaggerMovieComponent;
 import java.util.Arrays;
 import model.Customer;
 import model.MovieRental;
-import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -10,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import service.RentalService;
 
 public class MovieRentalTest {
-
   private static RentalService rentalService = null;
 
   @BeforeAll
@@ -53,8 +51,7 @@ public class MovieRentalTest {
   @DisplayName("Test Rental statement for no customer name scenario")
   public void testWithoutCustomerName() {
     String expected = "Invalid Customer or customer name";
-    String result = rentalService.getStatement(null);
-    Assertions.assertEquals(expected, result);
+    Assertions.assertThrows(RuntimeException.class, () -> rentalService.getStatement(null));
   }
 
   @Test

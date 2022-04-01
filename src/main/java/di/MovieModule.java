@@ -4,7 +4,8 @@ import dagger.Module;
 import dagger.Provides;
 import dao.MovieRepo;
 import javax.inject.Singleton;
-import service.RentalService;
+import service.BonusPointsCalculator;
+import service.PriceCalculator;
 
 @Module
 public class MovieModule {
@@ -13,5 +14,17 @@ public class MovieModule {
   @Singleton
   public MovieRepo provideMovieRepo() {
     return new MovieRepo();
+  }
+
+  @Provides
+  @Singleton
+  public BonusPointsCalculator provideBonusPointsCalculator(MovieRepo movieRepo) {
+    return new BonusPointsCalculator(movieRepo);
+  }
+
+  @Provides
+  @Singleton
+  public PriceCalculator providePriceCalculator(MovieRepo movieRepo) {
+    return new PriceCalculator(movieRepo);
   }
 }
