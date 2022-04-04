@@ -1,13 +1,17 @@
 package helper;
 
+import handler.RentalStatementHandler;
 import java.util.Objects;
 import lombok.experimental.UtilityClass;
 import model.RentalResult;
+import org.apache.log4j.Logger;
 
 @UtilityClass
 public class RentalSummaryHelper {
+  private static final Logger logger = Logger.getLogger(RentalSummaryHelper.class);
 
   public static String displaySummary(RentalResult rentalResult) {
+    logger.debug("Displaying summary for result: "+ rentalResult);
     StringBuilder summary = new StringBuilder(
         "Rental Record for " + rentalResult.getCustomerName() + "\n");
     rentalResult.getResults().forEach(result -> {

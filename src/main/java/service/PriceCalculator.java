@@ -1,18 +1,13 @@
 package service;
 
-import static model.MovieType.CHILDREN;
-import static model.MovieType.NEW;
-import static model.MovieType.REGULAR;
-
 import dao.MovieRepo;
-import helper.PriceConfig;
 import helper.PriceConfigMap;
-import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import model.MovieRental;
 import model.MovieResult;
 import org.apache.log4j.Logger;
+import validator.Validator;
 
 @Singleton
 public class PriceCalculator {
@@ -25,27 +20,23 @@ public class PriceCalculator {
   }
 
   public MovieResult calculate(MovieRental movieRental) {
+    logger.debug("Movie Rental: "+ movieRental);
     //Get movie from movie Repo
     var movie = movieRepo.getMovieById(movieRental.getMovieId());
-    if (Objects.isNull(movie)) {
+    if(!Validator.isValidMovie(movie)) {
       logger.warn("No movies found for id: " + movieRental.getMovieId());
       return MovieResult.builder().movieId(movieRental.getMovieId()).build();
     }
-    double amount;
-    PriceConfig config;
-    //Combine Regular and Children types as it has same calculation logic
-    if (REGULAR.equals(movie.getType()) || CHILDREN.equals(movie.getType())) {
-      config = PriceConfigMap.getPriceConfig(movie.getType());
-      amount = config.getBasePrice();
-      if (movieRental.getDays() > config.getBasePriceDays()) {
-        amount += (movieRental.getDays() - config.getBasePriceDays()) * config.getPricePerDay();
-      }
-    } else if (NEW.equals(movie.getType())) {
-      config = PriceConfigMap.getPriceConfig(movie.getType());
-      amount = movieRental.getDays() * config.getPricePerDay();
-    } else {
-      throw new IllegalArgumentException("Invalid type in price calculation");
+
+    var config = PriceConfigMap.getPriceConfig(movie.getType());
+    double amount = config.getBasePrice();
+    int daysToCalculate = (movieRental.getDays() - config.getBasePriceDays()) > 0 ?
+        movieRental.getDays() - config.getBasePriceDays() : movieRental.getDays();
+
+    if (movieRental.getDays() > config.getBasePriceDays()) {
+      amount += daysToCalculate * config.getPricePerDay();
     }
+    logger.debug("Price for Movie Rental: "+ movieRental + "is :" + amount);
     return MovieResult.builder().movieTitle(movie.getTitle()).amount(amount).build();
   }
 }

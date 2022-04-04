@@ -1,11 +1,11 @@
 package service;
 
 import dao.MovieRepo;
-import java.util.Objects;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import model.MovieRental;
 import model.MovieType;
+import validator.Validator;
 
 @Singleton
 public class BonusPointsCalculator {
@@ -20,7 +20,7 @@ public class BonusPointsCalculator {
 
   public int calculate(MovieRental movieRental, int bonusPoints) {
     var movie = movieRepo.getMovieById(movieRental.getMovieId());
-    if (Objects.nonNull(movie)) {
+    if (Validator.isValidMovie(movie)) {
       //add frequent bonus points
       bonusPoints++;
       // add bonus for a two day new release rental

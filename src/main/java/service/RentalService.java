@@ -2,7 +2,6 @@ package service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.inject.Inject;
 import model.Customer;
 import model.MovieRental;
