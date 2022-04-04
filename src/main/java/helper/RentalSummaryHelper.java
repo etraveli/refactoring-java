@@ -7,7 +7,7 @@ import model.RentalResult;
 @UtilityClass
 public class RentalSummaryHelper {
 
-  public String displaySummary(RentalResult rentalResult) {
+  public static String displaySummary(RentalResult rentalResult) {
     StringBuilder summary = new StringBuilder(
         "Rental Record for " + rentalResult.getCustomerName() + "\n");
     rentalResult.getResults().forEach(result -> {

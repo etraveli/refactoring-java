@@ -52,9 +52,7 @@ public class RentalServiceTest {
     Assertions.assertEquals(3.0, result.getResults().get(2).getAmount());
     Assertions.assertEquals(3.5, result.getResults().get(0).getAmount());
   }
-
-
-
+  
   @Test
   @DisplayName("Test Rental result for invalid movie id scenario")
   public void testNotFoundMovies() {

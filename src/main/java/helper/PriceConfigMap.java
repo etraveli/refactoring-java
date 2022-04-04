@@ -18,7 +18,7 @@ public class PriceConfigMap {
         .pricePerDay(1.5).build());
   }
 
-  public PriceConfig getPriceConfig(MovieType type) {
+  public static PriceConfig getPriceConfig(MovieType type) {
     return priceConfigMap.get(type);
   }
 
