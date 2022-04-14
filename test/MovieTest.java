@@ -1,14 +1,12 @@
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MovieTest {
 
-    static final Movie REGULAR_MOVIE = new Movie("title", "regular");
-    static final Movie NEW_MOVIE = new Movie("title", "new");
-    static final Movie CHILD_MOVIE = new Movie("title", "childrens");
-    static final Movie OTHER_MOVIE = new Movie("title", "other");
+    static final Movie REGULAR_MOVIE = new RegularMovie("title");
+    static final Movie NEW_MOVIE = new NewMovie("title");
+    static final Movie CHILD_MOVIE = new ChildrensMovie("title");
 
     @Test
     public void for_regular_movies_amount_is_two() {
@@ -33,11 +31,6 @@ public class MovieTest {
     @Test
     public void for_child_movies_older_than_three_days_amount_is_increased() {
         assertEquals(3.0, CHILD_MOVIE.getRentalAmount(4));
-    }
-
-    @Test
-    public void for_other_movie_amount_is_zero() {
-        assertEquals(0, OTHER_MOVIE.getRentalAmount(1));
     }
 
     @Test

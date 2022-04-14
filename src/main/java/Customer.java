@@ -6,7 +6,7 @@ public class Customer {
 
     public Customer(String name, List<MovieRental> rentals) {
         this.name = name;
-        this.rentals = rentals;
+        this.rentals = rentals == null ? List.of() : rentals;
     }
 
     public String getName() {

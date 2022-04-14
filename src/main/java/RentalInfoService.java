@@ -5,16 +5,13 @@ import java.util.stream.Collectors;
 public class RentalInfoService {
 
   private static final Map<String, Movie> availableMovies = Map.of(
-          "F001", new Movie("You've Got Mail", "regular"),
-          "F002", new Movie("Matrix", "regular"),
-          "F003", new Movie("Cars", "childrens"),
-          "F004", new Movie("Fast & Furious X", "new"));
+          "F001", new RegularMovie("You've Got Mail"),
+          "F002", new RegularMovie("Matrix"),
+          "F003", new ChildrensMovie("Cars"),
+          "F004", new NewMovie("Fast & Furious X"));
 
   public String getCustomerStatus(Customer customer) {
-    List<MovieRental> rentals = customer.getRentals() == null
-            ? List.of()
-            : customer.getRentals();
-
+    List<MovieRental> rentals = customer.getRentals();
     return "Rental Record for " +
             customer.getName() +
             "\n" +
