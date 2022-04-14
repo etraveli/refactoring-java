@@ -1,17 +1,19 @@
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RentalInfoServiceTest {
 
-    static final String REGULAR_MOVIE_ID = "F001";
-    static final String CHILDRENS_MOVIE_ID = "F003";
-    static final String NEW_MOVIE_ID = "F004";
-    static final String UNKNOWN_MOVIE_ID = "F005";
-
-    RentalInfoService rentalService = new RentalInfoService();
+    RentalInfoService rentalService = RentalInfoService.withMovies(
+            Map.of(
+                "REGULAR_MOVIE", new RegularMovie("Random movie"),
+                "CHILDRENS_MOVIE", new ChildrensMovie("Random kids movie"),
+                "NEW_MOVIE", new NewMovie("Brand new random movie")
+            )
+    );
 
     @Test
     public void the_name_of_the_customer_is_printed() {
@@ -43,8 +45,8 @@ public class RentalInfoServiceTest {
     @Test
     public void points_are_incremented_with_each_rental() {
         var customerWithTwoRentals = customerWith(
-                new MovieRental(REGULAR_MOVIE_ID, 1),
-                new MovieRental(REGULAR_MOVIE_ID, 1));
+                new MovieRental("REGULAR_MOVIE", 1),
+                new MovieRental("REGULAR_MOVIE", 1));
 
         String result = rentalService.getCustomerStatus(customerWithTwoRentals);
 
@@ -54,10 +56,10 @@ public class RentalInfoServiceTest {
     @Test
     public void unknown_movie_is_ignored() {
         var customerWithOnlyKnownMovie = customerWith(
-                new MovieRental(REGULAR_MOVIE_ID, 1));
+                new MovieRental("REGULAR_MOVIE", 1));
         var customerWithUnknownMovie = customerWith(
-                new MovieRental(UNKNOWN_MOVIE_ID, 1),
-                new MovieRental(REGULAR_MOVIE_ID, 1));
+                new MovieRental("UNKNOWN_MOVIE", 1),
+                new MovieRental("REGULAR_MOVIE", 1));
 
         assertEquals(rentalService.getCustomerStatus(customerWithOnlyKnownMovie),
                 rentalService.getCustomerStatus(customerWithUnknownMovie));
@@ -66,19 +68,19 @@ public class RentalInfoServiceTest {
     @Test
     public void can_calculate_several_amounts_at_once() {
         var customerWithSeveralRentals = customerWith(
-                new MovieRental(NEW_MOVIE_ID, 2),
-                new MovieRental(CHILDRENS_MOVIE_ID, 4));
+                new MovieRental("NEW_MOVIE", 2),
+                new MovieRental("CHILDRENS_MOVIE", 4));
 
         String result = rentalService.getCustomerStatus(customerWithSeveralRentals);
 
-        assertTrue(result.contains("Fast & Furious X\t6.0\n\tCars\t3.0"));
+        assertTrue(result.contains("Brand new random movie\t6.0\n\tRandom kids movie\t3.0"));
     }
 
     @Test
     public void total_amount_is_the_sum_of_all_rental_amounts() {
         var customer = customerWith(
-                new MovieRental(REGULAR_MOVIE_ID, 1),
-                new MovieRental(REGULAR_MOVIE_ID, 3));
+                new MovieRental("REGULAR_MOVIE", 1),
+                new MovieRental("REGULAR_MOVIE", 3));
 
         String result = rentalService.getCustomerStatus(customer);
 

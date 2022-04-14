@@ -4,11 +4,23 @@ import java.util.stream.Collectors;
 
 public class RentalInfoService {
 
-  private static final Map<String, Movie> availableMovies = Map.of(
-          "F001", new RegularMovie("You've Got Mail"),
-          "F002", new RegularMovie("Matrix"),
-          "F003", new ChildrensMovie("Cars"),
-          "F004", new NewMovie("Fast & Furious X"));
+  private final Map<String, Movie> availableMovies;
+
+  public static RentalInfoService withStandardMovies() {
+    return new RentalInfoService(Map.of(
+            "F001", new RegularMovie("You've Got Mail"),
+            "F002", new RegularMovie("Matrix"),
+            "F003", new ChildrensMovie("Cars"),
+            "F004", new NewMovie("Fast & Furious X")));
+  }
+
+  public static RentalInfoService withMovies(Map<String, Movie> movies) {
+    return new RentalInfoService(movies);
+  }
+
+  private RentalInfoService(Map<String, Movie> movies) {
+    availableMovies = movies;
+  }
 
   public String getCustomerStatus(Customer customer) {
     List<MovieRental> rentals = customer.getRentals();
@@ -25,34 +37,34 @@ public class RentalInfoService {
 
   private String getInfoAboutAllRentals(List<MovieRental> rentals) {
     return rentals.stream()
-            .filter(RentalInfoService::movieExists)
-            .map(RentalInfoService::getRentalAmountInfo)
+            .filter(this::movieExists)
+            .map(this::getRentalAmountInfo)
             .collect(Collectors.joining());
   }
 
-  private static boolean movieExists(MovieRental rental) {
+  private boolean movieExists(MovieRental rental) {
     return getMovie(rental) != null;
   }
 
-  private static Movie getMovie(MovieRental rental) {
+  private Movie getMovie(MovieRental rental) {
     return availableMovies.get(rental.getMovieId());
   }
 
-  private static String getRentalAmountInfo(MovieRental rental) {
+  private String getRentalAmountInfo(MovieRental rental) {
     return "\t" + getMovie(rental).getTitle() + "\t" +
             getMovie(rental).getRentalAmount(rental.getDays()) + "\n";
   }
 
   private double getTotalAmount(List<MovieRental> rentals) {
     return rentals.stream()
-            .filter(RentalInfoService::movieExists)
+            .filter(this::movieExists)
             .mapToDouble(rental -> getMovie(rental).getRentalAmount(rental.getDays()))
             .sum();
   }
 
   private int getFrequentEnterPoints(List<MovieRental> rentals) {
     return rentals.stream()
-            .filter(RentalInfoService::movieExists)
+            .filter(this::movieExists)
             .mapToInt(rental -> getMovie(rental).getFrequencyPoints(rental.getDays()))
             .sum();
   }
