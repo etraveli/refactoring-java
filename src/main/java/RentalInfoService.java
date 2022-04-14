@@ -43,44 +43,20 @@ public class RentalInfoService {
 
   private static String getRentalAmountInfo(MovieRental rental) {
     return "\t" + getMovie(rental).getTitle() + "\t" +
-            calculateCurrentRentalAmount(getMovie(rental), rental) + "\n";
-  }
-
-  private static double calculateCurrentRentalAmount(Movie movie, MovieRental rental) {
-    double currentRentalAmount = 0;
-    if (movie.getCode().equals("regular")) {
-      currentRentalAmount = 2;
-      if (rental.getDays() > 2) {
-        currentRentalAmount = ((rental.getDays() - 2) * 1.5) + currentRentalAmount;
-      }
-    } else if (movie.getCode().equals("new")) {
-      currentRentalAmount = rental.getDays() * 3;
-    } else if (movie.getCode().equals("childrens")) {
-      currentRentalAmount = 1.5;
-      if (rental.getDays() > 3) {
-        currentRentalAmount = ((rental.getDays() - 3) * 1.5) + currentRentalAmount;
-      }
-    }
-    return currentRentalAmount;
+            getMovie(rental).getRentalAmount(rental.getDays()) + "\n";
   }
 
   private double getTotalAmount(List<MovieRental> rentals) {
     return rentals.stream()
             .filter(RentalInfoService::movieExists)
-            .mapToDouble(rental -> calculateCurrentRentalAmount(getMovie(rental), rental))
+            .mapToDouble(rental -> getMovie(rental).getRentalAmount(rental.getDays()))
             .sum();
   }
 
   private int getFrequentEnterPoints(List<MovieRental> rentals) {
     return rentals.stream()
             .filter(RentalInfoService::movieExists)
-            .mapToInt(rental -> calculateFrequentPoints(getMovie(rental), rental))
+            .mapToInt(rental -> getMovie(rental).getFrequencyPoints(rental.getDays()))
             .sum();
-  }
-
-  private int calculateFrequentPoints(Movie movie, MovieRental rental) {
-    return "new".equals(movie.getCode()) && rental.getDays() > 2
-            ? 2
-            : 1;
   }
 }

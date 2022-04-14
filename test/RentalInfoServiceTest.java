@@ -52,15 +52,6 @@ public class RentalInfoServiceTest {
     }
 
     @Test
-    public void points_are_incremented_when_new_movies_are_rented_for_more_than_two_days() {
-        var customerWithNewMovie = customerWith(new MovieRental(NEW_MOVIE_ID, 3));
-
-        String result = rentalService.getCustomerStatus(customerWithNewMovie);
-
-        assertTrue(result.contains("You earned 2 frequent points"));
-    }
-
-    @Test
     public void unknown_movie_is_ignored() {
         var customerWithOnlyKnownMovie = customerWith(
                 new MovieRental(REGULAR_MOVIE_ID, 1));
@@ -70,36 +61,6 @@ public class RentalInfoServiceTest {
 
         assertEquals(rentalService.getCustomerStatus(customerWithOnlyKnownMovie),
                 rentalService.getCustomerStatus(customerWithUnknownMovie));
-    }
-
-    @Test
-    public void for_regular_movies_amount_is_two() {
-        String result = rentalService.getCustomerStatus(customerWith(new MovieRental(REGULAR_MOVIE_ID, 1)));
-        assertTrue(result.contains("You've Got Mail\t2.0"));
-    }
-
-    @Test
-    public void for_regular_movies_older_than_two_days_amount_is_increased() {
-        String result = rentalService.getCustomerStatus(customerWith(new MovieRental(REGULAR_MOVIE_ID, 3)));
-        assertTrue(result.contains("You've Got Mail\t3.5"));
-    }
-
-    @Test
-    public void for_new_movies_amount_is_three_times_days() {
-        String result = rentalService.getCustomerStatus(customerWith(new MovieRental(NEW_MOVIE_ID, 2)));
-        assertTrue(result.contains("Fast & Furious X\t6.0"));
-    }
-
-    @Test
-    public void for_child_movies_amount_is_one_point_five() {
-        String result = rentalService.getCustomerStatus(customerWith(new MovieRental(CHILDRENS_MOVIE_ID, 1)));
-        assertTrue(result.contains("Cars\t1.5"));
-    }
-
-    @Test
-    public void for_child_movies_older_than_three_days_amount_is_increased() {
-        String result = rentalService.getCustomerStatus(customerWith(new MovieRental(CHILDRENS_MOVIE_ID, 4)));
-        assertTrue(result.contains("Cars\t3.0"));
     }
 
     @Test
