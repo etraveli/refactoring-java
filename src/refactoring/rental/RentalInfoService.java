@@ -31,25 +31,20 @@ public class RentalInfoService {
 
   public String getCustomerStatus(Customer customer) {
     List<MovieRental> rentals = customer.getRentals();
-    return "Rental Record for " +
-            customer.getName() +
-            "\n" +
+    return "Rental Record for " + customer.getName() + "\n" +
             getInfoAboutAllRentals(rentals) +
-            "Amount owed is " +
-            getTotalAmount(rentals) +
-            "\nYou earned " +
-            getFrequentEnterPoints(rentals) +
-            " frequent points\n";
+            "Amount owed is " + getTotalAmount(rentals) +
+            "\nYou earned " + getFrequentEnterPoints(rentals) + " frequent points\n";
   }
 
   private String getInfoAboutAllRentals(List<MovieRental> rentals) {
     return rentals.stream()
-            .filter(this::movieExists)
+            .filter(this::isAvailableMovie)
             .map(this::getRentalAmountInfo)
             .collect(Collectors.joining());
   }
 
-  private boolean movieExists(MovieRental rental) {
+  private boolean isAvailableMovie(MovieRental rental) {
     return getMovie(rental) != null;
   }
 
@@ -58,20 +53,21 @@ public class RentalInfoService {
   }
 
   private String getRentalAmountInfo(MovieRental rental) {
-    return "\t" + getMovie(rental).getTitle() + "\t" +
-            getMovie(rental).getRentalAmount(rental.getDays()) + "\n";
+    Movie movie = getMovie(rental);
+    return "\t" + movie.getTitle() + "\t" +
+            movie.getRentalAmount(rental.getDays()) + "\n";
   }
 
   private double getTotalAmount(List<MovieRental> rentals) {
     return rentals.stream()
-            .filter(this::movieExists)
+            .filter(this::isAvailableMovie)
             .mapToDouble(rental -> getMovie(rental).getRentalAmount(rental.getDays()))
             .sum();
   }
 
   private int getFrequentEnterPoints(List<MovieRental> rentals) {
     return rentals.stream()
-            .filter(this::movieExists)
+            .filter(this::isAvailableMovie)
             .mapToInt(rental -> getMovie(rental).getFrequencyPoints(rental.getDays()))
             .sum();
   }
