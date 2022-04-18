@@ -1,0 +1,40 @@
+In this document I have described my reasoning behind certain changes
+
+
+-  Project setup and tests
+Before did any changes to the existing code, I wanted to cover it with unit tests.
+This would assure me that I wasn't breaking any logic while refactoring. I set up
+a maven project in IntelliJ to make it easier to perform this task. The class
+Main.java was essentially a test class, so I replaced it with RentalInfoTest.java.
+
+-  Refactoring RentalInfo.java
+I then made various changes, such as extracting methods and making use of java
+language constructs like the streams API, to make the code much more readable. I
+felt free to make big changes since I had the test suite to rely upon. I also
+changed the interface of the main class from RentalInfo::statement to the more
+descriptive RentalInfoService::getCustomerStatus.
+
+- Moved movie related logic to Movie classes
+Separation of concerns is a key rule to a clean object-oriented code base. I
+extracted all logic and tests that handled movies to separate movie classes.
+Instead of having a long switch case covering all the different movie types
+(which could grow towards infinity as new movies get added to the code base),
+I let each movie type be its own class and take care of its own logic.
+
+- Use dependency injection for available movies
+The RentalInfoService should ideally be unaware of which movies exist in the app.
+I solved this by making the set of movies injectable using a factory method. When
+adding future features, it is useful to be able to test specific scenarios by
+passing any set of movies into the Service instead of depending on the pre-defined
+ones.
+
+
+
+
+
+
+
+
+
+
+
