@@ -1,3 +1,5 @@
+package refactoring.rental;
+
 public class MovieRental {
     private final String movieId;
     private final int days;

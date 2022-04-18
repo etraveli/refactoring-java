@@ -1,3 +1,10 @@
+package refactoring.rental;
+
+import refactoring.movie.ChildrensMovie;
+import refactoring.movie.Movie;
+import refactoring.movie.NewMovie;
+import refactoring.movie.RegularMovie;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;

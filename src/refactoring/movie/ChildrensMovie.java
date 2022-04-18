@@ -1,3 +1,5 @@
+package refactoring.movie;
+
 public class ChildrensMovie extends Movie {
 
     private static final double STANDARD_AMOUNT = 1.5;

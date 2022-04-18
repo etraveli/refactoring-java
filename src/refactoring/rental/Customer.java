@@ -1,3 +1,5 @@
+package refactoring.rental;
+
 import java.util.List;
 
 public class Customer {

@@ -1,3 +1,9 @@
+import refactoring.movie.ChildrensMovie;
+import refactoring.movie.NewMovie;
+import refactoring.movie.RegularMovie;
+import refactoring.rental.Customer;
+import refactoring.rental.MovieRental;
+import refactoring.rental.RentalInfoService;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;

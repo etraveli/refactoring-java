@@ -1,3 +1,5 @@
+package refactoring.movie;
+
 import java.util.Objects;
 
 public abstract class Movie {

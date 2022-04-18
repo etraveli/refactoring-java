@@ -1,3 +1,7 @@
+import refactoring.movie.ChildrensMovie;
+import refactoring.movie.Movie;
+import refactoring.movie.NewMovie;
+import refactoring.movie.RegularMovie;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

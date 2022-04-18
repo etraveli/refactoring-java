@@ -1,3 +1,5 @@
+package refactoring.movie;
+
 public class RegularMovie extends Movie {
 
     private static final double STANDARD_AMOUNT = 2;
