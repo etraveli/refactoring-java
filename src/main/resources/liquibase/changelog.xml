@@ -1,0 +1,10 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <include file="liquibase/changelogs/01_create_customer_table.xml"/>
+    <include file="liquibase/changelogs/02_create_movie_table.xml"/>
+    <include file="liquibase/changelogs/03_create_customer_movie_table.xml"/>
+    <include file="liquibase/changelogs/04_insert_test_movie.xml"/>
+</databaseChangeLog>

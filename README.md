@@ -1,3 +1,20 @@
+# Explanations
+I imagined that the project is really. I added spring-boot, spring-jpa, postgresql, liquibase, Junit, Mock, testContainers
+
+## build the project
+
+```
+docker-compose up -d
+mvn spring-boot:run
+```
+
+I covered tests all Service
+
+## run the test
+
+```
+mvn clean test
+```
 # Refactoring Java
 
 The code creates an information slip about movie rentals.

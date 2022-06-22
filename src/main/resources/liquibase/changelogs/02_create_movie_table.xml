@@ -1,0 +1,29 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="2022-06.23_1" author="Laptev Gleb">
+        <sql>
+            create table IF NOT EXISTS movie
+            (
+                id         bigserial
+                    constraint movie_pk
+                        primary key,
+                code       varchar(16)   not null,
+                title      varchar(1024) not null,
+                movie_type varchar(128)
+            );
+
+            create unique index movie_code_uindex
+                on movie (code);
+
+            create unique index movie_id_uindex
+                on movie (id);
+        </sql>
+        <rollback>
+            DROP TABLE movie;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

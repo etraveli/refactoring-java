@@ -1,0 +1,22 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="2022-06.23_1" author="Laptev Gleb">
+        <sql>
+            INSERT INTO public.movie (id, code, title, movie_type)
+                VALUES (DEFAULT, 'F001', 'You''ve Got Mail', 'regular');
+            INSERT INTO public.movie (id, code, title, movie_type)
+                VALUES (DEFAULT, 'F002', 'Matrix', 'regular');
+            INSERT INTO public.movie (id, code, title, movie_type)
+                VALUES (DEFAULT, 'F003', 'Cars', 'childrens');
+            INSERT INTO public.movie (id, code, title, movie_type)
+                VALUES (DEFAULT, 'F004', 'Fast &amp; Furious X', 'new');
+        </sql>
+        <rollback>
+            DELETE FROM movie;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

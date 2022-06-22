@@ -1,0 +1,27 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="2022-06.23_1" author="Laptev Gleb">
+        <sql>
+            create table IF NOT EXISTS customer
+            (
+                id   bigserial
+                    constraint customer_pk
+                        primary key,
+                name varchar(128) not null
+            );
+
+            create unique index customer_id_uindex
+                on customer (id);
+
+            create unique index customer_name_uindex
+                on customer (name);
+        </sql>
+        <rollback>
+            DROP TABLE customer;
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
