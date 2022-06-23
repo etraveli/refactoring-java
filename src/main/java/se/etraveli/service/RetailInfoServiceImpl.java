@@ -30,7 +30,7 @@ public class RetailInfoServiceImpl implements RetailInfoService {
 
     @Override
     public String statement(CustomerDto customerDto) {
-        messageSourceService.logMessage("statement", customerDto);
+        log.info(messageSourceService.logMessage("statement", customerDto));
         var customer = customerService.findCustomerByName(customerDto.getName());
         List<CustomerMovie> customerMovies = new ArrayList<>();
         double totalAmount = 0.0;
@@ -62,7 +62,7 @@ public class RetailInfoServiceImpl implements RetailInfoService {
             customerMovie.setMovie(movie);
             customerMovie.setPrice(amount);
             customerMovies.add(customerMovie);
-            messageSourceService.logMessage("save.customer.movie", customerMovie);
+            log.info(messageSourceService.logMessage("save.customer.movie", customerMovie));
             totalAmount += amount;
             frequentEnterPoints++;
 

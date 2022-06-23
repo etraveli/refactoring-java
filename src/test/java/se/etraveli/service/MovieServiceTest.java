@@ -15,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MovieServiceTest {
     private final MovieRepository movieRepository = Mockito.spy(MovieRepository.class);
-    private final MovieService movieService = new MovieServiceImpl(movieRepository);
+    private final MessageSourceService messageSourceService =  Mockito.spy(MessageSourceService.class);
+    private final MovieService movieService = new MovieServiceImpl(movieRepository, messageSourceService);
 
     @Test
     public void getMovieByCodeTest() {

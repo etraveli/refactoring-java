@@ -13,6 +13,7 @@ import java.util.Optional;
 public class MovieServiceImpl implements MovieService {
 
     private final MovieRepository movieRepository;
+    private final MessageSourceService messageSourceService;
 
     @Override
     public Movie getMovieByCode(String code) {
@@ -20,6 +21,6 @@ public class MovieServiceImpl implements MovieService {
         if (movieByCode.isPresent()) {
             return movieByCode.get();
         }
-        throw new MovieNotFoundException("movie not found");
+        throw new MovieNotFoundException(messageSourceService.logMessage("movie.not.found"));
     }
 }
