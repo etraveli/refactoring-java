@@ -7,6 +7,7 @@ import java.util.Objects;
 import exception.MovieCodeNotFoundException;
 import exception.MovieNotFoundException;
 import exception.NoCustomerException;
+import formatter.SlipFormatter;
 import model.Customer;
 import model.Movie;
 import model.Movie.MovieCode;
@@ -20,17 +21,14 @@ import model.MovieRental;
 public class RentalInfoService {
 	
 	private MovieService movieService;
-	
-	private final String FORMAT_MOVIE = "\t%s\t%.1f\n";
-	private final String FORMAT_HEADER = "Rental Record for %s\n";
-	private final String FORMAT_FOOTER_AMOUNT = "Amount owed is %.1f\n";
-	private final String FORMAT_FOOTER_FREQUENT_POINTS = "You earned %d frequent points\n";
+	private SlipFormatter slipFormatter;
 	
 	/*
 	 * CONSTRUCTOR
 	 */
 	public RentalInfoService() {
 		movieService = new MovieService();
+		slipFormatter = SlipFormatter.getInstance();
 	}
 
 	/*
@@ -45,7 +43,7 @@ public class RentalInfoService {
 		double totalAmount = 0;
 		int frequentEnterPoints = 0;
 		
-		String result = formatHeader( customer.getName() );
+		String result = slipFormatter.formatHeader( customer.getName() );
 		
 		if( !Objects.isNull(rentals) ) {
 			//	cycle over rentals
@@ -69,15 +67,15 @@ public class RentalInfoService {
 					frequentEnterPoints++;
 	
 				//	print figures for this rental
-				result += formatMovie( movie.getTitle(), thisAmount );
+				result += slipFormatter.formatMovie( movie.getTitle(), thisAmount );
 				totalAmount = totalAmount + thisAmount;
 			}
 		}
 		
 		//	add footer lines
-		result += formatFooterAmount( totalAmount );
-		result += formatFooterFrequentPoints( frequentEnterPoints );
-
+		result += slipFormatter.formatFooterAmount( totalAmount );
+		result += slipFormatter.formatFooterFrequentPoints( frequentEnterPoints );
+		
 		return result;
 	}
 
@@ -111,33 +109,5 @@ public class RentalInfoService {
 		}
 		
 		return amount;
-	}
-	
-	/***
-	 * defines the format for the movie line.
-	 */
-	private String formatMovie( String title, double amount ) {
-		return String.format(FORMAT_MOVIE, title, amount);
-	}
-	
-	/***
-	 * defines the format for the header.
-	 */
-	private String formatHeader( String name ) {
-		return String.format(FORMAT_HEADER, name);
-	}
-	
-	/***
-	 * defines the format for the footer in amount section.
-	 */
-	private String formatFooterAmount( double amount ) {
-		return String.format(FORMAT_FOOTER_AMOUNT, amount);
-	}
-	
-	/***
-	 * defines the format for the footer in amount section.
-	 */
-	private String formatFooterFrequentPoints( int frequentEnterPoints ) {
-		return String.format(FORMAT_FOOTER_FREQUENT_POINTS, frequentEnterPoints);
 	}
 }
