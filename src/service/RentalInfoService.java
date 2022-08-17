@@ -16,6 +16,11 @@ public class RentalInfoService {
 	
 	private MovieService movieService;
 	
+	private final String FORMAT_MOVIE = "\t%s\t%.1f\n";
+	private final String FORMAT_HEADER = "Rental Record for %s\n";
+	private final String FORMAT_FOOTER_AMOUNT = "Amount owed is %.1f\n";
+	private final String FORMAT_FOOTER_FREQUENT_POINTS = "You earned %d frequent points\n";
+	
 	/*
 	 * CONSTRUCTOR
 	 */
@@ -28,44 +33,93 @@ public class RentalInfoService {
 	 */
 	public String statement(Customer customer) {
 		Map<String, Movie> movies = movieService.getMovies();
-
 		double totalAmount = 0;
 		int frequentEnterPoints = 0;
-		String result = "Rental Record for " + customer.getName() + "\n";
-		for (MovieRental r : customer.getRentals()) {
-			double thisAmount = 0;
-
-			//	determine amount for each movie
-			if (movies.get(r.getMovieId()).getCode().equals(MovieCode.REGULAR)) {
-				thisAmount = 2;
-				if (r.getDays() > 2) {
-					thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-				}
-			}
-			if (movies.get(r.getMovieId()).getCode().equals(MovieCode.NEW)) {
-				thisAmount = r.getDays() * 3;
-			}
-			if (movies.get(r.getMovieId()).getCode().equals(MovieCode.CHILDREN)) {
-				thisAmount = 1.5;
-				if (r.getDays() > 3) {
-					thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-				}
-			}
+		
+		String result = formatHeader( customer.getName() );
+		
+		//	cycle over rentals
+		for (MovieRental rental : customer.getRentals()) {
+			//	rental data
+			Movie movie = movies.get(rental.getMovieId());
+			int days = rental.getDays();
+			
+			//	calculate amount
+			double thisAmount = calculateAmount( movie, days );
 
 			//	add frequent bonus points
 			frequentEnterPoints++;
+			
 			//	add bonus for a two day new release rental
-			if (movies.get(r.getMovieId()).getCode().equals(MovieCode.NEW) && r.getDays() > 2)
+			if (movie.getCode().equals(MovieCode.NEW) && days > 2)
 				frequentEnterPoints++;
 
 			//	print figures for this rental
-			result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
+			result += formatMovie( movie.getTitle(), thisAmount );
 			totalAmount = totalAmount + thisAmount;
 		}
 		//	add footer lines
-		result += "Amount owed is " + totalAmount + "\n";
-		result += "You earned " + frequentEnterPoints + " frequent points\n";
+		result += formatFooterAmount( totalAmount );
+		result += formatFooterFrequentPoints( frequentEnterPoints );
 
 		return result;
+	}
+
+	/*
+	 * PRIVATE METHODS
+	 */
+	/***
+	 * calculates the amount for a movie for rental days.
+	 */
+	private double calculateAmount( Movie movie, int days ) {
+		double amount = 0.0d;
+		
+		switch( movie.getCode() ) {
+			case REGULAR:
+				amount = 2;
+				if (days > 2) {
+					amount = ((days - 2) * 1.5) + amount;
+				}
+			break;
+			case NEW:
+				amount = days * 3;
+			break;
+			case CHILDREN:
+				amount = 1.5;
+				if (days > 3) {
+					amount = ((days - 3) * 1.5) + amount;
+				}
+			break;
+		}
+		
+		return amount;
+	}
+	
+	/***
+	 * defines the format for the movie line.
+	 */
+	private String formatMovie( String title, double amount ) {
+		return String.format(FORMAT_MOVIE, title, amount);
+	}
+	
+	/***
+	 * defines the format for the header.
+	 */
+	private String formatHeader( String name ) {
+		return String.format(FORMAT_HEADER, name);
+	}
+	
+	/***
+	 * defines the format for the footer in amount section.
+	 */
+	private String formatFooterAmount( double amount ) {
+		return String.format(FORMAT_FOOTER_AMOUNT, amount);
+	}
+	
+	/***
+	 * defines the format for the footer in amount section.
+	 */
+	private String formatFooterFrequentPoints( int frequentEnterPoints ) {
+		return String.format(FORMAT_FOOTER_FREQUENT_POINTS, frequentEnterPoints);
 	}
 }
