@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import exception.MovieCodeNotFoundException;
 import model.Customer;
 import model.Movie;
 import model.Movie.MovieCode;
@@ -96,6 +97,8 @@ public class RentalInfoService {
 					amount = ((days - 3) * 1.5) + amount;
 				}
 			break;
+			default:
+				throw new MovieCodeNotFoundException();
 		}
 		
 		return amount;
