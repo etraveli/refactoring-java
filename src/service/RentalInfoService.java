@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import exception.MovieCodeNotFoundException;
+import exception.NoCustomerException;
 import model.Customer;
 import model.Movie;
 import model.Movie.MovieCode;
@@ -35,6 +36,9 @@ public class RentalInfoService {
 	 * PUBLIC METHODS
 	 */
 	public String statement(Customer customer) {
+		if( Objects.isNull(customer) )
+			throw new NoCustomerException();
+		
 		Map<String, Movie> movies = movieService.getMovies();
 		List<MovieRental> rentals = customer.getRentals();
 		double totalAmount = 0;
