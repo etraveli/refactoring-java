@@ -6,13 +6,25 @@ package model;
  * MISSION: model for a movie.
  */
 public class Movie {
+	
+	/**
+	 * @class MovieCode
+	 * 
+	 * MISSION: enum for movie code.
+	 */
+	public enum MovieCode {
+		NEW,
+		REGULAR,
+		CHILDREN
+	}
+	
     private String title;
-    private String code;
+    private MovieCode code;
 
     /*
 	 * CONSTRUCTOR
 	 */
-    public Movie(String title, String code) {
+    public Movie(String title, MovieCode code) {
         this.title = title;
         this.code = code;
     }
@@ -24,7 +36,7 @@ public class Movie {
         return title;
     }
 
-    public String getCode() {
+    public MovieCode getCode() {
         return code;
     }
 }

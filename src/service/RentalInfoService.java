@@ -4,6 +4,7 @@ import java.util.Map;
 
 import model.Customer;
 import model.Movie;
+import model.Movie.MovieCode;
 import model.MovieRental;
 
 /**
@@ -35,16 +36,16 @@ public class RentalInfoService {
 			double thisAmount = 0;
 
 			//	determine amount for each movie
-			if (movies.get(r.getMovieId()).getCode().equals("regular")) {
+			if (movies.get(r.getMovieId()).getCode().equals(MovieCode.REGULAR)) {
 				thisAmount = 2;
 				if (r.getDays() > 2) {
 					thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
 				}
 			}
-			if (movies.get(r.getMovieId()).getCode().equals("new")) {
+			if (movies.get(r.getMovieId()).getCode().equals(MovieCode.NEW)) {
 				thisAmount = r.getDays() * 3;
 			}
-			if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
+			if (movies.get(r.getMovieId()).getCode().equals(MovieCode.CHILDREN)) {
 				thisAmount = 1.5;
 				if (r.getDays() > 3) {
 					thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
@@ -54,7 +55,7 @@ public class RentalInfoService {
 			//	add frequent bonus points
 			frequentEnterPoints++;
 			//	add bonus for a two day new release rental
-			if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2)
+			if (movies.get(r.getMovieId()).getCode().equals(MovieCode.NEW) && r.getDays() > 2)
 				frequentEnterPoints++;
 
 			//	print figures for this rental
