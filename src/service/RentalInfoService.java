@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import exception.MovieCodeNotFoundException;
+import exception.MovieNotFoundException;
 import exception.NoCustomerException;
 import model.Customer;
 import model.Movie;
@@ -52,6 +53,10 @@ public class RentalInfoService {
 				//	rental data
 				Movie movie = movies.get(rental.getMovieId());
 				int days = rental.getDays();
+				
+				//	verify the if the movie exists
+				if( Objects.isNull(movie) )
+					throw new MovieNotFoundException();
 				
 				//	calculate amount
 				double thisAmount = calculateAmount( movie, days );
