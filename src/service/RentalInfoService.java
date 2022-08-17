@@ -1,6 +1,8 @@
 package service;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import model.Customer;
 import model.Movie;
@@ -33,31 +35,35 @@ public class RentalInfoService {
 	 */
 	public String statement(Customer customer) {
 		Map<String, Movie> movies = movieService.getMovies();
+		List<MovieRental> rentals = customer.getRentals();
 		double totalAmount = 0;
 		int frequentEnterPoints = 0;
 		
 		String result = formatHeader( customer.getName() );
 		
-		//	cycle over rentals
-		for (MovieRental rental : customer.getRentals()) {
-			//	rental data
-			Movie movie = movies.get(rental.getMovieId());
-			int days = rental.getDays();
-			
-			//	calculate amount
-			double thisAmount = calculateAmount( movie, days );
-
-			//	add frequent bonus points
-			frequentEnterPoints++;
-			
-			//	add bonus for a two day new release rental
-			if (movie.getCode().equals(MovieCode.NEW) && days > 2)
+		if( !Objects.isNull(rentals) ) {
+			//	cycle over rentals
+			for (MovieRental rental : rentals) {
+				//	rental data
+				Movie movie = movies.get(rental.getMovieId());
+				int days = rental.getDays();
+				
+				//	calculate amount
+				double thisAmount = calculateAmount( movie, days );
+	
+				//	add frequent bonus points
 				frequentEnterPoints++;
-
-			//	print figures for this rental
-			result += formatMovie( movie.getTitle(), thisAmount );
-			totalAmount = totalAmount + thisAmount;
+				
+				//	add bonus for a two day new release rental
+				if (movie.getCode().equals(MovieCode.NEW) && days > 2)
+					frequentEnterPoints++;
+	
+				//	print figures for this rental
+				result += formatMovie( movie.getTitle(), thisAmount );
+				totalAmount = totalAmount + thisAmount;
+			}
 		}
+		
 		//	add footer lines
 		result += formatFooterAmount( totalAmount );
 		result += formatFooterFrequentPoints( frequentEnterPoints );
