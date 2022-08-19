@@ -1,21 +1,17 @@
-# Refactoring Java
+# Etraveli Movie Rentals
 
-The code creates an information slip about movie rentals.
-Rewrite and improve the code after your own liking.
+This a Spring boot Rental application which creates an information slip about movie rentals.  
+All the data is stored in in-memory DB (with H2 database).  
 
-Think: you are responsible for the solution, this is a solution you will have to put your name on.
+## How to build and start server
+*Note*: Java 1.8, and maven are set up in local.
 
+Command to run with maven (runs on 8080):
+> mvn spring-boot: run
 
-## Handing in the assignment
+Command to run tests:
+> mvn clean test
 
-Reason how you have been thinking and the decisions you took. 
-You can hand in the result any way you feel (git patch, pull-request or ZIP-file).
-Note: the Git history must be included.
+Command to Build a jar package
+> mvn clean install
 
-
-## To run the test:
-
-```
-javac src/*.java
-java -cp src Main
-```
