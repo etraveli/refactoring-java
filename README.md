@@ -1,4 +1,4 @@
-# Etraveli Movie Rentals
+# Etraveli Movie Rentals Information
 
 This a Spring boot Rental application which creates an information slip about movie rentals.  
 All the data is stored in in-memory DB (with H2 database).  
