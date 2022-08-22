@@ -81,10 +81,7 @@ public class RentalInformationServiceImpl implements RentalInformationService {
      * @return the rental price for a given number of days, rental price and movie subscription.
      */
     private double calculateRentalPrice(MovieRental movieRental, String movieCode) {
-        return this.movieRentalFactory.getAllMovieRentalTypes()
-                .stream()
-                .filter(movieRentalType -> movieRentalType.code().equalsIgnoreCase(movieCode))
-                .findFirst()
+        return this.movieRentalFactory.getMovieRentalType(movieCode)
                 .map(movieRentalType -> movieRentalType.getRentalPrice(movieRental.getDays())).orElse(0D);
     }
 

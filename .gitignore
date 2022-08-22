@@ -5,4 +5,5 @@
 *.lst
 .idea
 target
+*.DS_store
 

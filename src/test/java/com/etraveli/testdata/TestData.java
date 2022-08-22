@@ -3,10 +3,6 @@ package com.etraveli.testdata;
 import com.etraveli.db.entity.MovieEntity;
 import com.etraveli.model.Customer;
 import com.etraveli.model.MovieRental;
-import com.etraveli.pattern.types.Children;
-import com.etraveli.pattern.types.MovieRentalType;
-import com.etraveli.pattern.types.New;
-import com.etraveli.pattern.types.Regular;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,11 +46,4 @@ public class TestData {
         return movieEntity;
     }
 
-    public static List<MovieRentalType> getMovieRentalTypes() {
-        List<MovieRentalType> movieRentalTypes = new ArrayList<>();
-        movieRentalTypes.add(new New());
-        movieRentalTypes.add(new Children());
-        movieRentalTypes.add(new Regular());
-        return movieRentalTypes;
-    }
 }
