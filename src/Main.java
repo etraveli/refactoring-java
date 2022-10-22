@@ -1,4 +1,7 @@
 import java.util.Arrays;
+import customer.Customer;
+import movie.rental.MovieRental;
+import movie.rental.RentalInfo;
 
 public class Main {
 
