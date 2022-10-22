@@ -3,10 +3,13 @@ package movie.rental;
 import java.util.HashMap;
 import customer.Customer;
 import movie.Movie;
+import movie.code.exceptions.MovieCodeInstantiationException;
+import movie.code.exceptions.MovieCodeNotFoundException;
 
 public class RentalInfo {
 
-  public String statement(Customer customer) {
+  public String statement(Customer customer) throws MovieCodeNotFoundException,
+      MovieCodeInstantiationException {
     HashMap<String, Movie> movies = new HashMap<>();
     movies.put("F001", new Movie("You've Got Mail", "regular"));
     movies.put("F002", new Movie("Matrix", "regular"));
@@ -17,29 +20,13 @@ public class RentalInfo {
     int frequentEnterPoints = 0;
     String result = "Rental Record for " + customer.getName() + "\n";
     for (MovieRental r : customer.getRentals()) {
-      double thisAmount = 0;
+      int days = r.getDays();
+      Movie movie = movies.get(r.getMovieId());
 
-      // determine amount for each movie
-      if (movies.get(r.getMovieId()).getCode().equals("regular")) {
-        thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-        }
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("new")) {
-        thisAmount = r.getDays() * 3;
-      }
-      if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
-        thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-        }
-      }
+      double thisAmount = movie.calculateAmount(days);
 
-      //add frequent bonus points
       frequentEnterPoints++;
-      // add bonus for a two day new release rental
-      if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
+      if (movie.hasExtraBonusPoint(days)) frequentEnterPoints++;
 
       //print figures for this rental
       result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
