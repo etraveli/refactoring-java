@@ -19,4 +19,8 @@ public class Customer {
     public List<MovieRental> getRentals() {
         return rentals;
     }
+
+    public String toString() {
+        return name;
+    }
 }

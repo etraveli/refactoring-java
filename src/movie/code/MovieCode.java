@@ -12,19 +12,19 @@ abstract public class MovieCode {
     abstract public boolean hasExtraBonusPoint(int days);
 
     public double calculateAmount(int days) {
-        double amount = this.minChargeDays * this.initialChargingFactor;
-        if (days > this.minChargeDays) {
-            amount = amount + (days - this.minChargeDays) * this.continualChargingFactor;
+        double amount = minChargeDays * initialChargingFactor;
+        if (days > minChargeDays) {
+            amount = amount + (days - minChargeDays) * continualChargingFactor;
         }
         return amount;
     }
 
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public String toString() {
-        return this.name;
+        return name;
     }
 
     public static MovieCode build(String codeName) throws MovieCodeNotFoundException,

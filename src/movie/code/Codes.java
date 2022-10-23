@@ -12,6 +12,6 @@ public enum Codes {
     }
 
     public Class<? extends MovieCode> getMovieCodeClass() {
-        return this.movieCodeClass;
+        return movieCodeClass;
     }
 }

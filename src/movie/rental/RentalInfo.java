@@ -3,6 +3,7 @@ package movie.rental;
 import java.util.HashMap;
 import customer.Customer;
 import movie.Movie;
+import movie.MovieRepo;
 import movie.code.exceptions.MovieCodeInstantiationException;
 import movie.code.exceptions.MovieCodeNotFoundException;
 
@@ -10,19 +11,16 @@ public class RentalInfo {
 
     public String statement(Customer customer) throws MovieCodeNotFoundException,
             MovieCodeInstantiationException {
-        HashMap<String, Movie> movies = new HashMap<>();
-        movies.put("F001", new Movie("You've Got Mail", "regular"));
-        movies.put("F002", new Movie("Matrix", "regular"));
-        movies.put("F003", new Movie("Cars", "childrens"));
-        movies.put("F004", new Movie("Fast & Furious X", "new"));
+        HashMap<String, Movie> movies = new MovieRepo().fetch().toHashMap();
 
         double totalAmount = 0;
         int frequentEnterPoints = 0;
         String result = "Rental Record for " + customer.getName() + "\n";
+
         for (MovieRental r : customer.getRentals()) {
-            int days = r.getDays();
             Movie movie = movies.get(r.getMovieId());
 
+            int days = r.getDays();
             double thisAmount = movie.calculateAmount(days);
 
             frequentEnterPoints++;
@@ -30,7 +28,7 @@ public class RentalInfo {
                 frequentEnterPoints++;
 
             // print figures for this rental
-            result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
+            result += "\t" + movie + "\t" + thisAmount + "\n";
             totalAmount = totalAmount + thisAmount;
         }
         // add footer lines
