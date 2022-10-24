@@ -11,7 +11,7 @@ public class RentalInfo {
 
     public String statement(Customer customer) throws MovieCodeNotFoundException,
             MovieCodeInstantiationException {
-        HashMap<String, Movie> movies = new MovieRepo().fetch().toHashMap();
+        HashMap<String, Movie> movies = new MovieRepo().fetch().indexById();
 
         double totalAmount = 0;
         int frequentEnterPoints = 0;

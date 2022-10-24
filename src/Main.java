@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             String expected = "Rental Record for C. U. Stomer\n\tYou've Got Mail\t3.5\n\tMatrix\t2.0\nAmount owed is 5.5\nYou earned 2 frequent points\n";
-            HashMap<String, Customer> customers = new CustomerRepo().fetch().toHashMap();
+            HashMap<String, Customer> customers = new CustomerRepo().fetch().indexByName();
             String result = new RentalInfo().statement(customers.get("C. U. Stomer"));
 
             if (!result.equals(expected)) {

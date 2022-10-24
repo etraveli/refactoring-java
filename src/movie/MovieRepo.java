@@ -17,7 +17,7 @@ public class MovieRepo extends ArrayList<Movie> {
         return this;
     }
 
-    public HashMap<String, Movie> toHashMap() {
+    public HashMap<String, Movie> indexById() {
         return this.stream().collect(
                 Collectors.toMap(Movie::getId, movie -> movie, (prev, next) -> next, HashMap::new));
     }

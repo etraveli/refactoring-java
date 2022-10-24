@@ -14,7 +14,7 @@ public class CustomerRepo extends ArrayList<Customer> {
         return this;
     }
 
-    public HashMap<String, Customer> toHashMap() {
+    public HashMap<String, Customer> indexByName() {
         return this.stream().collect(Collectors.toMap(
                 Customer::getName, customer -> customer, (prev, next) -> next, HashMap::new));
     }
