@@ -1,3 +1,6 @@
+import models.Customer;
+import models.MovieRental;
+
 import java.util.Arrays;
 
 public class Main {

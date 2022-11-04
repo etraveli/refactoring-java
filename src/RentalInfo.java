@@ -1,6 +1,10 @@
-import java.util.HashMap;
+import models.Customer;
+import models.MovieRental;
+import models.enums.MovieCode;
 
 public class RentalInfo {
+
+  private BasicRentCalculator basicRentCalculator = new BasicRentCalculator();
 
   public String statement(Customer customer) {
 
@@ -15,26 +19,12 @@ public class RentalInfo {
       // determine amount for each movie
       //TODO extract this to strategy pattern
       // Seems like the logic could be dependent on any property of movie model
-      if (movieLibrary.getMovieById(r.getMovieId()).getCode().equals("regular")) {
-        thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
-        }
-      }
-      if (movieLibrary.getMovieById(r.getMovieId()).getCode().equals("new")) {
-        thisAmount = r.getDays() * 3;
-      }
-      if (movieLibrary.getMovieById(r.getMovieId()).getCode().equals("childrens")) {
-        thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
-        }
-      }
+      thisAmount = basicRentCalculator.getTotalAmount(r);
 
       //add frequent bonus points
       frequentEnterPoints++;
       // add bonus for a two day new release rental
-      if (movieLibrary.getMovieById(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
+      if (movieLibrary.getMovieById(r.getMovieId()).getCode() == MovieCode.NEW && r.getDays() > 2) frequentEnterPoints++;
 
       //print figures for this rental
       result += "\t" + movieLibrary.getMovieById(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
