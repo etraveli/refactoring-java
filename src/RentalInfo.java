@@ -1,38 +1,35 @@
 import models.Customer;
 import models.MovieRental;
-import models.enums.MovieCode;
 
 public class RentalInfo {
 
   private BasicRentCalculator basicRentCalculator = new BasicRentCalculator();
+  private FrequentEnterPointsCalculator frequentEnterPointsCalculator = new FrequentEnterPointsCalculator();
 
   public String statement(Customer customer) {
 
     MovieLibrary movieLibrary = new MovieLibrary();
 
     double totalAmount = 0;
-    int frequentEnterPoints = 0;
+    int totalFrequentEnterPoints = 0;
     String result = "Rental Record for " + customer.getName() + "\n";
-    for (MovieRental r : customer.getRentals()) {
+    for (MovieRental movieRental : customer.getRentals()) {
       double thisAmount = 0;
 
       // determine amount for each movie
       //TODO extract this to strategy pattern
       // Seems like the logic could be dependent on any property of movie model
-      thisAmount = basicRentCalculator.getTotalAmount(r);
+      thisAmount = basicRentCalculator.calculateFromMovieRental(movieRental);
 
-      //add frequent bonus points
-      frequentEnterPoints++;
-      // add bonus for a two day new release rental
-      if (movieLibrary.getMovieById(r.getMovieId()).getCode() == MovieCode.NEW && r.getDays() > 2) frequentEnterPoints++;
+      totalFrequentEnterPoints += frequentEnterPointsCalculator.calculateFromMovieRental(movieRental);
 
       //print figures for this rental
-      result += "\t" + movieLibrary.getMovieById(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
+      result += "\t" + movieLibrary.getMovieById(movieRental.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
       totalAmount = totalAmount + thisAmount;
     }
     // add footer lines
     result += "Amount owed is " + totalAmount + "\n";
-    result += "You earned " + frequentEnterPoints + " frequent points\n";
+    result += "You earned " + totalFrequentEnterPoints + " frequent points\n";
 
     return result;
   }

@@ -1,12 +1,13 @@
+import interfaces.MovieRentalCalculator;
 import models.MovieRental;
 import models.enums.MovieCode;
 
-public class BasicRentCalculator implements RentCalculator{
+public class BasicRentCalculator implements MovieRentalCalculator<MovieRental, Double> {
 
     private MovieLibrary movieLibrary = new MovieLibrary();
 
     @Override
-    public double getTotalAmount(MovieRental movieRental) {
+    public Double calculateFromMovieRental(MovieRental movieRental) {
         double thisAmount = 0;
         if (movieLibrary.getMovieById(movieRental.getMovieId()).getCode().equals(MovieCode.REGULAR)) {
             thisAmount = 2;
