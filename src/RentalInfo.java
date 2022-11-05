@@ -3,8 +3,17 @@ import models.MovieRental;
 
 public class RentalInfo {
 
-  private BasicRentCalculator basicRentCalculator = new BasicRentCalculator();
-  private FrequentEnterPointsCalculator frequentEnterPointsCalculator = new FrequentEnterPointsCalculator();
+  //All these values should be initialised and inject from config
+  private BasicRentCalculator basicRentCalculator ;
+  private FrequentEnterPointsCalculator frequentEnterPointsCalculator ;
+  private RentalLedger rentalLedger ;
+
+  public RentalInfo() {
+    Provider provider = Provider.getInstance();
+    basicRentCalculator = provider.getBasicRentCalculator();
+    frequentEnterPointsCalculator = provider.getFrequentEnterPointsCalculator();
+    rentalLedger = provider.getRentalLedger();
+  }
 
   public String statement(Customer customer) {
 
@@ -13,14 +22,11 @@ public class RentalInfo {
     double totalAmount = 0;
     int totalFrequentEnterPoints = 0;
     String result = "Rental Record for " + customer.getName() + "\n";
-    for (MovieRental movieRental : customer.getRentals()) {
+    for (MovieRental movieRental : rentalLedger.getRentalsForCustomer(customer)) {
       double thisAmount = 0;
-
       // determine amount for each movie
-      //TODO extract this to strategy pattern
-      // Seems like the logic could be dependent on any property of movie model
       thisAmount = basicRentCalculator.calculateFromMovieRental(movieRental);
-
+      //determine frequent enter points for each movie
       totalFrequentEnterPoints += frequentEnterPointsCalculator.calculateFromMovieRental(movieRental);
 
       //print figures for this rental

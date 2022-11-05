@@ -1,21 +1,20 @@
 package models;
 
-import java.util.List;
-
 public class Customer {
-    private String name;
-    private List<MovieRental> rentals;
 
-    public Customer(String name, List<MovieRental> rentals) {
+    private String customerId;
+    private String name;
+
+    public Customer(String name, String customerId) {
         this.name = name;
-        this.rentals = rentals;
+        this.customerId = customerId;
     }
 
     public String getName() {
         return name;
     }
 
-    public List<MovieRental> getRentals() {
-        return rentals;
+    public String getCustomerId() {
+        return customerId;
     }
 }
