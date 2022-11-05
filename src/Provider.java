@@ -4,8 +4,11 @@ public class Provider {
     static RentalLedger rentalLedger;
     static BasicRentCalculator basicRentCalculator;
     static FrequentEnterPointsCalculator frequentEnterPointsCalculator;
+    static MovieLibrary movieLibrary;
 
+    //initialization should be carried taking the dependencies into account
     static {
+        movieLibrary = new MovieLibrary();
         rentalLedger = new RentalLedger();
         basicRentCalculator = new BasicRentCalculator();
         frequentEnterPointsCalculator = new FrequentEnterPointsCalculator();
@@ -25,6 +28,10 @@ public class Provider {
 
     public FrequentEnterPointsCalculator getFrequentEnterPointsCalculator(){
         return frequentEnterPointsCalculator;
+    }
+
+    public MovieLibrary getMovieLibrary(){
+        return movieLibrary;
     }
 
 }

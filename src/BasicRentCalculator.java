@@ -2,9 +2,10 @@ import interfaces.MovieRentalCalculator;
 import models.MovieRental;
 import models.enums.MovieCode;
 
+//Strategy to calculate the basic rent for a movie
 public class BasicRentCalculator implements MovieRentalCalculator<MovieRental, Double> {
 
-    private MovieLibrary movieLibrary = new MovieLibrary();
+    private MovieLibrary movieLibrary = Provider.getInstance().getMovieLibrary();
 
     @Override
     public Double calculateFromMovieRental(MovieRental movieRental) {

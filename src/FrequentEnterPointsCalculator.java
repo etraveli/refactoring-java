@@ -2,9 +2,10 @@ import interfaces.MovieRentalCalculator;
 import models.MovieRental;
 import models.enums.MovieCode;
 
+//Strategy to calculate the frequent enter points
 public class FrequentEnterPointsCalculator implements MovieRentalCalculator<MovieRental, Integer> {
 
-    private MovieLibrary movieLibrary = new MovieLibrary();
+    private MovieLibrary movieLibrary = Provider.getInstance().getMovieLibrary();
     @Override
     public Integer calculateFromMovieRental(MovieRental movieRental) {
         int frequentEnterPoints = 1;
