@@ -34,6 +34,7 @@ In the RentalInfo class
 9. Added the extra frequentEnterPoints point within the series of if statements for the "new" type of movies.
 10. Adding the frequentEnterPoints to existing points of the customer.
 
-The customer details must also be made to be fetcehd from the DB and not just instantiated in the main funciton as done here
+The customer details must also be made to be fetcehd from the DB and not just instantiated in the main funciton as done here.
+In addition to the changes mentioned, there could be more structered way of organising the projects files structure, by keeping seperate packages for the DB, service and logic.
 
 Comments added in the code for every added modified or deleted line of code.
