@@ -1,21 +1,39 @@
 # Refactoring Java
 
-The code creates an information slip about movie rentals.
-Rewrite and improve the code after your own liking.
+This is a solution for the Etraveli Refactoring Java assignment.
+the solution uses SpringBoot, Mysql, REST API to refactor the code.
 
-Think: you are responsible for the solution, this is a solution you will have to put your name on.
+## Functional Testing
 
+1. run the command below in the folder of the file docker-compose.yml(also the root folder of the project)
+   to boot up the Mysql service in docker.
 
-## Handing in the assignment
+       docker compose up
 
-Reason how you have been thinking and the decisions you took. 
-You can hand in the result any way you feel (git patch, pull-request or ZIP-file).
-Note: the Git history must be included.
+2. run the MainApplication class in Intellj to boot up the SpringBoot service, 
 
+      or 
+   a) execute the command below to package the project in the root folder of the project:
 
-## To run the test:
+       mvn clean package
 
-```
-javac src/*.java
-java -cp src Main
-```
+   b) execute the below command to run the prject:
+
+       java -jar target/tax-calculater-0.0.1-SNAPSHOT.jar
+
+3. and you can use the swagger-ui to send
+   request to test the restapi interface via the link:
+
+       http://localhost:8080/swagger-ui/index.html
+
+4. you could calculate the expnese and freequencyEnterPoints by the link below:
+
+       http://localhost:8080/swagger-ui/index.html#/order-controller/createOrder
+
+   the request body is included in the file below in the project
+
+       /resources/request/createOrder.json
+
+## integration test
+the integration test uses TestContainer to launch a new Mysql service in docker, and directly run the
+OrderTest class to run all the tests.
