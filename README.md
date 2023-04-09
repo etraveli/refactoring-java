@@ -1,21 +1,21 @@
 # Refactoring Java
 
 The code creates an information slip about movie rentals.
-Rewrite and improve the code after your own liking.
 
-Think: you are responsible for the solution, this is a solution you will have to put your name on.
+Refactored application using Maven and Springboot.
 
+Added junit test cases for various scenarios.
 
-## Handing in the assignment
+Added lombok plugin support for creating Getters,Setters,Constructors.
 
-Reason how you have been thinking and the decisions you took. 
-You can hand in the result any way you feel (git patch, pull-request or ZIP-file).
-Note: the Git history must be included.
+Handled exceptions for invalid customer details,zero days,invalid movie id.
+
+Tested using postman.
+
+local postman url: http://localhost:8080/rentalInfo
+
+Input payload in json :  { "name": "abc", "rentals": [ { "movieId": "F001", "days": 2 } ] }
 
 
 ## To run the test:
-
-```
-javac src/*.java
-java -cp src Main
-```
+mvn clean install
