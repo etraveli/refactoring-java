@@ -2,16 +2,14 @@ package com.movie.rental.app.model;
 
 import com.movie.rental.app.enums.MovieCode;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * This Movie class is used as movie data model
  *
  * @author pabasara8857@gmail.com
  */
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class Movie {
   private String movieId;

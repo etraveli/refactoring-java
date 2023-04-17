@@ -4,16 +4,14 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 /**
  * This MovieRental class is used as movie rental data model
  *
  * @author pabasara8857@gmail.com
  */
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class MovieRental {
   @NotNull(message = "Movie id cannot be null")

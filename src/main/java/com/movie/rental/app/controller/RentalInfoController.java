@@ -1,5 +1,6 @@
 package com.movie.rental.app.controller;
 
+import com.movie.rental.app.model.BaseResponse;
 import com.movie.rental.app.model.Customer;
 import com.movie.rental.app.service.RentalInfoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,9 +29,12 @@ public class RentalInfoController {
    * @return ResponseEntity with generated rental information statement
    */
   @Operation(summary = "Generate rental information statement")
-  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<String> generateRentalInfo(@Valid @RequestBody Customer customer) {
-    return new ResponseEntity(
-        rentalInfoService.generateRentalInfoStatement(customer), HttpStatus.OK);
+  @PostMapping(
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<BaseResponse<String>> generateRentalInfo(
+      @Valid @RequestBody Customer customer) {
+    String result = rentalInfoService.generateRentalInfoStatement(customer);
+    return new ResponseEntity(new BaseResponse<>(result), HttpStatus.CREATED);
   }
 }

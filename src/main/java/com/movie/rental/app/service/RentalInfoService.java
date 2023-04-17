@@ -5,7 +5,8 @@ import com.movie.rental.app.model.Customer;
 import com.movie.rental.app.model.Movie;
 import com.movie.rental.app.model.MovieRental;
 import com.movie.rental.app.enums.MovieCode;
-import com.movie.rental.app.repository.DataProvider;
+import com.movie.rental.app.repository.RentalInfoDataProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,8 @@ import java.util.stream.Collectors;
  */
 @Service
 public class RentalInfoService {
+
+  @Autowired private RentalInfoDataProvider rentalInfoDataProvider;
 
   /**
    * Generate rental information statement
@@ -131,8 +134,8 @@ public class RentalInfoService {
    *
    * @return all movies in a map
    */
-  public static Map<String, Movie> getMovieMap() {
-    List<Movie> movies = DataProvider.getMovies();
+  public Map<String, Movie> getMovieMap() {
+    List<Movie> movies = rentalInfoDataProvider.getMovies();
     return movies.stream().collect(Collectors.toMap(Movie::getMovieId, Function.identity()));
   }
 }

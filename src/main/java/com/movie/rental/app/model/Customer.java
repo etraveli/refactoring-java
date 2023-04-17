@@ -4,8 +4,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.List;
 
@@ -14,8 +13,7 @@ import java.util.List;
  *
  * @author pabasara8857@gmail.com
  */
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class Customer {
   @NotNull(message = "Customer name cannot be null")
