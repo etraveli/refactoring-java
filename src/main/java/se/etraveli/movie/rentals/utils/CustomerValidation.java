@@ -1,13 +1,21 @@
 package se.etraveli.movie.rentals.utils;
 
+import lombok.experimental.UtilityClass;
 import org.springframework.util.StringUtils;
 import se.etraveli.movie.rentals.constants.Constants;
 import se.etraveli.movie.rentals.exception.InvalidCustomerException;
 import se.etraveli.movie.rentals.exception.MovieRentalException;
 import se.etraveli.movie.rentals.model.Customer;
 
+@UtilityClass
 public class CustomerValidation {
 
+    /***
+     * Validates if customer and customer data is valid.
+     *      In case of empty/null values, exception is thrown.
+     *
+     * @param customer      Customer details
+     */
     public static void isValidCustomer(Customer customer){
 
         if(null == customer){
