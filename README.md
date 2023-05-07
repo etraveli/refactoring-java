@@ -49,11 +49,15 @@ java -cp src Main
 ### Project Structure (New):
     se.etravali.movie.rentals
         Main.class
-        component.rent:
-            MovieRent.interface
-            NewMovieRent.class
-            RegularMovieRent.class
-            ChildrensMovieRent.class
+        business
+            bonus
+                FrequentEnterPoints.interface
+                FrequentEnterPointsImpl.class
+            costs
+                MovieRent.interface
+                NewMovieRent.class
+                RegularMovieRent.class
+                ChildrensMovieRent.class
         config
             MovieRentalConfiguration.class
         constants
@@ -70,14 +74,8 @@ java -cp src Main
         repository 
             MovieRepository.class
         service
-            calc                
-                costs
-                    FrequentEnterPointsService.interface
-                    FrequentEnterPointsServiceImpl.class
-                    RentalAmountService.interface
-                    RentalAmountServiceImpl.class
-                RentalCostsCalcService.interface
-                RentalCostsCalcServiceImpl.class
+            RentalCostsCalcService.interface
+            RentalCostsCalcServiceImpl.class
             RentalInfo.class
             MovieDetailsService.interface
             MovieDetailsServiceImpl.class
