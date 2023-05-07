@@ -1,0 +1,14 @@
+movie:
+  rentals:
+    - id: "F001_TEST"
+      title: "You've Got Mail"
+      code: "REGULAR"
+    - id: "F002_TEST"
+      title: "Matrix"
+      code: "REGULAR"
+    - id: "F003_TEST"
+      title: "Cars"
+      code: "CHILDRENS"
+    - id: "F004_TEST"
+      title: "Fast & Furious X"
+      code: "NEW"
