@@ -3,6 +3,8 @@ package io.refactoring.repository.impl;
 import io.refactoring.model.Movie;
 import io.refactoring.model.MovieCode;
 import io.refactoring.repository.IMoviesRentalRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 
 public class MoviesRentalRepository implements IMoviesRentalRepository {
+
+    private static final Logger log = LoggerFactory.getLogger(MoviesRentalRepository.class);
 
     private static Map<String, Movie> movies = new HashMap<String, Movie>();
     private final String path;
@@ -39,6 +43,10 @@ public class MoviesRentalRepository implements IMoviesRentalRepository {
             try {
                 moviesFromFile();
             } catch (IOException e) {
+                log.error("Exception {} with message {} while reading from file path {}",
+                        e.getClass().getCanonicalName(),
+                        e.getMessage(),
+                        path);
                 throw new RuntimeException("Error reading from file");
             }
         }

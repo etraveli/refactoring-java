@@ -3,6 +3,8 @@ package io.refactoring;
 import io.refactoring.model.Customer;
 import io.refactoring.model.MovieRental;
 import io.refactoring.service.IRentalInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,6 +12,8 @@ import java.util.Arrays;
 
 @SpringBootApplication
 public class Main {
+
+  private static final Logger log = LoggerFactory.getLogger(Main.class);
 
   public static void main(String[] args) {
     var configurableApplicationContext = SpringApplication.run(Main.class, args);
@@ -20,7 +24,7 @@ public class Main {
       throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected) + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
     }
 
-    System.out.println("Success");
+    log.info("=======Success======");
   }
 
 }

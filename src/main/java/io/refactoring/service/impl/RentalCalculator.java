@@ -1,10 +1,15 @@
 package io.refactoring.service.impl;
 
+import io.refactoring.model.MovieCode;
 import io.refactoring.model.MovieRental;
 import io.refactoring.repository.IMoviesRentalRepository;
 import io.refactoring.service.IRentalCalculator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RentalCalculator implements IRentalCalculator {
+
+    private static final Logger log = LoggerFactory.getLogger(RentalCalculator.class);
 
     private IMoviesRentalRepository moviesRentalRepository;
 
@@ -14,7 +19,8 @@ public class RentalCalculator implements IRentalCalculator {
 
     @Override
     public double rent(MovieRental rental){
-        switch (moviesRentalRepository.movie(rental.movieId()).code()) {
+        MovieCode movieCode = moviesRentalRepository.movie(rental.movieId()).code();
+        switch (movieCode) {
             case REGULAR -> {
                 return regularMovieRent(rental.days());
             }
@@ -24,7 +30,10 @@ public class RentalCalculator implements IRentalCalculator {
             case CHILDREN -> {
                 return childrenMovieRent(rental.days());
             }
-            default -> throw new RuntimeException("Movie type not found");
+            default -> {
+                log.error("Movie type {} not found", movieCode.genre);
+                throw new RuntimeException("Movie type not found");
+            }
         }
     }
 

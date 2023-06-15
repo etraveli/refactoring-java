@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
-    implementation("org.springframework:spring-web:6.0.6")
+    implementation("org.slf4j:slf4j-api:2.0.7")
     testImplementation(platform("org.junit:junit-bom:5.9.3"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
