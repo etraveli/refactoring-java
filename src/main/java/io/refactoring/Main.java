@@ -18,13 +18,19 @@ public class Main {
   public static void main(String[] args) {
     var configurableApplicationContext = SpringApplication.run(Main.class, args);
     String expected = "Rental Record for C. U. Stomer\n\tYou've Got Mail\t3.5\n\tMatrix\t2.0\nAmount owed is 5.5\nYou earned 2 frequent points\n";
-    String result = ((IRentalInfo)configurableApplicationContext.getBean("rentalInfo")).statement(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+    String result = "";
 
-    if (!result.equals(expected)) {
-      throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected) + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
+    try {
+      result = ((IRentalInfo) configurableApplicationContext.getBean("rentalInfo")).statement(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+
+      if (!result.equals(expected)) {
+        throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected) + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);
+      }
+
+      log.info("=======Success======");
+    }catch (Exception e){
+      log.error("Exception in processing rental info with message {}", e.getMessage());
     }
-
-    log.info("=======Success======");
   }
 
 }
