@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+package com.movies.rental;
+
+option java_multiple_files = true;
+option java_package = "com.movies.rental";
+
+message GetCustomerRequest {
+  string customerId = 1;
+}
+
+message GetCustomerResponse {
+  Customer customer = 1;
+}
+message Customer {
+  string customerId = 1 ;
+  string name = 2;
+  repeated MovieRental movieRental = 3 ;
+  double totalAmount = 4;
+  uint32 totalFrequentRenterPoints = 5;
+}
+
+message PostCustomerRequest {
+  string customerId = 1;
+  repeated MovieRentalRequest movieRental = 2;
+}
+
+message PostCustomerResponse {
+  string message = 1;
+}
+
+message MovieRental {
+  string movieId = 1;
+  string title = 2;
+  string genre = 3;
+  double amountPerMovie = 4;
+  uint32 daysOfRental = 5;
+}
+
+message MovieRentalRequest {
+  string movieId = 1;
+  uint32 daysOfRental = 2;
+}
+
+service CustomerService {
+  rpc getCustomer(GetCustomerRequest) returns (GetCustomerResponse);
+  rpc postCustomer(PostCustomerRequest) returns (PostCustomerResponse);
+}

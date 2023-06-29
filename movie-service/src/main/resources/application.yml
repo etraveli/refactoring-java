@@ -1,0 +1,16 @@
+spring:
+  profiles:
+    active: local
+  data:
+    mongodb:
+      database: movie_rentals_db
+      host: localhost
+      port: 27017
+      username: root
+      password: root
+      authentication-database: admin
+server:
+  port: 8080
+grpc:
+  server:
+    port: 1234
