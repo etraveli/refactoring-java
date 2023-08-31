@@ -1,21 +1,27 @@
-# Refactoring Java
+# Movie Rental Application
 
-The code creates an information slip about movie rentals.
-Rewrite and improve the code after your own liking.
+This is a simple console-based movie rental application that demonstrates the Onion Architecture packaging structure.
 
-Think: you are responsible for the solution, this is a solution you will have to put your name on.
+## How to Run
 
+1. Make sure you have Java installed on your machine.
 
-## Handing in the assignment
+2. Clone or download this repository.
 
-Reason how you have been thinking and the decisions you took. 
-You can hand in the result any way you feel (git patch, pull-request or ZIP-file).
-Note: the Git history must be included.
+3. Open a terminal or command prompt and navigate to the root directory of the downloaded repository.
 
+4. Compile the Java files:
 
-## To run the test:
-
+```bash
+javac -d bin -cp src src/com/show/movierental/*.java
 ```
-javac src/*.java
-java -cp src Main
+
+6. Run the application
+```bash
+    java -cp  bin com.show.movierental.Main
 ```
+7. Follow the on-screen instructions to enter your name, choose movies to rent, and enter rental days.
+
+8. The application will generate and display a rental statement on the console.
+
+9. Exit the application by entering `'done'` when prompted for a movie ID.
