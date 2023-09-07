@@ -1,0 +1,7 @@
+Rental Record for C. U. Stomer
+	You've Got Mail	3.5
+	Matrix	2.0
+	Cars	1.5
+	Fast & Furious X	9.0
+Amount owed is 16.0
+You earned 5 frequent points
