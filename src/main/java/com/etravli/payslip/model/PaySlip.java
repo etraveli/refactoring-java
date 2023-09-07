@@ -1,8 +1,8 @@
 package com.etravli.payslip.model;
 
-import com.etravli.payslip.common.PaySlipConstants;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * PaySlip class for the customer
