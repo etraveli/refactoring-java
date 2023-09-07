@@ -5,6 +5,9 @@ import com.etravli.payslip.model.PaySlip;
 import com.etravli.rent.domain.Customer;
 import com.etravli.rent.domain.MovieRental;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author ayman
  * Service class to create paySlip
@@ -64,7 +67,10 @@ public class PaySlipService {
         }
 
         // Add detail line
-        customerStatement.addDetail(rent.movie().title(), lineAmount);
+        Map<String, Object> lineDetail= new HashMap<>();
+        lineDetail.put(PaySlipConstants.DETAIL_HEADER_NAME_TITLE,rent.movie().title());
+        lineDetail.put(PaySlipConstants.DETAIL_HEADER_NAME_AMOUNT, lineAmount);
+        customerStatement.addDetail( lineDetail);
         // update total amount
         customerStatement.setTotalAmount(customerStatement.getTotalAmount() + lineAmount);
     }
@@ -78,7 +84,7 @@ public class PaySlipService {
     public String printStatement(PaySlip paySlip) {
         StringBuilder statement = new StringBuilder();
         statement.append(String.format(PaySlipConstants.HEADER_RENTAL_RECORD, paySlip.getCustomerName()));
-        paySlip.getDetails().forEach((key, value) -> statement.append(String.format(PaySlipConstants.DETAIL_LINE_TAB, key, value)));
+        paySlip.getDetails().forEach(line -> statement.append(String.format(PaySlipConstants.DETAIL_LINE_TAB, line.get(PaySlipConstants.DETAIL_HEADER_NAME_TITLE),(Double) line.get(PaySlipConstants.DETAIL_HEADER_NAME_AMOUNT))));
         statement.append(String.format(PaySlipConstants.FOOTER_AMOUNT_OWED, paySlip.getTotalAmount()));
         statement.append(String.format(PaySlipConstants.FOOTER_FREQUENT_ENTER_POINTS, paySlip.getTotalEarnedPoints()));
         return statement.toString();

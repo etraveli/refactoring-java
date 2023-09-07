@@ -1,14 +1,15 @@
 package com.etravli.payslip.model;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import com.etravli.payslip.common.PaySlipConstants;
+
+import java.util.*;
 
 /**
  * PaySlip class for the customer
  */
 public class PaySlip {
     private final String customerName;
-    private Map<String, Double> details;
+    private List<Map<String,Object>> details;
     private Double totalAmount = 0D;
     private Integer totalEarnedPoints = 0;
 
@@ -23,7 +24,7 @@ public class PaySlip {
         return customerName;
     }
 
-    public Map<String, Double> getDetails() {
+    public List<Map<String,Object>> getDetails() {
 
         return details;
     }
@@ -46,16 +47,14 @@ public class PaySlip {
     }
 
     /**
-     * Add detail line for the statement
-     *
-     * @param title
-     * @param value
+     * Add detail line for the paySlip
+     * @param lineAsMap
      */
-    public void addDetail(String title, Double value) {
+    public void addDetail(Map<String,Object> lineAsMap) {
         if (details == null) {
-            this.details = new LinkedHashMap<>();
+            this.details = new ArrayList<>();
         }
-        details.put(title, value);
+        details.add(lineAsMap);
 
     }
 }
