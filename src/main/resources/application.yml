@@ -1,0 +1,4 @@
+server:
+  port: 8181
+  servlet:
+    contextPath: /movie-service
