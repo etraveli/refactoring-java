@@ -24,6 +24,9 @@ public class MovieRentalService {
     private final DataHolder staticDataHolder;
     private int frequentEnterPoints;
 
+    /**
+     * this method is use for create Order response
+     */
     public RentOrderResponse createRentOrderResponse(RentOrder order) {
         frequentEnterPoints = 0;
         List<RentOrderLine> orderLineList = createOrderLineList(order.orderLineList());
@@ -37,6 +40,9 @@ public class MovieRentalService {
                 .build();
     }
 
+    /**
+     * this method is use for create Order lines details
+     */
     private List<RentOrderLine> createOrderLineList(List<RentOrderLine> orderLineList) {
         List<RentOrderLine> rentOrderResponseLineList = new ArrayList<>();
         for (RentOrderLine rentOrderLine : orderLineList) {
@@ -53,6 +59,9 @@ public class MovieRentalService {
         return rentOrderResponseLineList;
     }
 
+    /**
+     * this method is use for calculate movie rental and frequentEnterPoints
+     */
     private BigDecimal calculateLineRental(int days, MovieType type ) {
         RentalFee rentalFee = staticDataHolder.getRentalFeeByCode(type);
         frequentEnterPoints++;

@@ -23,6 +23,8 @@
 
 ## Run service 
     java -jar movie-service-0.0.1.jar
+## Swagger url
+    http://localhost:8181/movie-service/swagger-ui/index.html#/
 
 ## Sample Request & Response
 Request

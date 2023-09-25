@@ -20,6 +20,7 @@ public class CustomerRepository {
                 .orElseThrow(() -> new NoSuchElementException("No customer found with ID: " + id));
     }
 
+    // call the data holder and retrieve sample data
     private List<Customer> getSampleCustomerData() {
         return dataHolder.getCustomers();
     }

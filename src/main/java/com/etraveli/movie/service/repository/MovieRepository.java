@@ -20,6 +20,7 @@ public class MovieRepository {
                 .orElseThrow(() -> new NoSuchElementException("No movie found with ID: " + code));
     }
 
+    // call the data holder and retrieve sample data
     private List<Movie> getSampleMovieData() {
         return dataHolder.getMovies();
     }

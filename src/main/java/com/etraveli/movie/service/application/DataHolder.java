@@ -10,6 +10,10 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class is for holding MetaData, customer and movie sample data
+ * This class can be removed after providing proper datasource
+ */
 @Component
 public class DataHolder {
 
