@@ -22,16 +22,18 @@ public class MovieRentalService {
     private final MovieRepository movieRepository;
     private final CustomerRepository customerRepository;
     private final DataHolder staticDataHolder;
+    private int frequentEnterPoints;
 
     public RentOrderResponse createRentOrderResponse(RentOrder order) {
+        frequentEnterPoints = 0;
         List<RentOrderLine> orderLineList = createOrderLineList(order.orderLineList());
-
         return RentOrderResponse.builder()
                 .customer(customerRepository.findCustomerByID(order.customerID()))
                 .rentOrderLineList(orderLineList)
                 .totalRental(orderLineList.stream()
                         .map(RentOrderLine::rentAmount)
                         .reduce(BigDecimal.ZERO, BigDecimal::add))
+                .frequentEnterPoints(frequentEnterPoints)
                 .build();
     }
 
@@ -50,12 +52,16 @@ public class MovieRentalService {
         return rentOrderResponseLineList;
     }
 
-    private BigDecimal calculateLineRental(int days, MovieType type) {
+    private BigDecimal calculateLineRental(int days, MovieType type ) {
         RentalFee rentalFee = staticDataHolder.getRentalFeeByCode(type);
+        frequentEnterPoints++;
         return switch (type) {
             case REGULAR, CHILDREN ->
                     days > rentalFee.flatFeeLimit() ? (rentalFee.dailyFee()).multiply(BigDecimal.valueOf(days - rentalFee.flatFeeLimit())).add(rentalFee.flatFee()) : rentalFee.flatFee();
-            case NEW -> rentalFee.dailyFee().multiply(BigDecimal.valueOf(days));
+            case NEW -> {
+                frequentEnterPoints += (days > 2) ? 1 : 0;
+                yield rentalFee.dailyFee().multiply(BigDecimal.valueOf(days));
+            }
         };
     }
 }

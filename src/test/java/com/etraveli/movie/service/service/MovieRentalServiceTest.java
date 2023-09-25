@@ -72,5 +72,6 @@ public class MovieRentalServiceTest extends BaseTest {
         // Verify the result
         assertEquals(2, response.rentOrderLineList().size());
         assertEquals(new BigDecimal("15"), response.totalRental());
+        assertEquals(2, response.frequentEnterPoints());
     }
 }

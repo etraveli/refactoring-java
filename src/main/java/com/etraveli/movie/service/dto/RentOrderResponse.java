@@ -8,5 +8,6 @@ import lombok.Builder;
 public record RentOrderResponse(
         Customer customer,
         List<RentOrderLine> rentOrderLineList,
-        BigDecimal totalRental) {
+        BigDecimal totalRental,
+        int frequentEnterPoints) {
 }
