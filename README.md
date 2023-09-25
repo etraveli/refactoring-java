@@ -1,21 +1,81 @@
-# Refactoring Java
+# Movie Service
 
-The code creates an information slip about movie rentals.
-Rewrite and improve the code after your own liking.
+## Changes
 
-Think: you are responsible for the solution, this is a solution you will have to put your name on.
+- Convert the application into rest service
+- Refactor the entity class
+- Add error handling
+- Add logs
+- Add test cases
 
+## Future Enhasment
 
-## Handing in the assignment
+- Use database to store data such as Customer,Movies,Rental Info
+- Expose more endpoints
+- Add endpoint security
 
-Reason how you have been thinking and the decisions you took. 
-You can hand in the result any way you feel (git patch, pull-request or ZIP-file).
-Note: the Git history must be included.
+## Technologies
 
+- Java 17, Spring boot 3, Maven
+- Junit 5/Mockito
+- SonarLint & IntelliJ code quality checker
+- Swagger
 
-## To run the test:
+## Run service 
+    java -jar movie-service-0.0.1.jar
 
-```
-javac src/*.java
-java -cp src Main
-```
+## Sample Request & Response
+Request
+
+    curl --location 'http://localhost:8181/movie-service/api/order' \
+    --header 'Content-Type: application/json' \
+    --data '{
+    "customerID": "001",
+    "orderLineList": [
+        {
+            "movieCode": "F001",
+            "rentDays": 1
+        },
+        {
+            "movieCode": "F002",
+            "rentDays": 2
+        },
+        {
+            "movieCode": "F004",
+            "rentDays": 3
+        }
+        ]
+    }'
+
+Response
+
+    {
+    "customer": {
+        "customerID": "001",
+        "customerName": "C. U. Stomer"
+    },
+    "rentOrderLineList": [
+        {
+            "movieCode": "F001",
+            "movieName": "You've Got Mail",
+            "rentDays": 1,
+            "rentAmount": 2
+        },
+        {
+            "movieCode": "F002",
+            "movieName": "Matrix",
+            "rentDays": 2,
+            "rentAmount": 2
+        },
+        {
+            "movieCode": "F004",
+            "movieName": "Fast & Furious X",
+            "rentDays": 3,
+            "rentAmount": 9
+        }
+    ],
+    "totalRental": 13,
+    "frequentEnterPoints": 4
+    }
+    
+

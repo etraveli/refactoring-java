@@ -45,6 +45,7 @@ public class MovieRentalService {
             BigDecimal rental = calculateLineRental(rentOrderLine.rentDays(), movie.type());
             rentOrderResponseLineList.add(RentOrderLine.builder()
                     .movieName(movie.movieName())
+                    .movieCode(movie.movieCode())
                     .rentDays(rentOrderLine.rentDays())
                     .rentAmount(rental)
                     .build());
