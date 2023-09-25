@@ -11,6 +11,10 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+/**
+ * This class is for load sample data with application starts
+ * This class can be removed after providing proper datasource
+ */
 @RequiredArgsConstructor
 @Component
 public class DataLoader {
