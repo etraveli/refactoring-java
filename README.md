@@ -8,7 +8,7 @@
 - Add logs
 - Add test cases
 
-## Future Enhasment
+## Future Enhancement
 
 - Use database to store data such as Customer,Movies,Rental Info
 - Expose more endpoints
