@@ -11,11 +11,19 @@ com.etraveli.movie.rental:
       dailyFee: 1.5
 
     - movieCode: NEW
-      startingFee: 3
+      startingFee: 0
       startingFeeEligibleDays: 0
-      additionalDailyFee: 0
+      dailyFee: 3
 
     - movieCode: CHILDREN
       startingFee: 1.5
       startingFeeEligibleDays: 3
-      additionalDailyFee: 1.5
+      dailyFee: 1.5
+
+default:
+  frequentEnterPoints: 1
+
+extraPoints:
+  eligibleDays: 2
+  eligibleType: NEW
+

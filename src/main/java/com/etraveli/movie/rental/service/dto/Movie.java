@@ -8,4 +8,5 @@ public record Movie(
         String movieId,
         String title,
         MovieCode movieCode
-) {}
+) {
+}

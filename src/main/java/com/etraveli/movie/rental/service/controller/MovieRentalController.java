@@ -4,6 +4,7 @@ import com.etraveli.movie.rental.service.dto.MovieRentalRequest;
 import com.etraveli.movie.rental.service.dto.MovieRentalResponse;
 import com.etraveli.movie.rental.service.service.MovieRentalService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -22,7 +23,7 @@ public class MovieRentalController {
     private final MovieRentalService movieRentalService;
 
     @PostMapping(path = "/rental")
-    public ResponseEntity<MovieRentalResponse> getMovieRental(@RequestBody MovieRentalRequest request) {
+    public ResponseEntity<MovieRentalResponse> getMovieRental(@Valid @RequestBody MovieRentalRequest request) {
         return new ResponseEntity<>(movieRentalService.getMovieRentalResponse(request), HttpStatus.OK);
     }
 }
