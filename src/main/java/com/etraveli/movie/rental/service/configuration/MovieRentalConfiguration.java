@@ -30,4 +30,3 @@ public record MovieRentalConfiguration(List<RentalFee> rentalFee) {
             BigDecimal dailyFee) {
     }
 }
-

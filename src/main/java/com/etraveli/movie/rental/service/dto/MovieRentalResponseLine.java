@@ -10,4 +10,3 @@ public record MovieRentalResponseLine(
         int frequentEnterPoints
 ) {
 }
-

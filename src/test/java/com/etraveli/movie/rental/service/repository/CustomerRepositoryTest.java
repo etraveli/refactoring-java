@@ -11,7 +11,9 @@ import org.mockito.MockitoAnnotations;
 import java.util.Collections;
 import java.util.NoSuchElementException;
 import static com.etraveli.movie.rental.service.util.CustomerFixture.createCustomerList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CustomerRepositoryTest {
 

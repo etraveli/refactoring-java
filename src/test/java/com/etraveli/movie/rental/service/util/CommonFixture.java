@@ -1,7 +1,11 @@
 package com.etraveli.movie.rental.service.util;
 
 import com.etraveli.movie.rental.service.configuration.MovieRentalConfiguration;
-import com.etraveli.movie.rental.service.dto.*;
+import com.etraveli.movie.rental.service.dto.MovieRentalRequest;
+import com.etraveli.movie.rental.service.dto.MovieRentalRequestLine;
+import com.etraveli.movie.rental.service.dto.MovieRentalResponse;
+import com.etraveli.movie.rental.service.dto.Customer;
+import com.etraveli.movie.rental.service.dto.MovieRentalResponseLine;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

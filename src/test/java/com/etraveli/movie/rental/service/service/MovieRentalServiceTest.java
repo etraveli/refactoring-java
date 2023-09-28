@@ -17,7 +17,9 @@ import static com.etraveli.movie.rental.service.util.CommonFixture.createRentalF
 import static com.etraveli.movie.rental.service.util.CustomerFixture.createCustomerById;
 import static com.etraveli.movie.rental.service.util.MovieFixture.createMovieById;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
 
 class MovieRentalServiceTest {
 

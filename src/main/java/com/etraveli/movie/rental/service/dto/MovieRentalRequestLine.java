@@ -13,4 +13,3 @@ public record MovieRentalRequestLine(
         int noOfDays
 ) {
 }
-
