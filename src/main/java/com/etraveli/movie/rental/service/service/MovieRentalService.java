@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@Setter
+
 @Service
 @RequiredArgsConstructor
 public class MovieRentalService {
@@ -27,12 +27,15 @@ public class MovieRentalService {
     private final MovieRentalConfiguration movieRentalConfiguration;
     private final CustomerRepository customerRepository;
 
+    @Setter
     @Value("${default.frequentEnterPoints:1}")
     private int defaultPoints;
 
+    @Setter
     @Value("${extraPoints.eligibleDays:2}")
     private int extraPointsEligibleDays;
 
+    @Setter
     @Value("${extraPoints.eligibleType:NEW}")
     private MovieCode extraPointsEligibleType;
 
@@ -78,21 +81,21 @@ public class MovieRentalService {
 
     }
 
-    // Calculate rental per each movie rental response line
+    // Calculate rental per each movie
     private BigDecimal calculateLineAmount(int noOfDays, RentalFee rentalFee) {
         return (noOfDays > rentalFee.startingFeeEligibleDays()) ?
                 rentalFee.startingFee().add(rentalFee.dailyFee().multiply(BigDecimal.valueOf(noOfDays - rentalFee.startingFeeEligibleDays()))) :
                 rentalFee.startingFee();
     }
 
-    // Calculate total rental for all movie rental response lines
+    // Calculate total rental for all movies
     private BigDecimal calculateTotalAmount(List<MovieRentalResponseLine> movieRentalResponseLines) {
         return movieRentalResponseLines.stream()
                 .map(MovieRentalResponseLine::rental)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    // Calculate frequentEnterPoints for each lines
+    // Calculate frequentEnterPoints for each movie
     private int calculateFrequentEnterPoints(MovieCode movieCode, int days) {
         return defaultPoints + (
                 movieCode.equals(extraPointsEligibleType) &&

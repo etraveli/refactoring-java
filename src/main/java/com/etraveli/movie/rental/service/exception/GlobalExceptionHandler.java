@@ -1,6 +1,5 @@
 package com.etraveli.movie.rental.service.exception;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -15,7 +14,6 @@ import java.util.NoSuchElementException;
 /**
  * This class handle all exceptions.
  */
-@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     static final String LOG_ERROR = "error";

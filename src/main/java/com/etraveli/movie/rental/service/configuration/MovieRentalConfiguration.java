@@ -5,9 +5,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * This record responsible for read rental fee values from application.yml file
+ * This record is responsible for read rental fee values from application.yml file
  */
-
 @ConfigurationProperties(prefix = "com.etraveli.movie.rental")
 public record MovieRentalConfiguration(List<RentalFee> rentalFee) {
 
