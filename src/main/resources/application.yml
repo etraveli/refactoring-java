@@ -1,0 +1,28 @@
+server:
+  port: 8081
+  servlet:
+    contextPath: /movie-rental-service
+
+com.etraveli.movie.rental:
+  rentalFee:
+    - movieCode: REGULAR
+      startingFee: 2
+      startingFeeEligibleDays: 2
+      dailyFee: 1.5
+
+    - movieCode: NEW
+      startingFee: 0
+      startingFeeEligibleDays: 0
+      dailyFee: 3
+
+    - movieCode: CHILDREN
+      startingFee: 1.5
+      startingFeeEligibleDays: 3
+      dailyFee: 1.5
+
+default:
+  frequentEnterPoints: 1
+
+extraPoints:
+  eligibleDays: 2
+  eligibleType: NEW
