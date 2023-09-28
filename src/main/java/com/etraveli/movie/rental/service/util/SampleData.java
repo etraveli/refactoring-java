@@ -4,12 +4,11 @@ import com.etraveli.movie.rental.service.configuration.MovieRentalConfiguration;
 import com.etraveli.movie.rental.service.dto.Customer;
 import com.etraveli.movie.rental.service.dto.Movie;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 /**
  * This class responsible for create sample data.
- * We can use database to store data as further enhancement.
+ * We can use database to store data as a future enhancement.
  */
 
 @Component

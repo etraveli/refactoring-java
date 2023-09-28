@@ -10,10 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
 import java.math.BigDecimal;
 import java.util.Optional;
-
 import static com.etraveli.movie.rental.service.util.CommonFixture.createMovieRentalRequest;
 import static com.etraveli.movie.rental.service.util.CommonFixture.createRentalFee;
 import static com.etraveli.movie.rental.service.util.CustomerFixture.createCustomerById;

@@ -3,10 +3,8 @@ package com.etraveli.movie.rental.service.controller;
 import com.etraveli.movie.rental.service.dto.MovieRentalRequest;
 import com.etraveli.movie.rental.service.dto.MovieRentalResponse;
 import com.etraveli.movie.rental.service.service.MovieRentalService;
-
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

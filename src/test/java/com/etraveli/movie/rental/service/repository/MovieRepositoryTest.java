@@ -8,10 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
 import java.util.Collections;
 import java.util.Optional;
-
 import static com.etraveli.movie.rental.service.util.MovieFixture.createMovieList;
 import static org.junit.jupiter.api.Assertions.*;
 

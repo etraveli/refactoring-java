@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -78,7 +77,6 @@ public class MovieRentalService {
                             .build();
                 })
                 .orElseThrow(() -> new NoSuchElementException("Movie not found with movie id: " + rentalRequestLine.movieId()));
-
     }
 
     // Calculate rental per each movie

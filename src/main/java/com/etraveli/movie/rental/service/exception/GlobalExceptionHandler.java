@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 /**
- * This class handle all exceptions.
+ * This class handles all exceptions.
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
