@@ -1,6 +1,9 @@
+package models;
+
+
 public class MovieRental {
-    private String movieId;
-    private int days;
+    private final String movieId;
+    private final int days;
 
     public MovieRental(String movieId, int days) {
         this.movieId = movieId;
