@@ -1,6 +1,6 @@
-package com.etraveli.movierentalservice.domain;
+package com.etraveli.movie.rental.service.entities;
 
-public enum Genre {
+public enum MovieGenre {
     ACTION,
     CARTOON,
     COMEDY,
