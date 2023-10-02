@@ -95,13 +95,13 @@
     "frequentEnterPoints": 4
     }
 
-### Enhancements based on requirements
+### Can Do:
 - Can implement more services to perform basic CRUD operations for Movie, Customer
 - Can add more Movie Genres
 - Can implement data and schema validators
 - Can implement OAuth or other login functionalities to achieve security
 - Can include docker, kubernetes for containerization
-- Can implement Git Actions, CICD Pipelines
+- Can implement Git Actions, CI/CD Pipelines
 - Can use relational databases to achieve Data Integrity, Scalability and much more
 - Can use YAML/properties files to store which data have scope for frequent changes
 - Can implement test cases to cover all possible edge case scenarios
