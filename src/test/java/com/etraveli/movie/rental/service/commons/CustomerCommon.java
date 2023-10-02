@@ -1,6 +1,8 @@
 package com.etraveli.movie.rental.service.commons;
 
 import com.etraveli.movie.rental.service.entities.Customer;
+import com.etraveli.movie.rental.service.request.RentalDetailsRequest;
+import com.etraveli.movie.rental.service.request.RentalLineDetailsRequest;
 import com.etraveli.movie.rental.service.response.RentalDetailsResponse;
 import com.etraveli.movie.rental.service.response.RentalLineDetailsResponse;
 
@@ -9,11 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public class CustomerCommon {
-    public static List<Customer> createCustomerList() {
-        return List.of(
-                new Customer(1L, "John"),
-                new Customer(2L, "Harry"));
-    }
 
     public static Customer createCustomerById(Long customerId) {
         return new Customer(customerId, "John");
@@ -38,5 +35,18 @@ public class CustomerCommon {
                 .totalRent(BigDecimal.valueOf(2))
                 .frequentEnterPoints(2)
                 .build();
+    }
+
+    public static RentalDetailsRequest createMovieRentalRequest(Long customerId) {
+        RentalDetailsRequest request = new RentalDetailsRequest();
+        request.setCustomerId(customerId);
+
+        List<RentalLineDetailsRequest> rentalRequestLines = Arrays.asList(
+                new RentalLineDetailsRequest(1L, 2),
+                new RentalLineDetailsRequest(2L, 1)
+        );
+        request.setRentalDetailsRequestList(rentalRequestLines);
+
+        return request;
     }
 }
