@@ -64,6 +64,7 @@ public class MovieRentalServiceImpl implements MovieRentalService {
                 rentalPrice.basePrice();
     }
 
+    @Override
     public List<RentalPrice> getRentalPriceList() {
         return List.of(
                 new RentalPrice("REGULAR", BigDecimal.valueOf(2), 2, BigDecimal.valueOf(1.5)),
