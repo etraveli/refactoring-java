@@ -8,26 +8,6 @@ spring:
     console:
       enabled: true
 
-com:
-  etraveli:
-    movie:
-      rental:
-        rentalPrice:
-          - movieGenre: "REGULAR"
-            basePrice: 2
-            noOfDaysForBasePrice: 2
-            perDayPrice: 1.5
-
-          - movieGenre: "NEW"
-            basePrice: 0
-            noOfDaysForBasePrice: 0
-            perDayPrice: 3
-
-          - movieGenre: "CHILDREN"
-            basePrice: 1.5
-            noOfDaysForBasePrice: 3
-            perDayPrice: 1.5
-
 bonusPoints:
   applicableDays: 2
   applicableGenre: "NEW"

@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * This class is responsible for set custom error messages
+ * This class will return custom error messages
  */
 @Data
 @AllArgsConstructor

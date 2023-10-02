@@ -73,7 +73,6 @@ public class MovieRentalServiceImpl implements MovieRentalService {
     }
 
     public RentalPrice rentalPriceByMovieGenre(String movieGenre) {
-        System.out.println("Price Details" + movieGenre);
         return getRentalPriceList().stream().filter(rentalPrice -> rentalPrice.movieGenre().equalsIgnoreCase(movieGenre)).findFirst().orElse(null);
     }
 
