@@ -13,18 +13,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository customerRepository;
 
     @Override
-    public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
-    }
-
-    @Override
     public Customer getCustomerByCustomerId(Long customerId) {
         return customerRepository.findById(customerId);
-    }
-
-    @Override
-    public void addLoyaltyPoints(Customer customer, int loyaltyPoints) {
-        customer.setLoyaltyPoints(customer.getLoyaltyPoints() + loyaltyPoints);
-        customerRepository.save(customer);
     }
 }

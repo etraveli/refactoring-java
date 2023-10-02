@@ -3,9 +3,8 @@ package com.etraveli.movie.rental.service.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.*;
-
-import java.math.BigDecimal;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
@@ -16,5 +15,4 @@ public class Movie {
         private Long id;
         private String title;
         private String genre;
-        private BigDecimal rentalPrice;
 }

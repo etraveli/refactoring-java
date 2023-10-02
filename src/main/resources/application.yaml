@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  h2:
+    console:
+      enabled: true
+
+com.etraveli.movie.rental:
+  rentalPrice:
+    - movieGenre: "REGULAR"
+      basePrice: 2
+      noOfDaysForBasePrice: 2
+      perDayPrice: 1.5
+
+    - movieGenre: "NEW"
+      basePrice: 0
+      noOfDaysForBasePrice: 0
+      perDayPrice: 3
+
+    - movieGenre: "CHILDREN"
+      basePrice: 1.5
+      noOfDaysForBasePrice: 3
+      perDayPrice: 1.5
+
+bonusPoints:
+  applicableDays: 2
+  applicableGenre: "NEW"
+
+base:
+  frequentEntrePoints: 1
