@@ -48,3 +48,13 @@ public class RentalInfo {
     return result;
   }
 }
+
+/*
+This class calculates the rent of the movie for the customer and creates the statement.
+
+1) single method should be chuncked.
+2) the rates can be a variable,
+3) movies list can be from the different class.
+4) Use switch block.
+5) project structure is missing.
+ */

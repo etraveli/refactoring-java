@@ -14,3 +14,11 @@ public class Main {
     System.out.println("Success");
   }
 }
+
+/* This app is creating a rental statement for the customer who has got 2 properties name
+  and list of movies
+   Once the statement is created it is being validated by comparing with other string.*/
+
+// Odd out for me is the code is not super friendly, Comparing string is hardcoded needs to be generic.
+
+
