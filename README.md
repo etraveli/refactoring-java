@@ -8,13 +8,14 @@
 - Nurtured robustness with thorough error handling and basic data validations
 - Enhanced logging proficiency with Slf4j for seamless debugging
 - Followed SOLID principles to achieve better modularity, flexibility and maintainability
+- Used in memory H2 database console
 
 ### Technologies
 
 - Java 17
 - SpringBoot 3
 - Maven
-- In Memory H2 database
+- In Memory H2 database console
 - SLF4J
 - Postman
 
@@ -29,16 +30,16 @@
 
 ### H2 Console Configuration
 
-- Saved Settings: Generic H2 (Embedded)
-- Setting Name: Generic H2 (Embedded)
-- Driver Class: org.h2.Driver
-- JDBC URL: jdbc:h2:mem:testdb
-- User Name: etraveli
-- Password: password
+- ###### **_Saved Settings:_** Generic H2 (Embedded)
+- ###### **_Setting Name:_** Generic H2 (Embedded)
+- ###### _**Driver Class:**_ org.h2.Driver
+- ###### **_JDBC URL:_** jdbc:h2:mem:testdb
+- ###### **_User Name:_** etraveli
+- ###### **_Password:_** password
 
 ### Insert Queries
 
-- Provided in data.sql under folder resources -> db
+- ###### **_Provided in data.sql under folder src -> main -> resources -> db_**
 
 ### Postman Request URL
 
@@ -103,4 +104,5 @@
 - Can implement Git Actions, CICD Pipelines
 - Can use relational databases to achieve Data Integrity, Scalability and much more
 - Can use YAML/properties files to store which data have scope for frequent changes
+- Can implement test cases to cover all possible edge case scenarios
 
