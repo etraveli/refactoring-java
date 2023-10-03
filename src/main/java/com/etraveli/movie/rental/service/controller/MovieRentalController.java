@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/rental-service/rental")
 public class MovieRentalController {
-    @Autowired
     private final MovieRentalService movieRentalService;
 
     @PostMapping("/details")

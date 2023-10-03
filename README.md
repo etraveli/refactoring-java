@@ -18,6 +18,7 @@
 - In Memory H2 database console
 - SLF4J
 - Postman
+- JUnit and Mockito
 
 ### To run the application
 
