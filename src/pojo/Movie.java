@@ -1,3 +1,5 @@
+package pojo;
+
 public class Movie {
     private String title;
     private String code;
@@ -16,3 +18,4 @@ public class Movie {
         return code;
     }
 }
+
