@@ -20,8 +20,11 @@ public class GenerateStatement {
 
     public String statement (Customer customer) {
 
-        StringBuilder statement = new StringBuilder();
-        statement.append("Rental Record for ").append(customer.getName()).append("\n");
+        if(customer == null) {
+            return objConstants.EMPTY_CUSTOMER;
+        }
+
+        StringBuilder statement = new StringBuilder("Rental Record for ").append(customer.getName()).append("\n");
 
         for(MovieRental mr : customer.getRentals()){
 
@@ -43,6 +46,7 @@ public class GenerateStatement {
 
     private double calculateRate (String type, int days) {
         double amt = 0;
+
         if(type.equalsIgnoreCase(objConstants.REGULAR)) {
             amt = new RegularMovies().calculate(days);
         } else if(type.equalsIgnoreCase(objConstants.CHILDRENS)){
