@@ -41,23 +41,23 @@ public abstract class AbstractStatementGenerator
     {
         List<MovieRental> rentals = customer.getMovieRentals();
         return new StringBuilder()
-                .append(header(customer.getCustomerName()))
-                .append(detailsSection(rentals, movieStore))
-                .append(footer(totalAmount(rentals, movieStore),
-                        totalFrequentRenterPoints(rentals, movieStore)))
+                .append(getHeader(customer.getCustomerName()))
+                .append(getDetailsSection(rentals, movieStore))
+                .append(getFooter(getTotalAmount(rentals, movieStore),
+                        getTotalFrequentRenterPoints(rentals, movieStore)))
                 .toString();
     }
 
-    private String detailsSection(List<MovieRental> rentals, MovieStore movieStore)
+    private String getDetailsSection(List<MovieRental> rentals, MovieStore movieStore)
     {
         return rentals.stream()
-                .map(rental -> rentalDetails(rental, movieStore))
+                .map(rental -> getRentalDetails(rental, movieStore))
                 .collect(Collectors.joining());
     }
 
-    private String rentalDetails(MovieRental rental, MovieStore movieStore)
+    private String getRentalDetails(MovieRental rental, MovieStore movieStore)
     {
-        return detail(getMovieTitle(rental, movieStore), getRentalAmount(rental, movieStore));
+        return getDetail(getMovieTitle(rental, movieStore), getRentalAmount(rental, movieStore));
     }
 
     private String getMovieTitle(MovieRental rental, MovieStore movieStore)
@@ -71,24 +71,24 @@ public abstract class AbstractStatementGenerator
                 Collections.singletonList(rental), movieStore);
     }
 
-    private double totalAmount(List<MovieRental> rentals, MovieStore movieStore)
+    private double getTotalAmount(List<MovieRental> rentals, MovieStore movieStore)
     {
         return rentals.stream()
                 .mapToDouble(rental -> getRentalAmount(rental, movieStore))
                 .sum();
     }
 
-    private int totalFrequentRenterPoints(List<MovieRental> rentals, MovieStore movieStore)
+    private int getTotalFrequentRenterPoints(List<MovieRental> rentals, MovieStore movieStore)
     {
-        return (int) rentals.stream()
-                .mapToDouble(rental -> rentCalculationService.calculateTotalFrequentRenterPoints(
+        return rentals.stream()
+                .mapToInt(rental -> rentCalculationService.calculateTotalFrequentRenterPoints(
                         Collections.singletonList(rental), movieStore))
                 .sum();
     }
 
-    protected abstract String header(String customerName);
+    abstract String getHeader(String customerName);
 
-    protected abstract String detail(String movieTitle, double rentalAmount);
+    abstract String getDetail(String movieTitle, double rentalAmount);
 
-    protected abstract String footer(double totalAmount, int frequentRenterPoints);
+    abstract String getFooter(double totalAmount, int frequentRenterPoints);
 }

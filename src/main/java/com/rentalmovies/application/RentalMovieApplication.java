@@ -25,7 +25,7 @@ public class RentalMovieApplication
                 new MovieRental("F002", 1));
 
         Customer customer = new Customer("C. U. Stomer", rentals);
-        String actualResult = rentalInfo.statement(customer);
+        String actualResult = rentalInfo.getStatement(customer);
 
         assertEqualResults(expectedResult.toString(), actualResult);
         System.out.println("Success");

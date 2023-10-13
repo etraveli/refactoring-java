@@ -34,7 +34,7 @@ public class RentalStatementService
         this.movieStore = movieStore;
     }
 
-    public String statement(Customer customer)
+    public String getStatement(Customer customer)
     {
         Optional.ofNullable(customer)
                 .map(Customer::getMovieRentals)

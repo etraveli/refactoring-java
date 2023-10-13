@@ -41,7 +41,7 @@ public class RentalStatementServiceTest
 
         when(statementGenerator.generateStatement(any(Customer.class), eq(movieStore))).thenReturn(expectedStatement);
 
-        String actualStatement = rentalStatementService.statement(customer);
+        String actualStatement = rentalStatementService.getStatement(customer);
 
         assertEquals(expectedStatement, actualStatement);
         verify(statementGenerator).generateStatement(customer, movieStore);

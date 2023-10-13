@@ -13,19 +13,19 @@ public class TextStatementGenerator extends AbstractStatementGenerator
         super(service);
     }
 
-    protected String header(String customerName)
+    String getHeader(String customerName)
     {
         return "Rental Record for " + customerName + "\n";
     }
 
     @Override
-    protected String detail(String movieTitle, double rentalAmount)
+    String getDetail(String movieTitle, double rentalAmount)
     {
         return "\t" + movieTitle + "\t" + rentalAmount + "\n";
     }
 
     @Override
-    protected String footer(double totalAmount, int frequentRenterPoints)
+    String getFooter(double totalAmount, int frequentRenterPoints)
     {
         return "Amount owed is " + totalAmount + "\n"
                 + "You earned " + frequentRenterPoints + " frequent points\n";
