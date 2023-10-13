@@ -1,0 +1,9 @@
+/home/esairia/fork/refactoring-java/src/test/java/com/rentalmovies/moviestore/MovieStoreTest.java
+/home/esairia/fork/refactoring-java/src/test/java/com/rentalmovies/statement/TextStatementGeneratorTest.java
+/home/esairia/fork/refactoring-java/src/test/java/com/rentalmovies/rentalpricingstrategy/NewReleaseMovieTest.java
+/home/esairia/fork/refactoring-java/src/test/java/com/rentalmovies/rentalpricingstrategy/ChildrenMovieTest.java
+/home/esairia/fork/refactoring-java/src/test/java/com/rentalmovies/models/CustomerTest.java
+/home/esairia/fork/refactoring-java/src/test/java/com/rentalmovies/rentalstatementservice/RentalStatementServiceTest.java
+/home/esairia/fork/refactoring-java/src/test/java/com/rentalmovies/models/MovieRentalTest.java
+/home/esairia/fork/refactoring-java/src/test/java/com/rentalmovies/models/MovieTest.java
+/home/esairia/fork/refactoring-java/src/test/java/com/rentalmovies/rentalpricingstrategy/RegularMovieTest.java

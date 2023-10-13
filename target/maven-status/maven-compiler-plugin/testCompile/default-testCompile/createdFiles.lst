@@ -1,0 +1,9 @@
+com/rentalmovies/rentalpricingstrategy/RegularMovieTest.class
+com/rentalmovies/models/MovieTest.class
+com/rentalmovies/rentalpricingstrategy/NewReleaseMovieTest.class
+com/rentalmovies/statement/TextStatementGeneratorTest.class
+com/rentalmovies/rentalstatementservice/RentalStatementServiceTest.class
+com/rentalmovies/models/CustomerTest.class
+com/rentalmovies/moviestore/MovieStoreTest.class
+com/rentalmovies/rentalpricingstrategy/ChildrenMovieTest.class
+com/rentalmovies/models/MovieRentalTest.class

@@ -1,0 +1,14 @@
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/rentalpricingstrategy/ChildrenMovie.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/application/RentalMovieApplication.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/rentalpricingstrategy/RegularMovie.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/statement/AbstractStatementGenerator.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/models/Movie.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/exceptions/MovieNotFoundException.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/rentalpricingstrategy/NewReleaseMovie.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/rentalpricingstrategy/RentalPricingStrategy.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/models/Customer.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/moviestore/MovieStore.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/models/MovieRental.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/statement/TextStatementGenerator.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/statementservice/RentalStatementService.java
+/home/esairia/fork/refactoring-java/src/main/java/com/rentalmovies/utils/MovieUtils.java
