@@ -1,6 +1,5 @@
 package com.rentalmovies.models;
 
-import com.rentalmovies.rentalpricingstrategy.RentalPricingStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -11,18 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class MovieTest
 {
     private Movie movie;
-    private RentalPricingStrategy pricingStrategy;
-
+    private MovieType movieType;
     private static final String TITLE = "MovieTitle";
 
     @BeforeEach
     void init()
     {
-        pricingStrategy = Mockito.mock(RentalPricingStrategy.class);
-        Mockito.when(pricingStrategy.calculateRentalAmount(Mockito.anyInt())).thenReturn(10.0);
-        Mockito.when(pricingStrategy.getFrequentRenterPoints(Mockito.anyInt())).thenReturn(2);
-
-        movie = new Movie(TITLE, pricingStrategy);
+        movieType = Mockito.mock(MovieType.class);
+        movie = new Movie(TITLE, movieType);
     }
 
     @Test
@@ -32,30 +27,14 @@ class MovieTest
     }
 
     @Test
-    void testInvalidTitle()
-    {
-        assertThrows(IllegalArgumentException.class, () -> new Movie("", pricingStrategy));
-    }
-
-    @Test
-    void testNullPricingStrategy()
+    void testNullMovieType()
     {
         assertThrows(NullPointerException.class, () -> new Movie(TITLE, null));
     }
 
     @Test
-    void testCalculateRentalAmount()
+    void testNullMovieTest()
     {
-        double rentalAmount = movie.calculateRentalAmount(5);
-        assertEquals(10.0, rentalAmount);
-        Mockito.verify(pricingStrategy).calculateRentalAmount(5);
-    }
-
-    @Test
-    void testGetFrequentRenterPoints()
-    {
-        int points = movie.getFrequentRenterPoints(5);
-        assertEquals(2, points);
-        Mockito.verify(pricingStrategy).getFrequentRenterPoints(5);
+        assertThrows(NullPointerException.class, () -> new Movie(TITLE, null));
     }
 }

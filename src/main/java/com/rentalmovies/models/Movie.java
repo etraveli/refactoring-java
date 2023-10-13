@@ -1,6 +1,5 @@
 package com.rentalmovies.models;
 
-import com.rentalmovies.rentalpricingstrategy.RentalPricingStrategy;
 import static com.rentalmovies.utils.MovieUtils.validateString;
 
 import java.util.Objects;
@@ -10,18 +9,17 @@ import java.util.Objects;
  * Use final keyword with classes when possible to ensure they cannot be subclassed, adding an extra layer of immutability.
  * Ensuring classes are immutable where possible to enhance thread safety and data integrity
  * Validation: Added validation to ensure that we have non-null, valid data to work with, making the system more robust.
- *
  * Encapsulated movie data within the Movie class, making the code more object-oriented and easier to manage.
  */
 public final class Movie
 {
     private final String title;
-    private final RentalPricingStrategy pricingStrategy;
+    private final MovieType movieType;
 
-    public Movie(final String title, final RentalPricingStrategy pricingStrategy)
+    public Movie(final String title, final MovieType type)
     {
         this.title = validateString(title);
-        this.pricingStrategy = Objects.requireNonNull(pricingStrategy, "Invalid pricing strategy");
+        this.movieType = Objects.requireNonNull(type, "Invalid Movie type");
     }
 
     public String getTitle()
@@ -29,19 +27,14 @@ public final class Movie
         return title;
     }
 
-    public double calculateRentalAmount(int daysRented)
+    public MovieType getMovieType()
     {
-        return pricingStrategy.calculateRentalAmount(daysRented);
-    }
-
-    public int getFrequentRenterPoints(int daysRented)
-    {
-        return pricingStrategy.getFrequentRenterPoints(daysRented);
+        return movieType;
     }
 
     @Override
     public String toString()
     {
-        return String.format("Movie{title='%s', code='%s'}", title, pricingStrategy);
+        return String.format("Movie{title='%s', code='%s'}", title, movieType.name());
     }
 }

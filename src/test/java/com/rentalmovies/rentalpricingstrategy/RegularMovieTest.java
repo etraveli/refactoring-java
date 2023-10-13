@@ -12,7 +12,7 @@ public class RegularMovieTest
     @BeforeEach
     void init()
     {
-        regularMovie = new RegularMovie();
+        regularMovie = new RegularMoviePricingStrategy();
     }
 
     @Test

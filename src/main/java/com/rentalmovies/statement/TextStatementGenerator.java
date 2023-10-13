@@ -1,12 +1,18 @@
 package com.rentalmovies.statement;
 
+import com.rentalmovies.rentalservice.RentCalculationService;
+
 /**
  * Separation of Concerns: Each part of the statement is now constructed in its own method,
  * making the code cleaner and easier to modify or extend.
  */
 public class TextStatementGenerator extends AbstractStatementGenerator
 {
-    @Override
+    public TextStatementGenerator(RentCalculationService service)
+    {
+        super(service);
+    }
+
     protected String header(String customerName)
     {
         return "Rental Record for " + customerName + "\n";

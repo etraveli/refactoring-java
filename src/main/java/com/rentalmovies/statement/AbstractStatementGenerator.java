@@ -2,9 +2,9 @@ package com.rentalmovies.statement;
 
 import com.rentalmovies.moviestore.MovieStore;
 import com.rentalmovies.models.Customer;
-import com.rentalmovies.models.Movie;
 import com.rentalmovies.models.MovieRental;
-
+import com.rentalmovies.rentalservice.RentCalculationService;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,15 +19,11 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractStatementGenerator
 {
-    public String generateStatement(Customer customer, MovieStore movieStore)
-    {
-        List<MovieRental> rentals = customer.getMovieRentals();
+    private final RentCalculationService rentCalculationService;
 
-        return new StringBuilder() //  StringBuilder optimize performance and readability.
-                .append(header(customer.getCustomerName()))
-                .append(detailsSection(rentals, movieStore))
-                .append(footer(totalAmount(rentals, movieStore), totalFrequentRenterPoints(rentals, movieStore)))
-                .toString();
+    public AbstractStatementGenerator(RentCalculationService service)
+    {
+        rentCalculationService = service;
     }
 
     /**
@@ -35,6 +31,23 @@ public abstract class AbstractStatementGenerator
     and follow Single Responsibility Principle for easy testing and maintenance.
     Function style coding that makes it more concise and enhance readability
      */
+
+    public String generateStatement(Customer customer, MovieStore movieStore)
+    {
+        return buildStatement(customer, movieStore);
+    }
+
+    private String buildStatement(Customer customer, MovieStore movieStore)
+    {
+        List<MovieRental> rentals = customer.getMovieRentals();
+        return new StringBuilder()
+                .append(header(customer.getCustomerName()))
+                .append(detailsSection(rentals, movieStore))
+                .append(footer(totalAmount(rentals, movieStore),
+                        totalFrequentRenterPoints(rentals, movieStore)))
+                .toString();
+    }
+
     private String detailsSection(List<MovieRental> rentals, MovieStore movieStore)
     {
         return rentals.stream()
@@ -44,22 +57,32 @@ public abstract class AbstractStatementGenerator
 
     private String rentalDetails(MovieRental rental, MovieStore movieStore)
     {
-        Movie movie = movieStore.getMovie(rental.getMovieId());
-        return detail(movie.getTitle(), movie.calculateRentalAmount(rental.getRentalDays()));
+        return detail(getMovieTitle(rental, movieStore), getRentalAmount(rental, movieStore));
+    }
+
+    private String getMovieTitle(MovieRental rental, MovieStore movieStore)
+    {
+        return movieStore.getMovie(rental.getMovieId()).getTitle();
+    }
+
+    private double getRentalAmount(MovieRental rental, MovieStore movieStore)
+    {
+        return rentCalculationService.calculateTotalAmount(
+                Collections.singletonList(rental), movieStore);
     }
 
     private double totalAmount(List<MovieRental> rentals, MovieStore movieStore)
     {
         return rentals.stream()
-                .mapToDouble(rental -> movieStore.getMovie(rental.getMovieId())
-                        .calculateRentalAmount(rental.getRentalDays()))
+                .mapToDouble(rental -> getRentalAmount(rental, movieStore))
                 .sum();
     }
 
     private int totalFrequentRenterPoints(List<MovieRental> rentals, MovieStore movieStore)
     {
-        return rentals.stream()
-                .mapToInt(rental -> movieStore.getMovie(rental.getMovieId()).getFrequentRenterPoints(rental.getRentalDays()))
+        return (int) rentals.stream()
+                .mapToDouble(rental -> rentCalculationService.calculateTotalFrequentRenterPoints(
+                        Collections.singletonList(rental), movieStore))
                 .sum();
     }
 

@@ -3,6 +3,7 @@ package com.rentalmovies.application;
 import com.rentalmovies.models.Customer;
 import com.rentalmovies.models.MovieRental;
 import com.rentalmovies.moviestore.MovieStore;
+import com.rentalmovies.rentalservice.RentCalculationService;
 import com.rentalmovies.statement.AbstractStatementGenerator;
 import com.rentalmovies.statement.TextStatementGenerator;
 import com.rentalmovies.statementservice.RentalStatementService;
@@ -16,7 +17,7 @@ public class RentalMovieApplication
     {
         String expectedResult = buildExpectedResult();
         MovieStore movieStore = new MovieStore();
-        AbstractStatementGenerator statementGenerator = new TextStatementGenerator();
+        AbstractStatementGenerator statementGenerator = new TextStatementGenerator(new RentCalculationService());
         RentalStatementService rentalInfo = new RentalStatementService(statementGenerator, movieStore);
 
         List<MovieRental> rentals = Arrays.asList(

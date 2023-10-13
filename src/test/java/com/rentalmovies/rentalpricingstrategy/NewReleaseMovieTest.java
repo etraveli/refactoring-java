@@ -12,7 +12,7 @@ public class NewReleaseMovieTest
     @BeforeEach
     void init()
     {
-        newReleaseMovie = new NewReleaseMovie();
+        newReleaseMovie = new NewReleaseMoviePricingStrategy();
     }
 
     @Test

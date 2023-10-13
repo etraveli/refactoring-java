@@ -12,7 +12,7 @@ public class ChildrenMovieTest
     @BeforeEach
     void init()
     {
-        childrenMovie = new ChildrenMovie();
+        childrenMovie = new ChildrenMoviePricingStrategy();
     }
 
     @Test
