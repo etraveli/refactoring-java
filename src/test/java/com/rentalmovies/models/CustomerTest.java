@@ -1,5 +1,7 @@
 package com.rentalmovies.models;
 
+import com.rentalmovies.customer.model.Customer;
+import com.rentalmovies.movierental.model.MovieRental;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +21,7 @@ public class CustomerTest
     {
         movieRental1 = new MovieRental("1", 5);
         movieRental2 = new MovieRental("2", 3);
-        customer = new Customer("Alice", Arrays.asList(movieRental1, movieRental2));
+        customer = new Customer("Alice", "1", Arrays.asList(movieRental1, movieRental2));
     }
 
     @Test
@@ -34,13 +36,13 @@ public class CustomerTest
     @Test
     void testInvalidCustomerName()
     {
-        assertThrows(IllegalArgumentException.class, () -> new Customer("", Arrays.asList(movieRental1, movieRental2)));
+        assertThrows(IllegalArgumentException.class, () -> new Customer("","", Arrays.asList(movieRental1, movieRental2)));
     }
 
     @Test
     void testNullMovieRentals()
     {
-        assertThrows(NullPointerException.class, () -> new Customer("Alice", null));
+        assertThrows(NullPointerException.class, () -> new Customer("Alice", "1", null));
     }
 
     @Test

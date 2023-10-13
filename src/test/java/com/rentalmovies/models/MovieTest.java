@@ -1,5 +1,7 @@
 package com.rentalmovies.models;
 
+import com.rentalmovies.movie.model.Movie;
+import com.rentalmovies.movie.model.MovieType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

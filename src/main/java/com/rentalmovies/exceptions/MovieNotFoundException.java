@@ -6,4 +6,9 @@ public class MovieNotFoundException extends RuntimeException
     {
         super("Movie with ID: " + movieId + " not found.");
     }
+
+    public MovieNotFoundException(String movieId, Throwable throwable)
+    {
+        super("Movie with ID: " + movieId + " not found.", throwable);
+    }
 }

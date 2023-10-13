@@ -1,6 +1,6 @@
-package com.rentalmovies.statement;
+package com.rentalmovies.reportgenerationlogic;
 
-import com.rentalmovies.rentalservice.RentCalculationService;
+import com.rentalmovies.service.RentCalculationService;
 
 /**
  * Separation of Concerns: Each part of the statement is now constructed in its own method,
@@ -8,18 +8,18 @@ import com.rentalmovies.rentalservice.RentCalculationService;
  */
 public class TextStatementGenerator extends AbstractStatementGenerator
 {
-    public TextStatementGenerator(RentCalculationService service)
+    public TextStatementGenerator(final RentCalculationService service)
     {
         super(service);
     }
 
-    String getHeader(String customerName)
+    String getHeader(final String customerName)
     {
         return "Rental Record for " + customerName + "\n";
     }
 
     @Override
-    String getDetail(String movieTitle, double rentalAmount)
+    String getDetail(final String movieTitle, double rentalAmount)
     {
         return "\t" + movieTitle + "\t" + rentalAmount + "\n";
     }

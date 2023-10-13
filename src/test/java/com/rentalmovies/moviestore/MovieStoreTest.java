@@ -1,31 +1,38 @@
 package com.rentalmovies.moviestore;
 
+import com.rentalmovies.customer.repository.CustomerDaoImpl;
+import com.rentalmovies.customer.service.CustomerService;
+import com.rentalmovies.customer.service.CustomerServiceImpl;
 import com.rentalmovies.exceptions.MovieNotFoundException;
+import com.rentalmovies.movie.repository.MovieDaoImpl;
+import com.rentalmovies.movie.service.MovieService;
+import com.rentalmovies.movie.service.MovieServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MovieStoreTest
 {
-
-    private MovieStore store;
+    private MovieStoreDataAccess store;
 
     @BeforeEach
     void init()
     {
-        store = new MovieStore();
+        CustomerService customerService = new CustomerServiceImpl(new CustomerDaoImpl());
+        MovieService movieService = new MovieServiceImpl(new MovieDaoImpl());
+        store = new MovieStoreDataAccess(movieService, customerService);
     }
 
     @Test
     void getMovieReturnsMovieForValidId()
     {
-        assertEquals("You've Got Mail", store.getMovie("F001").getTitle());
+        assertEquals("You've Got Mail", store.getMovieById(("F001")).get().getTitle());
     }
 
     @Test
     void getMovieThrowsExceptionForInvalidId()
     {
-        assertThrows(MovieNotFoundException.class, () -> store.getMovie("F999"));
+        assertThrows(MovieNotFoundException.class, () -> store.getMovieById("F999").get());
     }
 }

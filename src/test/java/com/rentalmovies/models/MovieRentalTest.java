@@ -1,5 +1,6 @@
 package com.rentalmovies.models;
 
+import com.rentalmovies.movierental.model.MovieRental;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
