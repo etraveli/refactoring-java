@@ -10,6 +10,18 @@ import java.util.Properties;
 
 public class RentalConfig {
     private static Properties properties;
+    private static RentalConfig instance;
+
+    private RentalConfig() {
+    }
+
+    public static RentalConfig getInstance() {
+        if (instance == null) {
+            instance = new RentalConfig();
+            setProperties(null);
+        }
+        return instance;
+    }
 
     public static void setupConfigByConfigFileName(String configFileName) {
         //When setupConfigByConfigFileName is called that means the properties should be loaded.
@@ -17,6 +29,9 @@ public class RentalConfig {
         // be loaded with new value just has the last value.
         // So it is important to set it null to prevent from unwanted side effects.
         setProperties(null);
+        if (configFileName == null || configFileName.isEmpty()) {
+            throw new RentalException(ExceptionCode.ERR01, configFileName);
+        }
         try (InputStream input = RentalConfig.class.getResourceAsStream(configFileName)) {
             if (input != null) {
                 loadPropertyFromStream(input);
@@ -30,7 +45,7 @@ public class RentalConfig {
 
     }
 
-    public static void loadPropertyFromStream(InputStream input) throws IOException {
+    private static void loadPropertyFromStream(InputStream input) throws IOException {
         Properties props = new Properties();
         props.load(input);
         setProperties(props);
@@ -45,11 +60,8 @@ public class RentalConfig {
         return properties.getProperty(key);
     }
 
-    public static void setProperties(Properties props) {
+    private static void setProperties(Properties props) {
         properties = props;
     }
 
-    public static Properties getProperties() {
-        return properties;
-    }
 }
