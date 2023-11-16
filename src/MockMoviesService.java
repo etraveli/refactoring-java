@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.Map;
 
 public final class MockMoviesService implements MoviesService {
@@ -8,8 +9,8 @@ public final class MockMoviesService implements MoviesService {
       "F003", new Movie("Cars", MovieCode.CHILDRENS),
       "F004", new Movie("Fast & Furious X", MovieCode.NEW));
 
-  private static final double regularPrice = 2;
-  private static final double childrensPrice = 1.5;
+  private static final BigDecimal regularPrice = new BigDecimal("2.0");
+  private static final BigDecimal childrensPrice = new BigDecimal("1.5");
 
   @Override
   public Movie getMovieById(String movieId) throws Exception {
@@ -22,15 +23,18 @@ public final class MockMoviesService implements MoviesService {
   }
 
   @Override
-  public double calculateRentPrice(MovieCode movieCode, int days) throws Exception {
+  public BigDecimal calculateRentPrice(MovieCode movieCode, int days) throws Exception {
     if (days <= 0)
       throw new Exception("Invalid days");
     if (movieCode == null)
       throw new Exception("Invalid movie code");
+
     return switch (movieCode) {
-      case REGULAR -> days > 2 ? ((days - 2) * 1.5) + regularPrice : regularPrice;
-      case NEW -> days * 3;
-      case CHILDRENS -> days > 3 ? ((days - 3) * 1.5) + childrensPrice : childrensPrice;
+      case REGULAR ->
+        days > 2 ? new BigDecimal(days - 2).multiply(new BigDecimal("1.5")).add(regularPrice) : regularPrice;
+      case NEW -> new BigDecimal(days * 3);
+      case CHILDRENS ->
+        days > 3 ? new BigDecimal(days - 3).multiply(new BigDecimal("1.5")).add(childrensPrice) : childrensPrice;
       default -> throw new Exception("Invalid movie code");
     };
   }

@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -38,12 +39,12 @@ public final class Test {
 
   private static final void testCalculateRentPrice() throws Exception {
     // success
-    double rentPrice = moviesService.calculateRentPrice(MovieCode.REGULAR, 4);
-    if (rentPrice != 5.0)
+    BigDecimal rentPrice = moviesService.calculateRentPrice(MovieCode.REGULAR, 4);
+    if (!rentPrice.equals(new BigDecimal("5.0")))
       throw new AssertionError("Expected: 5.0 Actual: " + rentPrice);
     // invalid days
     try {
-      double invalidDaysPrice = moviesService.calculateRentPrice(MovieCode.REGULAR, -1);
+      BigDecimal invalidDaysPrice = moviesService.calculateRentPrice(MovieCode.REGULAR, -1);
       throw new AssertionError("Expected: thrown error Actual: " + invalidDaysPrice);
     } catch (Exception exception) {
       if (!exception.getMessage().equals("Invalid days"))
@@ -51,7 +52,7 @@ public final class Test {
     }
     // null code
     try {
-      double invalidCodePrice = moviesService.calculateRentPrice(null, 4);
+      BigDecimal invalidCodePrice = moviesService.calculateRentPrice(null, 4);
       throw new AssertionError("Expected: thrown error Actual: " + invalidCodePrice);
     } catch (Exception exception) {
       if (!exception.getMessage().equals("Invalid movie code"))

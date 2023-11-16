@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,20 +7,20 @@ public final class Statement {
   private final String customerName;
   private final List<String> entries;
 
-  private double totalPrice;
+  private BigDecimal totalPrice;
   private int frequentPoints;
 
   public Statement(String customerName) {
     this.customerName = customerName;
     this.frequentPoints = 0;
-    this.totalPrice = 0;
+    this.totalPrice = new BigDecimal(0);
     entries = new ArrayList<>();
   }
 
-  public boolean addEntry(String movieTitle, double rentPrice, boolean isTwoDayNewRelease) {
-    totalPrice += rentPrice;
+  public boolean addEntry(String movieTitle, BigDecimal rentPrice, boolean isTwoDayNewRelease) {
+    totalPrice = totalPrice.add(rentPrice);
     frequentPoints = frequentPoints + (isTwoDayNewRelease ? 2 : 1);
-    return entries.add("\t" + movieTitle + "\t" + rentPrice + "\n");
+    return entries.add("\t" + movieTitle + "\t" + rentPrice.toPlainString() + "\n");
   }
 
   @Override

@@ -1,3 +1,4 @@
+import java.math.BigDecimal;
 import java.util.List;
 
 public final class MockStatementService extends StatementService {
@@ -17,7 +18,7 @@ public final class MockStatementService extends StatementService {
       Movie movie = moviesService.getMovieById(movieRental.movieId());
       MovieCode movieCode = movie.code();
       int days = movieRental.days();
-      double rentPrice = moviesService.calculateRentPrice(movieCode, days);
+      BigDecimal rentPrice = moviesService.calculateRentPrice(movieCode, days);
       boolean isTwoDayNewRelease = movieCode.equals(MovieCode.NEW) && days > 2;
       statement.addEntry(movie.title(), rentPrice, isTwoDayNewRelease);
     }
