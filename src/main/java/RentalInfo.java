@@ -3,6 +3,11 @@ import java.util.HashMap;
 public class RentalInfo {
 
   public String statement(Customer customer) {
+    if(customer==null)
+      return "Please select a customer!";
+    if(customer.getRentals()==null)
+      return "Rental Record for customer1\nIs Zero";
+
     HashMap<String, Movie> movies = new HashMap();
     movies.put("F001", new Movie("You've Got Mail", "regular"));
     movies.put("F002", new Movie("Matrix", "regular"));
