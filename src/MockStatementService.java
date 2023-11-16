@@ -7,7 +7,11 @@ public final class MockStatementService extends StatementService {
   }
 
   @Override
-  public Statement createStatement(String customerName, List<MovieRental> movieRentals) {
+  public Statement createStatement(String customerName, List<MovieRental> movieRentals) throws Exception {
+    if (customerName == null || customerName.length() <= 0)
+      throw new Exception("Invalid customer name");
+    if (movieRentals == null)
+      throw new Exception("Invalid movie rentals");
     Statement statement = new Statement(customerName);
     for (MovieRental movieRental : movieRentals) {
       Movie movie = moviesService.getMovieById(movieRental.movieId());

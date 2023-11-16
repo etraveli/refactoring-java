@@ -8,6 +8,6 @@ public abstract class StatementService {
     this.moviesService = moviesService;
   }
 
-  public abstract Statement createStatement(String customerName, List<MovieRental> movieRentals);
+  public abstract Statement createStatement(String customerName, List<MovieRental> movieRentals) throws Exception;
 
 }
