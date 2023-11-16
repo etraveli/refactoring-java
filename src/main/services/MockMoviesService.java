@@ -2,9 +2,9 @@ package services;
 
 import java.util.Map;
 
-import records.Movie;
+import data.Movie;
 
-public class MockMoviesService implements MoviesService {
+public final class MockMoviesService implements MoviesService {
 
   private static final Map<String, Movie> movies = Map.of(
       "F001", new Movie("You've Got Mail", "regular"),

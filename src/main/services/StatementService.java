@@ -2,7 +2,8 @@ package services;
 
 import java.util.List;
 
-import records.MovieRental;
+import data.MovieRental;
+import data.Statement;
 
 public abstract class StatementService {
 
@@ -12,6 +13,6 @@ public abstract class StatementService {
     this.moviesService = moviesService;
   }
 
-  public abstract String createStatement(String customerName, List<MovieRental> movieRentals);
+  public abstract Statement createStatement(String customerName, List<MovieRental> movieRentals);
 
 }

@@ -1,6 +1,6 @@
 package services;
 
-import records.Movie;
+import data.Movie;
 
 public interface MoviesService {
 
