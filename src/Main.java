@@ -1,15 +1,5 @@
-package app;
-
 import java.util.Arrays;
 import java.util.List;
-
-import data.MovieRental;
-import data.Statement;
-
-import services.MockMoviesService;
-import services.MockStatementService;
-import services.MoviesService;
-import services.StatementService;
 
 public final class Main {
 
@@ -23,7 +13,7 @@ public final class Main {
       throw new AssertionError("Expected: " + System.lineSeparator() + String.format(expected) + System.lineSeparator()
           + System.lineSeparator() + "Got: " + System.lineSeparator() + statement);
     }
-    System.out.print(statement);
+    System.out.println("Success");
   }
 
 }

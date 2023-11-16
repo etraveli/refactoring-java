@@ -1,7 +1,3 @@
-package services;
-
-import data.Movie;
-
 public interface MoviesService {
 
   public Movie getMovieById(String movieId);

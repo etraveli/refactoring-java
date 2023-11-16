@@ -1,9 +1,4 @@
-package services;
-
 import java.util.List;
-
-import data.MovieRental;
-import data.Statement;
 
 public abstract class StatementService {
 

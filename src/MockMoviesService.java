@@ -1,8 +1,4 @@
-package services;
-
 import java.util.Map;
-
-import data.Movie;
 
 public final class MockMoviesService implements MoviesService {
 

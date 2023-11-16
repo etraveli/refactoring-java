@@ -1,10 +1,4 @@
-package services;
-
 import java.util.List;
-
-import data.Movie;
-import data.MovieRental;
-import data.Statement;
 
 public final class MockStatementService extends StatementService {
 
