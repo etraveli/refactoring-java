@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import service.Price;
-import type.ShowType;
+import constant.ShowType;
 
 @Getter
 @AllArgsConstructor

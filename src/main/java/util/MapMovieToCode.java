@@ -1,15 +1,15 @@
 package util;
 
+import constant.ShowType;
 import entity.Movie;
 import entity.MovieType;
 import serviceImpl.ChildrenPrice;
 import serviceImpl.NewReleasePrice;
 import serviceImpl.RegularPrice;
-import type.ShowType;
 
 import java.util.HashMap;
 
-public class MapMovieToID {
+public class MapMovieToCode {
     static HashMap<String, Movie> movies;
     static {
         movies = new HashMap<>();
@@ -22,7 +22,7 @@ public class MapMovieToID {
         movies.put("F003", new Movie(3L,"Cars", childrenMovieType));
         movies.put("F004", new Movie(4L,"Fast & Furious X", newReleaseMovieType));
     }
-    public static Movie getMovie(String movieId){
-        return movies.get(movieId);
+    public static Movie getMovie(String movieCode){
+        return movies.get(movieCode);
     }
 }

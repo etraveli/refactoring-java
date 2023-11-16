@@ -1,4 +1,4 @@
-package type;
+package constant;
 
 public enum ShowType {
 
