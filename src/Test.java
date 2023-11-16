@@ -7,10 +7,8 @@ public final class Test {
   private static final StatementService statementService = new MockStatementService(moviesService);
 
   public static void main(String[] args) throws Exception {
-    // Mock movie service tests
     testGetMovieById();
     testCalculateRentPrice();
-    // Mock statement service tests
     testCreateStatement();
     System.out.println("All tests executed successfully");
   }
@@ -40,20 +38,12 @@ public final class Test {
 
   private static final void testCalculateRentPrice() throws Exception {
     // success
-    double rentPrice = moviesService.calculateRentPrice("regular", 4);
+    double rentPrice = moviesService.calculateRentPrice(MovieCode.REGULAR, 4);
     if (rentPrice != 5.0)
       throw new AssertionError("Expected: 5.0 Actual: " + rentPrice);
-    // invalid code
-    try {
-      double invalidCodePrice = moviesService.calculateRentPrice("INVALID", 4);
-      throw new AssertionError("Expected: thrown error Actual: " + invalidCodePrice);
-    } catch (Exception exception) {
-      if (!exception.getMessage().equals("Invalid movie code"))
-        throw exception;
-    }
     // invalid days
     try {
-      double invalidDaysPrice = moviesService.calculateRentPrice("regular", -1);
+      double invalidDaysPrice = moviesService.calculateRentPrice(MovieCode.REGULAR, -1);
       throw new AssertionError("Expected: thrown error Actual: " + invalidDaysPrice);
     } catch (Exception exception) {
       if (!exception.getMessage().equals("Invalid days"))

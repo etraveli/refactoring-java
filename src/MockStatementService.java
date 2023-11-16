@@ -15,10 +15,10 @@ public final class MockStatementService extends StatementService {
     Statement statement = new Statement(customerName);
     for (MovieRental movieRental : movieRentals) {
       Movie movie = moviesService.getMovieById(movieRental.movieId());
-      String movieCode = movie.code();
+      MovieCode movieCode = movie.code();
       int days = movieRental.days();
       double rentPrice = moviesService.calculateRentPrice(movieCode, days);
-      boolean isTwoDayNewRelease = movieCode.equals("new") && days > 2;
+      boolean isTwoDayNewRelease = movieCode.equals(MovieCode.NEW) && days > 2;
       statement.addEntry(movie.title(), rentPrice, isTwoDayNewRelease);
     }
     return statement;
