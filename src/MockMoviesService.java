@@ -28,7 +28,6 @@ public final class MockMoviesService implements MoviesService {
       throw new Exception("Invalid days");
     if (movieCode == null)
       throw new Exception("Invalid movie code");
-
     return switch (movieCode) {
       case REGULAR ->
         days > 2 ? new BigDecimal(days - 2).multiply(new BigDecimal("1.5")).add(regularPrice) : regularPrice;
