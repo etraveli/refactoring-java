@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public final class Test {
 
-  private static final MoviesService moviesService = new MockMoviesService();
-  private static final StatementService statementService = new MockStatementService(moviesService);
+  private static final MoviesService moviesService = new LocalMoviesService();
+  private static final StatementService statementService = new LocalStatementService(moviesService);
 
   public static void main(String[] args) throws Exception {
     testGetMovieById();

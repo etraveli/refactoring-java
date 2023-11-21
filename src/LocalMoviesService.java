@@ -1,7 +1,7 @@
 import java.math.BigDecimal;
 import java.util.Map;
 
-public final class MockMoviesService implements MoviesService {
+public final class LocalMoviesService implements MoviesService {
 
   private static final Map<String, Movie> movies = Map.of(
       "F001", new Movie("You've Got Mail", MovieCode.REGULAR),

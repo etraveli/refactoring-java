@@ -1,6 +1,6 @@
 # ♾️ Refactoring Java - Daniel Crosby
 
-## ▶️ To run the test:
+## ▶️ To run the test
 
 ```
 javac src/*.java
@@ -13,7 +13,7 @@ Additional tests have been created to test different scenarios.
 java -cp src Test
 ```
 
-## 📖 Definition of Refactoring: 
+## 📖 Definition of Refactoring
 
 "restructure (the source code of an application or piece of software) so as to improve operation without altering functionality."
 
@@ -33,11 +33,11 @@ Methods within services function as their name suggests and additionally throw e
 
 #### 🎥 Movies Service
 
-The movies service interface contains two methods `getMovieById` and `calculateRentPrice`. These are implemented by `MockMoviesService` which stores all the data about available movies in memory.
+The movies service interface contains two methods `getMovieById` and `calculateRentPrice`. These are implemented by `LocalMoviesService` which stores all the data about available movies in memory.
 
 #### 📃 Statement Service
 
-The statement service contains one method `createStatement`. It is implemented by `MockStatementService` that also relies on any implementation of the movies service. It uses the data supplied to it to construct the required `Statement` object that will contain all the necessary data. In a production system this object may be persisted in a database for future records.
+The statement service contains one method `createStatement`. It is implemented by `LocalStatementService` that also relies on an implementation of the movies service. It uses the data supplied to it to construct the required `Statement` object that will contain all the necessary data. In a production system this object may be persisted in a database for future records.
 
 ### 📒 Data
 
@@ -72,7 +72,7 @@ A graphical user interface e.g a web based one would improve the interation with
 An improved package structure for this project in its curent state could look like this.
 
 ```
-src/
+src/main/java/
 ├─ Main.java
 ├─ Test.java
 ├─ data/
@@ -81,9 +81,9 @@ src/
 | ├─ MovieRental.java
 | ├─ Statement.java
 ├─ services/
-| ├─ MockMoviesService.java
+| ├─ LocalMoviesService.java
 | ├─ MoviesService.java
-| ├─ MockStatementService.java
+| ├─ LocalStatementService.java
 | ├─ StatementService.java
 ```
 

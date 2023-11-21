@@ -1,9 +1,9 @@
 import java.math.BigDecimal;
 import java.util.List;
 
-public final class MockStatementService extends StatementService {
+public final class LocalStatementService extends StatementService {
 
-  public MockStatementService(MoviesService moviesService) {
+  public LocalStatementService(MoviesService moviesService) {
     super(moviesService);
   }
 
