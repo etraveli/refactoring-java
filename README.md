@@ -87,4 +87,4 @@ src/main/java/
 | ├─ StatementService.java
 ```
 
-This would separate out unrelated classes and files into a more a modular layout but doing this requires changing the java class path i.e how the software is run.
+This would separate out unrelated classes and files into a more modular layout but doing this requires changing the java class path i.e how the software is run.
