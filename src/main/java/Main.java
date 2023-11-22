@@ -1,4 +1,5 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -6,10 +7,15 @@ public class Main {
     Statement expected = new Statement("C. U. Stomer");
     expected.addRental("You've Got Mail", 3.5);
     expected.addRental("Matrix", 2.0);
-    expected.addFooter(5.5, 2);
+    expected.incrementFrequentEnterPoints();
+    expected.incrementFrequentEnterPoints();
 
+    List<MovieRental> movies = new ArrayList<>();
+    movies.add(new MovieRental(Movie.Id.F001, 3));
+    movies.add(new MovieRental(Movie.Id.F002, 1));
+    Customer customer = new Customer("C. U. Stomer", movies);
 
-    Statement result = new RentalInfo().getStatement(new Customer("C. U. Stomer", Arrays.asList(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+    Statement result = new RentalInfo().getStatement(customer);
 
     if (!result.equals(expected)) {
       throw new AssertionError("Expected: " + System.lineSeparator() + expected + System.lineSeparator() + System.lineSeparator() + "Got: " + System.lineSeparator() + result);

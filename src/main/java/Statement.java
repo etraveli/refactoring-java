@@ -6,23 +6,25 @@ public class Statement {
 
     private final String customerName;
     private final List<TitlePoints> rentals;
-    private double totalPoints;
     private int frequentEnterPoints;
 
     public Statement(String customerName) {
         this.customerName = customerName;
         rentals = new ArrayList<>();
-        totalPoints = 0.0;
         frequentEnterPoints = 0;
     }
 
-    public void addRental(String title, double points) {
-        rentals.add(new TitlePoints(title, points));
+    public double getTotalPoints() {
+        return rentals.stream().map( r -> r.amount)
+                .reduce(0.0, Double::sum);
     }
 
-    public void addFooter(double totalPoints, int frequentEnterPoints) {
-        this.totalPoints = totalPoints;
-        this.frequentEnterPoints = frequentEnterPoints;
+    public void addRental(String title, double amount) {
+        rentals.add(new TitlePoints(title, amount));
+    }
+
+    public void incrementFrequentEnterPoints(){
+        frequentEnterPoints++;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class Statement {
         sb.append("Rental Record for ").append(customerName);
         sb.append("\n");
         rentals.forEach(r -> sb.append(r.toString()));
-        sb.append("Amount owed is ").append(totalPoints);
+        sb.append("Amount owed is ").append(getTotalPoints());
         sb.append("\n");
         sb.append("You earned ").append(frequentEnterPoints).append(" frequent points");
         sb.append("\n");
@@ -55,22 +57,22 @@ public class Statement {
         Statement statement = (Statement) o;
         return customerName.equals(statement.customerName)
                 && Objects.equals(rentals, statement.rentals)
-                && totalPoints == statement.totalPoints
+                && getTotalPoints() == statement.getTotalPoints()
                 && frequentEnterPoints == statement.frequentEnterPoints;
     }
 
     static class TitlePoints {
         private final String title;
-        private final double points;
+        private final double amount;
 
         public TitlePoints(String title, double points) {
             this.title = title;
-            this.points = points;
+            this.amount = points;
         }
 
         @Override
         public String toString() {
-            return "\t" + title + "\t" + points + "\n";
+            return "\t" + title + "\t" + amount + "\n";
         }
 
         @Override
@@ -79,7 +81,7 @@ public class Statement {
             if (o == null || getClass() != o.getClass()) return false;
 
             TitlePoints tp = (TitlePoints) o;
-            return title.equals(tp.title) && points == tp.points;
+            return title.equals(tp.title) && amount == tp.amount;
         }
     }
 }

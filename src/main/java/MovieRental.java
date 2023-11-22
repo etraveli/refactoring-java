@@ -1,13 +1,13 @@
 public class MovieRental {
-    private final String movieId;
+    private final Movie.Id movieId;
     private final int days;
 
-    public MovieRental(String movieId, int days) {
+    public MovieRental(Movie.Id movieId, int days) {
         this.movieId = movieId;
         this.days = days;
     }
 
-    public String getMovieId() {
+    public Movie.Id getMovieId() {
         return movieId;
     }
 
