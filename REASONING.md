@@ -27,4 +27,7 @@
   * I also moved all classes that I see as entities/components to folder entity. Here lies classes that only holds data\
     and no logic. Except for Statement which calculates its total on the fly, but that's okay. If we decide to add a \
     database in the future it's good to have clean and small entities/components.
-* 
+* Refactoring the hashmap of all movie entries into an enum inside the Movie class. This made it so that it cannot be \
+  any miss-match with enum (key) and movie id (enum inside value), it also makes it so that you only have to enter \
+  title and category once. You still have to null check the movie in RentalInfo, but it should be a little better.\
+  I will look into better error handling.

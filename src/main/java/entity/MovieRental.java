@@ -1,16 +1,16 @@
 package entity;
 
 public class MovieRental {
-    private final Movie.Id movieId;
+    private final Movie movie;
     private final int days;
 
-    public MovieRental(Movie.Id movieId, int days) {
-        this.movieId = movieId;
+    public MovieRental(Movie movie, int days) {
+        this.movie = movie;
         this.days = days;
     }
 
-    public Movie.Id getMovieId() {
-        return movieId;
+    public Movie getMovie() {
+        return movie;
     }
 
     public int getDays() {

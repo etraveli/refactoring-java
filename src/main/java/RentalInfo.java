@@ -2,29 +2,13 @@ import entity.Customer;
 import entity.Movie;
 import entity.Statement;
 
-import java.util.HashMap;
-
 public class RentalInfo {
-
-    private static final HashMap<Movie.Id, Movie> movieStock;
-
-    static {
-        movieStock = new HashMap<>();
-        movieStock.put(Movie.Id.F001, new Movie(Movie.Id.F001, "You've Got Mail", Movie.Category.REGULAR));
-        movieStock.put(Movie.Id.F002, new Movie(Movie.Id.F002, "Matrix", Movie.Category.REGULAR));
-        movieStock.put(Movie.Id.F003, new Movie(Movie.Id.F003, "Cars", Movie.Category.CHILDREN));
-        movieStock.put(Movie.Id.F004, new Movie(Movie.Id.F004, "Fast & Furious X", Movie.Category.NEW));
-    }
-
-    public static HashMap<Movie.Id, Movie> getMovieStock() {
-        return movieStock;
-    }
 
     public Statement getStatement(Customer customer) {
         Statement statement = new Statement(customer.getName());
 
         customer.getRentals().forEach(rental -> {
-            Movie movie = movieStock.get(rental.getMovieId());
+            Movie movie = rental.getMovie();
             if (movie == null) {
                 return;
             }

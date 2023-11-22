@@ -1,33 +1,28 @@
 package entity;
 
-public class Movie {
-    private final Id movieId;
+public enum Movie {
+    F001("You've Got Mail", Movie.Category.REGULAR),
+    F002("Matrix", Movie.Category.REGULAR),
+    F003("Cars", Movie.Category.CHILDREN),
+    F004("Fast & Furious X", Movie.Category.NEW);
+
     private final String title;
-    private final Category category;
+    private final Movie.Category category;
 
-    public enum Category {
-        REGULAR, CHILDREN, NEW
-    }
-
-    public enum Id {
-        F001, F002, F003, F004
-    }
-
-    public Movie(Id movieId, String title, Category code) {
-        this.movieId = movieId;
+    Movie(String title, Movie.Category category) {
         this.title = title;
-        this.category = code;
-    }
-
-    public Id getMovieId() {
-        return movieId;
+        this.category = category;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public Category getCategory() {
+    public Movie.Category getCategory() {
         return category;
+    }
+
+    public enum Category {
+        REGULAR, CHILDREN, NEW
     }
 }
