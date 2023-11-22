@@ -1,3 +1,7 @@
+import entity.Customer;
+import entity.Movie;
+import entity.MovieRental;
+import entity.Statement;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

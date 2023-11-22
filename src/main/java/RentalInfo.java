@@ -1,3 +1,7 @@
+import entity.Customer;
+import entity.Movie;
+import entity.Statement;
+
 import java.util.HashMap;
 
 public class RentalInfo {

@@ -1,3 +1,5 @@
+package entity;
+
 public class MovieRental {
     private final Movie.Id movieId;
     private final int days;

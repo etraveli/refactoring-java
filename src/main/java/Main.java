@@ -1,3 +1,8 @@
+import entity.Customer;
+import entity.Movie;
+import entity.MovieRental;
+import entity.Statement;
+
 import java.util.ArrayList;
 import java.util.List;
 
