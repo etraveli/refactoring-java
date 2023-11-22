@@ -1,2 +1,11 @@
 # Compiled class file
 *.class
+
+# Build files
+target
+
+# Intellij stuff
+.idea
+*.iml
+
+
