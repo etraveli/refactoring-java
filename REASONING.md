@@ -31,3 +31,16 @@
   any miss-match with enum (key) and movie id (enum inside value), it also makes it so that you only have to enter \
   title and category once. You still have to null check the movie in RentalInfo, but it should be a little better.\
   I will look into better error handling.
+* For error handling the possibility for Movie to be null I decided to throw a NullPointerException in the getMovie\
+  function. This makes sure the caller of the function knows they need to handle the exception somehow.\
+  For good measure I also added a null check in the constructor to make sure Movie is never null. It would be nice\
+  to get a linting warning though.
+  * I wrote tests for validation that the NullPointerExceptions where thrown when they should, but ended up in a\
+    rabbit hole of trying to understand why Maven would nod run all my tests. Turns out I forgot making the classes\
+    and methods public, but also the test method names has to start with 'test'. For some reason the parameterized\
+    test do not want to run.
+  * I also found a library so that I can annotate parameters with @NotNull. This made it cleaner, and you now get a \
+    warning inside your IDE, when trying to pass null. It does not prevent you from doing it, but it will throw a\
+    IllegalArgumentException in runtime if you do it. So I changed the test to look for IllegalArgumentException.
+  * Last I wanted to rename the test methods to more readable names following the given-when-then as best I could.
+  * With the @NotNull I could remove some tests.

@@ -4,33 +4,32 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TitleAmountTest {
+public class TitleAmountTest {
 
     @Test
-    void testToString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("\t").append(Movie.F004.getTitle()).append("\t").append("2.3").append("\n");
+    public void givenTitleAmount_whenCallingToString_thenReturnEasyReadString() {
+        String sb = "\t" + Movie.F004.getTitle() + "\t" + "2.3" + "\n";
 
         TitleAmount result = new TitleAmount(Movie.F004.getTitle(), 2.3);
-        assertEquals(sb.toString(), result.toString());
+        assertEquals(sb, result.toString());
     }
 
     @Test
-    void testEquals() {
+    public void givenTitleAmountsDoNotDiffer_whenComparing_thenReturnEqual() {
         TitleAmount expected = new TitleAmount(Movie.F004.getTitle(), 2.3);
         TitleAmount result = new TitleAmount(Movie.F004.getTitle(), 2.3);
         assertEquals(expected, result);
     }
 
     @Test
-    void testNotEqualsDiffInTitle() {
+    public void givenTitleDiffer_whenComparing_thenReturnNotEqual() {
         TitleAmount expected = new TitleAmount(Movie.F004.getTitle(), 2.3);
         TitleAmount result = new TitleAmount(Movie.F002.getTitle(), 2.3);
         assertNotEquals(expected, result);
     }
 
     @Test
-    void testNotEqualsDiffInPoints() {
+    public void givenAmountDiffer_whenComparing_thenReturnNotEqual() {
         TitleAmount expected = new TitleAmount(Movie.F004.getTitle(), 2.3);
         TitleAmount result = new TitleAmount(Movie.F004.getTitle(), 2.0);
         assertNotEquals(expected, result);

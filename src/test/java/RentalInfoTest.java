@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class RentalInfoTest {
     @Test
-    public void testMainFunction() {
+    public void givenValidCustomer_whenGetStatement_thenAssertEqualsExpected() {
         Statement expected = new Statement("C. U. Stomer");
         expected.addRental(Movie.F001.getTitle(), 3.5);
         expected.addRental(Movie.F002.getTitle(), 2.0);
@@ -31,7 +34,7 @@ public class RentalInfoTest {
     }
 
     @Test
-    public void testAddingTheSameMovie() {
+    public void givenRentalSameMovie_whenGetStatement_thenAssertEqualsExpected() {
         Statement expected = new Statement("C. U. Stomer");
         expected.addRental(Movie.F002.getTitle(), 3.5);
         expected.addRental(Movie.F002.getTitle(), 2.0);
@@ -51,7 +54,7 @@ public class RentalInfoTest {
     }
 
     @Test
-    public void testNegativeRentingDaysForANewCodeMove() {
+    public void givenRentingNewCategoryWithNegativeDays_whenGetStatement_thenAssertEqualsExpected() {
         Statement expected = new Statement("C. U. Stomer");
         expected.addRental(Movie.F001.getTitle(), 3.5);
         expected.addRental(Movie.F004.getTitle(), -3.0);
@@ -71,7 +74,7 @@ public class RentalInfoTest {
     }
 
     @Test
-    public void testNegativeRentingDaysForARegularCodeMove() {
+    public void givenRentingRegularCategoryWithNegativeDays_whenGetStatement_thenAssertEqualsExpected() {
         Statement expected = new Statement("C. U. Stomer");
         expected.addRental(Movie.F001.getTitle(), 3.5);
         expected.addRental(Movie.F002.getTitle(), 2.0);
@@ -91,7 +94,7 @@ public class RentalInfoTest {
     }
 
     @Test
-    public void testNegativeRentingDaysForAChildrensCodeMove() {
+    public void givenRentingChildrenCategoryWithNegativeDays_whenGetStatement_thenAssertEqualsExpected() {
         Statement expected = new Statement("C. U. Stomer");
         expected.addRental(Movie.F001.getTitle(), 3.5);
         expected.addRental(Movie.F003.getTitle(), 1.5);

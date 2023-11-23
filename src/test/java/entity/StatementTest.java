@@ -9,11 +9,10 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StatementTest {
-
+public class StatementTest {
     @ParameterizedTest
     @MethodSource("provideAmountToCalculate")
-    void testGetTotalAmount(double expectedTotalAmount, double[] amounts) {
+    public void givenHavingRentals_whenGettingTheTotalAmount_thenSumUpAllRentalAmounts(double expectedTotalAmount, double[] amounts) {
         Statement result = new Statement("C. U. Stomer");
         for (double amount : amounts) {
             result.addRental(Movie.F002.getTitle(), amount);
@@ -32,24 +31,23 @@ class StatementTest {
     }
 
     @Test
-    void testToString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Rental Record for C. U. Stomer").append("\n");
-        sb.append("\t").append(Movie.F002.getTitle()).append("\t").append("3.5").append("\n");
-        sb.append("\t").append(Movie.F004.getTitle()).append("\t").append("2.0").append("\n");
-        sb.append("Amount owed is 5.5").append("\n");
-        sb.append("You earned 2 frequent points").append("\n");
+    public void givenStatement_whenCallingToString_thenReturnEasyReadString() {
+        String sb = "Rental Record for C. U. Stomer" + "\n" +
+                "\t" + Movie.F002.getTitle() + "\t" + "3.5" + "\n" +
+                "\t" + Movie.F004.getTitle() + "\t" + "2.0" + "\n" +
+                "Amount owed is 5.5" + "\n" +
+                "You earned 2 frequent points" + "\n";
 
         Statement result = new Statement("C. U. Stomer");
         result.addRental(Movie.F002.getTitle(), 3.5);
         result.addRental(Movie.F004.getTitle(), 2.0);
         result.incrementFrequentEnterPoints();
         result.incrementFrequentEnterPoints();
-        assertEquals(sb.toString(), result.toString());
+        assertEquals(sb, result.toString());
     }
 
     @Test
-    void testEquals() {
+    public void givenStatementsDoNotDiffer_whenComparing_thenReturnEqual() {
         Statement expected = new Statement("C. U. Stomer");
         expected.addRental(Movie.F002.getTitle(), 3.5);
         expected.addRental(Movie.F004.getTitle(), 2.0);
@@ -66,7 +64,7 @@ class StatementTest {
     }
 
     @Test
-    void testNotEqualsDiffInFrequentEnterPoints() {
+    public void givenFrequentEnterPointsDiffers_whenComparing_thenReturnNotEqual() {
         Statement expected = new Statement("C. U. Stomer");
         expected.addRental(Movie.F002.getTitle(), 3.5);
         expected.addRental(Movie.F004.getTitle(), 2.0);
@@ -82,7 +80,7 @@ class StatementTest {
     }
 
     @Test
-    void testNotEqualsDiffNumberOfRentals() {
+    public void givenRentalCountDiffers_whenComparing_thenReturnNotEqual() {
         Statement expected = new Statement("C. U. Stomer");
         expected.addRental(Movie.F002.getTitle(), 3.5);
         expected.incrementFrequentEnterPoints();
@@ -98,7 +96,7 @@ class StatementTest {
     }
 
     @Test
-    void testNotEqualsDiffDifferentRentals() {
+    public void givenRentalsDiffers_whenComparing_thenReturnNotEqual() {
         Statement expected = new Statement("C. U. Stomer");
         expected.addRental(Movie.F002.getTitle(), 3.5);
         expected.addRental(Movie.F004.getTitle(), 3.5);
@@ -115,7 +113,7 @@ class StatementTest {
     }
 
     @Test
-    void testNotEqualsDiffCustomerName() {
+    public void givenCustomerDiffers_whenComparing_thenReturnNotEqual() {
         Statement expected = new Statement("C. U. Stomer NOT");
         expected.addRental(Movie.F002.getTitle(), 3.5);
         expected.addRental(Movie.F004.getTitle(), 2.0);

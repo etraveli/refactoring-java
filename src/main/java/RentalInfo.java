@@ -9,30 +9,32 @@ public class RentalInfo {
 
         customer.getRentals().forEach(rental -> {
             Movie movie = rental.getMovie();
-            if (movie == null) {
-                return;
-            }
 
-            double rentalAmount = 0;
-            switch (movie.getCategory()) {
-                case REGULAR:
-                    rentalAmount = calculateRegularRentalAmount(rental.getDays());
-                    break;
-                case CHILDREN:
-                    rentalAmount = calculateChildrenRentalAmount(rental.getDays());
-                    break;
-                case NEW:
-                    rentalAmount = calculateNewReleaseRentalAmount(rental.getDays());
-                    if (rental.getDays() > 2) // add bonus for a two-day new release rental
-                        statement.incrementFrequentEnterPoints();
-                    break;
-            }
+            double rentalAmount = calculateRentalAmount(movie.getCategory(), rental.getDays());
 
+            // add bonus for a two-day new release rental
+            if (movie.getCategory().equals(Movie.Category.NEW) && rental.getDays() > 2) {
+                statement.incrementFrequentEnterPoints();
+            }
             statement.incrementFrequentEnterPoints();
+
             statement.addRental(movie.getTitle(), rentalAmount);
         });
 
         return statement;
+    }
+
+    private double calculateRentalAmount(Movie.Category category, int days) {
+        switch (category) {
+            case REGULAR:
+                return calculateRegularRentalAmount(days);
+            case CHILDREN:
+                return calculateChildrenRentalAmount(days);
+            case NEW:
+                return calculateNewReleaseRentalAmount(days);
+            default:
+                throw new UnsupportedOperationException("Unsupported movie category: " + category);
+        }
     }
 
     private double calculateNewReleaseRentalAmount(int days) {
