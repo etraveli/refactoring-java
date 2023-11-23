@@ -1,8 +1,10 @@
+package entity;
+
 import java.util.List;
 
 public class Customer {
-    private String name;
-    private List<MovieRental> rentals;
+    private final String name;
+    private final List<MovieRental> rentals;
 
     public Customer(String name, List<MovieRental> rentals) {
         this.name = name;
