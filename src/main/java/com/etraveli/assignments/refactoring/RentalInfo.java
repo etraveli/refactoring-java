@@ -1,3 +1,9 @@
+package com.etraveli.assignments.refactoring;
+
+import com.etraveli.assignments.refactoring.models.Customer;
+import com.etraveli.assignments.refactoring.models.Movie;
+import com.etraveli.assignments.refactoring.models.MovieRental;
+
 import java.util.HashMap;
 
 public class RentalInfo {
@@ -11,34 +17,34 @@ public class RentalInfo {
 
     double totalAmount = 0;
     int frequentEnterPoints = 0;
-    String result = "Rental Record for " + customer.getName() + "\n";
-    for (MovieRental r : customer.getRentals()) {
+    String result = "Rental Record for " + customer.name() + "\n";
+    for (MovieRental r : customer.rentals()) {
       double thisAmount = 0;
 
       // determine amount for each movie
-      if (movies.get(r.getMovieId()).getCode().equals("regular")) {
+      if (movies.get(r.movieId()).code().equals("regular")) {
         thisAmount = 2;
-        if (r.getDays() > 2) {
-          thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
+        if (r.days() > 2) {
+          thisAmount = ((r.days() - 2) * 1.5) + thisAmount;
         }
       }
-      if (movies.get(r.getMovieId()).getCode().equals("new")) {
-        thisAmount = r.getDays() * 3;
+      if (movies.get(r.movieId()).code().equals("new")) {
+        thisAmount = r.days() * 3;
       }
-      if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
+      if (movies.get(r.movieId()).code().equals("childrens")) {
         thisAmount = 1.5;
-        if (r.getDays() > 3) {
-          thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
+        if (r.days() > 3) {
+          thisAmount = ((r.days() - 3) * 1.5) + thisAmount;
         }
       }
 
       //add frequent bonus points
       frequentEnterPoints++;
       // add bonus for a two day new release rental
-      if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
+      if (movies.get(r.movieId()).code() == "new" && r.days() > 2) frequentEnterPoints++;
 
       //print figures for this rental
-      result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
+      result += "\t" + movies.get(r.movieId()).title() + "\t" + thisAmount + "\n";
       totalAmount = totalAmount + thisAmount;
     }
     // add footer lines

@@ -1,3 +1,8 @@
+package com.etraveli.assignments.refactoring;
+
+import com.etraveli.assignments.refactoring.models.Customer;
+import com.etraveli.assignments.refactoring.models.MovieRental;
+
 import java.util.Arrays;
 
 public class Main {
