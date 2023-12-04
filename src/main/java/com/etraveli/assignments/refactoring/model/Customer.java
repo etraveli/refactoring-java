@@ -1,4 +1,4 @@
-package com.etraveli.assignments.refactoring.models;
+package com.etraveli.assignments.refactoring.model;
 
 import java.util.List;
 
