@@ -1,3 +1,3 @@
 package com.etraveli.assignments.refactoring.model;
 
-public record  MovieRental(String movieId, int days) {}
+public record MovieRental(String movieId, int days) {}
