@@ -7,14 +7,28 @@ import com.etraveli.assignments.refactoring.repository.MovieRepository;
 import com.etraveli.assignments.refactoring.util.Constants;
 import com.etraveli.assignments.refactoring.util.MovieCategory;
 
+/**
+ * The Business logic of Rental info service are kept in this class.
+ */
 public class RentalInfoService {
   private final MovieRepository movieRepository;
 
-  public RentalInfoService(MovieRepository movieRepository) {
+  /**
+   * Instantiates a new Rental info service.
+   *
+   * @param movieRepository the movie repository
+   */
+public RentalInfoService(MovieRepository movieRepository) {
     this.movieRepository = movieRepository;
   }
 
-  public String buildRentalInfoStatement(Customer customer) {
+  /**
+   * Build rental info statement string according to the business requirement.
+   *
+   * @param customer the customer
+   * @return the constructed retail information string for given customer.
+   */
+public String buildRentalInfoStatement(Customer customer) {
     double totalAmount = 0;
     int frequentEnterPoints = 0;
 
@@ -40,6 +54,13 @@ public class RentalInfoService {
     return result.toString();
   }
 
+    /**
+     * Calculates the bonus points for renting movies.
+     * @param rentalDays
+     * @param frequentEnterPoints
+     * @param currentMovie
+     * @return calculated bonus points.
+     */
   private int addFrequentBonusPoints(int rentalDays, int frequentEnterPoints, Movie currentMovie) {
     frequentEnterPoints++;
     // add bonus for a two-day new release rental
@@ -50,20 +71,26 @@ public class RentalInfoService {
     return frequentEnterPoints;
   }
 
-  private double calculateAmountForMovie(MovieRental r, Movie currentMovie) {
+    /**
+     * Calculates the rental amount for the movie.
+     * @param movieRental
+     * @param currentMovie
+     * @return
+     */
+  private double calculateAmountForMovie(MovieRental movieRental, Movie currentMovie) {
     double thisAmount = 0.0;
     MovieCategory thisCategory = currentMovie.movieCategory();
     switch (thisCategory) {
       case REGULAR, CHILDRENS -> {
         thisAmount = thisCategory.getBaseAmount();
-        if (r.days() > thisCategory.getDefaultAllowedDays()) {
+        if (movieRental.days() > thisCategory.getDefaultAllowedDays()) {
           thisAmount =
-              ((r.days() - thisCategory.getDefaultAllowedDays())
+              ((movieRental.days() - thisCategory.getDefaultAllowedDays())
                       * thisCategory.getExtraDaysMultiplier())
                   + thisAmount;
         }
       }
-      case NEW -> thisAmount = r.days() * thisCategory.getExtraDaysMultiplier();
+      case NEW -> thisAmount = movieRental.days() * thisCategory.getExtraDaysMultiplier();
     }
     return thisAmount;
   }
