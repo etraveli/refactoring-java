@@ -1,21 +1,13 @@
 package com.etraveli.assignments.refactoring.util;
 
-/**
- * The enum Movie categories.
- */
+/** The enum Movie categories. */
 public enum MovieCategory {
-  /**
-   *Regular movie category.
-   */
-REGULAR("regular", 2, 2, 1.5),
-  /**
-   *New movie category.
-   */
-NEW("new", 0, 0, 3),
-  /**
-   *Childrens movie category.
-   */
-CHILDRENS("childrens", 1.5, 3, 1.5);
+  /** Regular movie category. */
+  REGULAR("regular", 2, 2, 1.5),
+  /** New movie category. */
+  NEW("new", 0, 0, 3),
+  /** Childrens movie category. */
+  CHILDRENS("childrens", 1.5, 3, 1.5);
 
   private final String code;
   private final double baseAmount;
@@ -35,7 +27,7 @@ CHILDRENS("childrens", 1.5, 3, 1.5);
    *
    * @return the code
    */
-public String getCode() {
+  public String getCode() {
     return code;
   }
 
@@ -44,7 +36,7 @@ public String getCode() {
    *
    * @return the base amount
    */
-public double getBaseAmount() {
+  public double getBaseAmount() {
     return baseAmount;
   }
 
@@ -53,7 +45,7 @@ public double getBaseAmount() {
    *
    * @return the default allowed days
    */
-public int getDefaultAllowedDays() {
+  public int getDefaultAllowedDays() {
     return defaultAllowedDays;
   }
 
@@ -62,7 +54,7 @@ public int getDefaultAllowedDays() {
    *
    * @return the extra days multiplier
    */
-public double getExtraDaysMultiplier() {
+  public double getExtraDaysMultiplier() {
     return extraDaysMultiplier;
   }
 }

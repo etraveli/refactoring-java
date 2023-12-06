@@ -6,6 +6,6 @@ public class MovieNotFoundException extends RuntimeException {
   }
 
   public MovieNotFoundException(String message) {
-    super(message);
+    super(String.format("Movie not found for Id %s", message));
   }
 }

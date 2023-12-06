@@ -22,11 +22,11 @@ class MovieRepositoryTest {
   @Test
   void getNonExistingMovie() {
     var thrown =
-            assertThrows(
-                    MovieNotFoundException.class,
-                    () -> {
-                      var movie = testMovieRepository.getMovie("NONE");
-                    });
+        assertThrows(
+            MovieNotFoundException.class,
+            () -> {
+              var movie = testMovieRepository.getMovie("NONE");
+            });
     assertEquals("Movie not found for Id NONE", thrown.getMessage());
   }
 }

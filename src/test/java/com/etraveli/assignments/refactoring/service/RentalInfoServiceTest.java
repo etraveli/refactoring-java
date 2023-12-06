@@ -58,7 +58,7 @@ class RentalInfoServiceTest {
               var customer = new Customer("C. U. Stomer", movieRentals);
               String actual = testRentalInfoService.buildRentalInfoStatement(customer);
             });
-    assertEquals("F002", thrown.getMessage());
+    assertEquals("Movie not found for Id F002", thrown.getMessage());
   }
 
   @Test

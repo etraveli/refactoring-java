@@ -4,14 +4,19 @@ import com.etraveli.assignments.refactoring.exception.MovieNotFoundException;
 import com.etraveli.assignments.refactoring.model.Movie;
 import com.etraveli.assignments.refactoring.util.MovieCategory;
 import java.util.Map;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /** The Movie repository class that demonstrates getting details of movies. */
 public class MovieRepository {
+
+  private static final Logger LOGGER = LogManager.getLogger(MovieRepository.class);
   private final Map<String, Movie> movies;
 
   /** Instantiates a new Movie repository. */
   public MovieRepository() {
     this.movies = getPreConfiguredMovies();
+    LOGGER.info("Successfully loaded {} pre configured movies", movies.size());
   }
 
   private Map<String, Movie> getPreConfiguredMovies() {
@@ -31,8 +36,9 @@ public class MovieRepository {
   public Movie getMovie(String id) {
     var movie = movies.get(id);
     if (movie == null) {
-      throw new MovieNotFoundException(String.format("Movie not found for Id %s", id));
+      throw new MovieNotFoundException(id);
     }
+    LOGGER.debug("Movie found for Id {}", id);
     return movie;
   }
 }

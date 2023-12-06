@@ -8,9 +8,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-/**
- * The Main runner class.
- */
+/** The Main runner class. */
 public class Main {
 
   private static final Logger LOGGER = LogManager.getLogger(Main.class);
@@ -20,7 +18,7 @@ public class Main {
    *
    * @param args the input arguments
    */
-public static void main(String[] args) {
+  public static void main(String[] args) {
     // The expected string
     String expected =
         """
@@ -32,29 +30,32 @@ public static void main(String[] args) {
                           """;
 
     try {
-        // The result generated from RentalInfoService implementation.
-        String result;
-        result =
-            new RentalInfoService(new MovieRepository())
-                .buildRentalInfoStatement(
-                    new Customer(
-                        "C. U. Stomer",
-                        List.of(new MovieRental("F001", 3), new MovieRental("F002", 1))));
+      // The result generated from RentalInfoService implementation.
+      String result;
+      LOGGER.info("Fetching the RentalInfoStatement");
+      result =
+          new RentalInfoService(new MovieRepository())
+              .buildRentalInfoStatement(
+                  new Customer(
+                      "C. U. Stomer",
+                      List.of(new MovieRental("F001", 3), new MovieRental("F002", 1))));
 
-        if (!result.equals(expected)) {
-          throw new AssertionError(
-              "Expected: "
-                  + System.lineSeparator()
-                  + String.format(expected)
-                  + System.lineSeparator()
-                  + System.lineSeparator()
-                  + "Got: "
-                  + System.lineSeparator()
-                  + result);
-        }
-        LOGGER.info("Success");
+      LOGGER.debug("Generated RentalInfoStatement is {}", result);
+      if (!result.equals(expected)) {
+        LOGGER.error("Expected result and generated result did not match");
+        throw new AssertionError(
+            "Expected: "
+                + System.lineSeparator()
+                + String.format(expected)
+                + System.lineSeparator()
+                + System.lineSeparator()
+                + "Got: "
+                + System.lineSeparator()
+                + result);
+      }
+      LOGGER.info("Success");
     } catch (Exception e) {
-        LOGGER.error("Validation failed",e);
+      LOGGER.error("Validation failed", e);
     }
   }
 }
