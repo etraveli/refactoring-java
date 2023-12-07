@@ -33,7 +33,8 @@ public class RentalInfoService {
     double totalAmount = 0;
     int frequentEnterPoints = 0;
 
-    StringBuilder result = new StringBuilder("Rental Record for " + customer.name() + "\n");
+    StringBuilder result =
+        new StringBuilder(String.format("Rental Record for %s%n", customer.name()));
 
     for (MovieRental rental : customer.rentals()) {
       // determine amount for each movie
