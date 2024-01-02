@@ -1,4 +1,4 @@
-# Refactoring Java Test1
+# Refactoring Java
 
 The code creates an information slip about movie rentals.
 Rewrite and improve the code after your own liking.
