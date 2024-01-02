@@ -1,6 +1,16 @@
 server:
   port: 8081
 
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/etraveli_db?useSSL=false
+    username: postgres
+    password: 123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
 springdoc:
   swagger-ui:
     enabled: true
