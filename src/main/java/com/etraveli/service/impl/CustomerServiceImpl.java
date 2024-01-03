@@ -1,4 +1,4 @@
-package com.etraveli.service;
+package com.etraveli.service.impl;
 
 import com.etraveli.exceptiondomain.DataNotFoundException;
 import com.etraveli.exceptiondomain.RequestNotValidException;
@@ -8,6 +8,7 @@ import com.etraveli.modal.request.CustomerRequest;
 import com.etraveli.modal.response.CustomerResponse;
 import com.etraveli.repository.CustomerRepository;
 import com.etraveli.repository.CustomerRepositoryOld;
+import com.etraveli.service.CustomerService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -50,14 +51,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerResponse updateCustomer(CustomerRequest customerRequest) {
         if (customerRequest == null && customerRequest.getCustomerId() == null) {
-            logger.error("--ERROR--updateCustomer -- {}", ExceptionConstant.REQUEST_CANNOT_EMPTY);
+            logger.error("--ERROR--CustomerServiceImpl--updateCustomer -- {}", ExceptionConstant.REQUEST_CANNOT_EMPTY);
             throw new RequestNotValidException(ExceptionConstant.REQUEST_CANNOT_EMPTY);
         }
 
         Customer customer = this.customerRepository.findCustomerByCustomerId(customerRequest.getCustomerId());
 
         if (customer == null) {
-            logger.error("--ERROR-- updateBookmark--{}", ExceptionConstant.CUSTOMER_NOT_FOUND);
+            logger.error("--ERROR--CustomerServiceImpl--updateCustomer--{}", ExceptionConstant.CUSTOMER_NOT_FOUND);
             throw new DataNotFoundException(ExceptionConstant.CUSTOMER_NOT_FOUND);
         }
 
@@ -66,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService {
         Customer savedCustomer = this.customerRepository.save(customer);
         CustomerResponse customerResponse = mapEntityToResponse(savedCustomer);
 
-        logger.info("--EXT--BookmarkServiceImpl--updateBookmark--");
+        logger.info("--EXIT--CustomerServiceImpl--updateBookmark--");
         return customerResponse;
     }
 

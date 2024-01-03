@@ -3,7 +3,7 @@ package com.etraveli.controller;
 import com.etraveli.exceptiondomain.DataNotFoundException;
 import com.etraveli.exceptiondomain.constant.ExceptionConstant;
 import com.etraveli.modal.request.CustomerRequest;
-import com.etraveli.service.CustomerServiceImpl;
+import com.etraveli.service.impl.CustomerServiceImpl;
 //import com.etraveli.service.RentalInfoService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
