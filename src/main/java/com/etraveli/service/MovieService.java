@@ -15,6 +15,7 @@ public interface MovieService {
     MovieResponse updateMovie(MovieRequest movieRequest);
 
     MovieResponse getMovieByMovieCode(String movieCode);
+
     Movie findMovieByMovieCode(String movieCode);
 
     List<MovieResponse> getAllMovies();

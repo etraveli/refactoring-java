@@ -43,10 +43,10 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private void validateCustomer(CustomerRequest customerRequest) {
-        if (customerRequest != null && customerRequest.getIdNumber() != null){
+        if (customerRequest != null && customerRequest.getIdNumber() != null) {
             Customer customer = this.customerRepository.findCustomerByIdNumber(customerRequest.getIdNumber());
 
-            if (customer != null){
+            if (customer != null) {
                 throw new AlreadyExistException(ExceptionConstant.CUSTOMER_ALREADY_EXIST);
             }
         }

@@ -10,6 +10,8 @@ import java.util.List;
 @Service
 public interface RentalInfoService {
     String statement(Long customer);
+
     MovieRentalResponse createMovieRental(MovieRentalRequest movieRentalRequest);
+
     List<MovieRental> getAllMovieRentals();
 }
