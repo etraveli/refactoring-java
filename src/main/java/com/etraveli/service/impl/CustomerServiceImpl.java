@@ -7,7 +7,6 @@ import com.etraveli.modal.Customer;
 import com.etraveli.modal.request.CustomerRequest;
 import com.etraveli.modal.response.CustomerResponse;
 import com.etraveli.repository.CustomerRepository;
-import com.etraveli.repository.CustomerRepositoryOld;
 import com.etraveli.service.CustomerService;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
 @Transactional
 public class CustomerServiceImpl implements CustomerService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    private CustomerRepositoryOld customerRepositoryOld;
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
 
@@ -34,10 +32,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
-    public CustomerRequest getCustomerByCustomerId(Long customerId) {
-        return this.customerRepositoryOld.getCustomerByCustomerId(customerId);
-    }
-
     @Override
     public CustomerResponse createCustomer(CustomerRequest customerRequest) {
         Customer customer = this.mapRequestToEntity(customerRequest);
@@ -46,6 +40,11 @@ public class CustomerServiceImpl implements CustomerService {
 //            throw new Exception()
         }
         return this.mapEntityToResponse(saveCustomer);
+    }
+
+    @Override
+    public Customer getCustomerByCustomerId(Long customerId) {
+        return this.customerRepository.findCustomerByCustomerId(customerId);
     }
 
     @Override

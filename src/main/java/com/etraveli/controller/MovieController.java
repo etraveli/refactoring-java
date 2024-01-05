@@ -1,8 +1,6 @@
 package com.etraveli.controller;
 
-import com.etraveli.modal.request.CustomerRequest;
 import com.etraveli.modal.request.MovieRequest;
-import com.etraveli.modal.response.CustomerResponse;
 import com.etraveli.modal.response.MovieResponse;
 import com.etraveli.service.MovieService;
 import jakarta.validation.Valid;
@@ -37,7 +35,7 @@ public class MovieController {
         return Mono.just(movieResponse);
     }
 
- @PutMapping("/movie")
+    @PutMapping("/movie")
     public Mono<MovieResponse> updateMovie(@RequestBody MovieRequest movieRequest) {
         logger.info("--ENTER--[PUT]--updateMovie--Request-- {}", movieRequest);
 
@@ -47,7 +45,7 @@ public class MovieController {
         return Mono.just(movieResponse);
     }
 
-       @GetMapping("/movie/{movieCode}")
+    @GetMapping("/movie/{movieCode}")
     public Mono<MovieResponse> getMovieByMovieCode(@PathVariable String movieCode) {
         logger.info("--ENTER--[GET]--getMovieByMovieCode--{}", movieCode);
 

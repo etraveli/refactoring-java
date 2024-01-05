@@ -11,6 +11,8 @@ import java.util.List;
 public interface CustomerService {
     CustomerResponse createCustomer(CustomerRequest customerRequest);
 
+    Customer getCustomerByCustomerId(Long customerId);
+
     CustomerResponse getCustomerById(Long customerId);
 
     List<CustomerResponse> getAllCustomers();

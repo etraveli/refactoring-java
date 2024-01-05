@@ -21,4 +21,12 @@ public class ExceptionHandling {
     public ResponseEntity<HttpResponse> unexpectedResultException(UnexpectedResultException e) {
         return this.createHttpResponse(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
     }
+    @ExceptionHandler(MovieIllegalArgumentException.class)
+    public ResponseEntity<HttpResponse> movieIllegalArgumentException(MovieIllegalArgumentException e) {
+        return this.createHttpResponse(HttpStatus.NOT_ACCEPTABLE, e.getMessage());
+    }
+    @ExceptionHandler(AlreadyExistException.class)
+    public ResponseEntity<HttpResponse> alreadyExistException(AlreadyExistException e) {
+        return this.createHttpResponse(HttpStatus.CONFLICT, e.getMessage());
+    }
 }

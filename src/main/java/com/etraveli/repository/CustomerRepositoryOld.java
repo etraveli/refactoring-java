@@ -1,7 +1,7 @@
 package com.etraveli.repository;
 
 import com.etraveli.modal.request.CustomerRequest;
-import com.etraveli.modal.request.MovieRental;
+import com.etraveli.modal.request.MovieRentalRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ public class CustomerRepositoryOld {
 
     private final List<CustomerRequest> customerList = new ArrayList<>();
 
-    List<MovieRental> stomersMovieRentalList = List.of(
-            new MovieRental("F001", 3),
-            new MovieRental("F002", 1)
+    List<MovieRentalRequest> stomersMovieRentalRequestList = List.of(
+            /*new MovieRentalRequest("F001", 3),
+            new MovieRentalRequest("F002", 1)*/
     );
 
-    List<MovieRental> sahansMovieRentalList = List.of(
-            new MovieRental("F001", 3),
-            new MovieRental("F002", 1)
+    List<MovieRentalRequest> sahansMovieRentalRequestList = List.of(
+          /*  new MovieRentalRequest("F001", 3),
+            new MovieRentalRequest("F002", 1)*/
     );
 
     public CustomerRepositoryOld() {

@@ -1,49 +1,49 @@
 package com.etraveli.controller;
 
-import com.etraveli.exceptiondomain.DataNotFoundException;
-import com.etraveli.exceptiondomain.constant.ExceptionConstant;
-import com.etraveli.modal.request.CustomerRequest;
-import com.etraveli.service.impl.CustomerServiceImpl;
-//import com.etraveli.service.RentalInfoService;
+import com.etraveli.modal.request.MovieRentalRequest;
+import com.etraveli.modal.response.MovieRentalResponse;
+import com.etraveli.service.CustomerService;
+import com.etraveli.service.RentalInfoService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
 @RestController
-@RequestMapping("/api/v1/movie-rental")
+@RequestMapping("/api/v1/")
 public class MovieRentalController {
     private final Logger logger = getLogger(this.getClass());
-
-    private final CustomerServiceImpl customerService;
+    private final CustomerService customerService;
+    private final RentalInfoService rentalInfoService;
 
     @Autowired
-    public MovieRentalController(CustomerServiceImpl customerService) {
+    public MovieRentalController(CustomerService customerService, RentalInfoService rentalInfoService) {
         this.customerService = customerService;
+        this.rentalInfoService = rentalInfoService;
     }
 
-    @GetMapping("/customer/{customerId}")
+    @GetMapping("/movie-rental/customer/{customerId}")
     public String getMovieRental(@PathVariable Long customerId) {
         logger.info("--ENTER--[GET]--getMovieRental--{}", customerId);
 
-        CustomerRequest customer = this.customerService.getCustomerByCustomerId(customerId);
+        String result = rentalInfoService.statement(customerId);
 
-        if (customer == null) {
-            logger.info("--ERROR--[GET]--DataNotFoundException--{}", ExceptionConstant.CUSTOMER_NOT_FOUND);
-            throw new DataNotFoundException(ExceptionConstant.CUSTOMER_NOT_FOUND);
-        }
-
-/*
-        RentalInfoService rentalInfoService = new RentalInfoService();
-        String result = rentalInfoService.statement(customer);
-*/
-        String result = null;
         System.out.println("Success");
         logger.info("--EXIT--[GET]--getMovieRental--");
         return result;
     }
+
+    @PostMapping("/movie-rental")
+    public Mono<MovieRentalResponse> createMovieRental(@RequestBody @Valid MovieRentalRequest movieRentalRequest) {
+        logger.info("--ENTER--[POST]--createMovieRental--Request-- {}", movieRentalRequest);
+
+        MovieRentalResponse movieRentalResponse = this.rentalInfoService.createMovieRental(movieRentalRequest);
+
+        logger.info("--EXIT--[POST]--createMovieRental--");
+        return Mono.just(movieRentalResponse);
+    }
+
 }

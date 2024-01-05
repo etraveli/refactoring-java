@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MovieRental {
+public class MovieRentalRequest {
 
-    private String movieId;
+    private Long id;
+    private Long customerId;
+    private String movieCode;
     private int days;
 }
