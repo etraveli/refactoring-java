@@ -36,9 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerResponse createCustomer(CustomerRequest customerRequest) {
         Customer customer = this.mapRequestToEntity(customerRequest);
         Customer saveCustomer = this.customerRepository.save(customer);
-        if (saveCustomer == null) {
-//            throw new Exception()
-        }
+
         return this.mapEntityToResponse(saveCustomer);
     }
 
@@ -49,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerResponse updateCustomer(CustomerRequest customerRequest) {
-        if (customerRequest == null && customerRequest.getCustomerId() == null) {
+        if (customerRequest == null || customerRequest.getCustomerId() == null) {
             logger.error("--ERROR--CustomerServiceImpl--updateCustomer -- {}", ExceptionConstant.REQUEST_CANNOT_EMPTY);
             throw new RequestNotValidException(ExceptionConstant.REQUEST_CANNOT_EMPTY);
         }
@@ -100,11 +98,9 @@ public class CustomerServiceImpl implements CustomerService {
     public List<CustomerResponse> getAllCustomers() {
         List<Customer> customerList = this.customerRepository.findAll();
 
-        List<CustomerResponse> customerResponseList = customerList.stream()
+        return customerList.stream()
                 .map(this::mapEntityToResponse)
                 .collect(Collectors.toList());
-
-        return customerResponseList;
     }
 
     private Customer mapRequestToEntity(CustomerRequest customerRequest) {

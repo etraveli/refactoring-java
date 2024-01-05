@@ -74,7 +74,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public MovieResponse updateMovie(MovieRequest movieRequest) {
         logger.info("--ENTER--MovieServiceImpl--updateMovie--");
-        if (movieRequest == null && movieRequest.getMovieId() == null) {
+        if (movieRequest == null || movieRequest.getMovieId() == null) {
             logger.error("--ERROR--MovieServiceImpl--updateMovie -- {}", ExceptionConstant.REQUEST_CANNOT_EMPTY);
             throw new RequestNotValidException(ExceptionConstant.REQUEST_CANNOT_EMPTY);
         }
@@ -125,12 +125,6 @@ public class MovieServiceImpl implements MovieService {
         return moviesList.stream()
                 .map(this::mapEntityToResponse)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Movie> getAllMoviesList() {
-        logger.info("--ENTER-- getAllMoviesList --");
-        return this.movieRepository.findAll();
     }
 
     private void updateMovieDetails(Movie movie, MovieRequest movieRequest) {

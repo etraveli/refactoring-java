@@ -2,7 +2,6 @@ package com.etraveli.controller;
 
 import com.etraveli.modal.request.MovieRentalRequest;
 import com.etraveli.modal.response.MovieRentalResponse;
-import com.etraveli.service.CustomerService;
 import com.etraveli.service.RentalInfoService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -16,12 +15,10 @@ import static org.slf4j.LoggerFactory.getLogger;
 @RequestMapping("/api/v1/")
 public class MovieRentalController {
     private final Logger logger = getLogger(this.getClass());
-    private final CustomerService customerService;
     private final RentalInfoService rentalInfoService;
 
     @Autowired
-    public MovieRentalController(CustomerService customerService, RentalInfoService rentalInfoService) {
-        this.customerService = customerService;
+    public MovieRentalController(RentalInfoService rentalInfoService) {
         this.rentalInfoService = rentalInfoService;
     }
 

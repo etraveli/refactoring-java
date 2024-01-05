@@ -25,11 +25,6 @@ public class MovieRental {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
-  /*  @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id")
-    private Customer customer;*/
-
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")

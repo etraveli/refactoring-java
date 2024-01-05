@@ -64,20 +64,4 @@ public class CustomerController {
         logger.info("--EXIT--[GET]--getAllCustomers--");
         return Flux.fromIterable(customerResponse);
     }
-
-/*    @GetMapping("/{customerId}")
-    public String getCustomerById(@PathVariable Long customerId) {
-        logger.info("--ENTER--[GET]--getCustomerById--{}", customerId);
-
-        CustomerRequest customer = this.customerService.getCustomerByCustomerId(customerId);
-
-        if (customer == null) {
-            logger.info("--ERROR--[GET]--DataNotFoundException--{}", ExceptionConstant.CUSTOMER_NOT_FOUND);
-            throw new DataNotFoundException(ExceptionConstant.CUSTOMER_NOT_FOUND);
-        }
-
-        System.out.println("Success");
-        logger.info("--EXIT--[GET]--getMovieRental--");
-        return result;
-    }*/
 }

@@ -29,10 +29,8 @@ public class Customer {
     @Column(name = "birth_year")
     private Integer birthYear;
 
-    //    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @JsonIgnoreProperties("customer")
     private List<MovieRental> rentals;
 
 

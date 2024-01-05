@@ -26,10 +26,4 @@ public class Movie {
     @Column(name = "code", length = 25)
     private String code;
 
-/*    @OneToMany(mappedBy = "movie", fetch = FetchType.EAGER)
-    @JsonIgnoreProperties("movie")
-    private List<MovieRental> movieRentals;*/
-
-    public Movie(String s, String regular) {
-    }
 }

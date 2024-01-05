@@ -19,6 +19,5 @@ public interface MovieService {
 
     List<MovieResponse> getAllMovies();
 
-    List<Movie> getAllMoviesList();
 }
 
