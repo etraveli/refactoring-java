@@ -24,7 +24,7 @@ public class Customer {
     private String name;
 
     @Column(name = "id_number", length = 25)
-    private String IdNumber;
+    private String idNumber;
 
     @Column(name = "birth_year")
     private Integer birthYear;
@@ -32,6 +32,4 @@ public class Customer {
     @JsonIgnore
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MovieRental> rentals;
-
-
 }

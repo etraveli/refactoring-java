@@ -1,5 +1,6 @@
 package com.etraveli.service.impl;
 
+import com.etraveli.exceptiondomain.AlreadyExistException;
 import com.etraveli.exceptiondomain.DataNotFoundException;
 import com.etraveli.exceptiondomain.RequestNotValidException;
 import com.etraveli.exceptiondomain.constant.ExceptionConstant;
@@ -34,10 +35,21 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerResponse createCustomer(CustomerRequest customerRequest) {
+        validateCustomer(customerRequest);
         Customer customer = this.mapRequestToEntity(customerRequest);
         Customer saveCustomer = this.customerRepository.save(customer);
 
         return this.mapEntityToResponse(saveCustomer);
+    }
+
+    private void validateCustomer(CustomerRequest customerRequest) {
+        if (customerRequest != null && customerRequest.getIdNumber() != null){
+            Customer customer = this.customerRepository.findCustomerByIdNumber(customerRequest.getIdNumber());
+
+            if (customer != null){
+                throw new AlreadyExistException(ExceptionConstant.CUSTOMER_ALREADY_EXIST);
+            }
+        }
     }
 
     @Override

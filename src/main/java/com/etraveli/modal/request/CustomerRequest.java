@@ -19,6 +19,5 @@ public class CustomerRequest {
     @NotBlank(message = UtilConstant.ID_NUMBER_REQUIRED)
     private String IdNumber;
 
-    @NotBlank(message = UtilConstant.BIRTH_YEAR_REQUIRED)
     private Integer birthYear;
 }
