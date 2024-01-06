@@ -59,7 +59,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerResponse updateCustomer(CustomerRequest customerRequest) {
-        if (customerRequest == null || customerRequest.getCustomerId() == null) {
+        if (customerRequest == null && customerRequest.getCustomerId() == null) {
             logger.error("--ERROR--CustomerServiceImpl--updateCustomer -- {}", ExceptionConstant.REQUEST_CANNOT_EMPTY);
             throw new RequestNotValidException(ExceptionConstant.REQUEST_CANNOT_EMPTY);
         }
