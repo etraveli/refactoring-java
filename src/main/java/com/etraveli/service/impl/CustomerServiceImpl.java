@@ -54,7 +54,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerByCustomerId(Long customerId) {
-        return this.customerRepository.findCustomerByCustomerId(customerId);
+
+        Customer customer = this.customerRepository.findCustomerByCustomerId(customerId);
+
+        if (customer == null && customer.getCustomerId() == null) {
+            logger.error("--ERROR--CustomerServiceImpl--getCustomerByCustomerId -- {}", ExceptionConstant.CUSTOMER_NOT_FOUND);
+            throw new DataNotFoundException(ExceptionConstant.CUSTOMER_NOT_FOUND);
+        }
+        return customer;
     }
 
     @Override
