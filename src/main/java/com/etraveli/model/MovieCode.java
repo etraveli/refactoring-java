@@ -4,8 +4,8 @@ import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
 public enum MovieCode {
-    REGULAR(days -> days > 2 ? 2d : ((days - 2) * 1.5) + 2, days -> 1),
-    CHILDRENS(days -> days > 3 ? 1.5 : ((days - 3) * 1.5) + 1.5, days -> 1),
+    REGULAR(days -> days > 2 ? ((days - 2) * 1.5) + 2 : 2d, days -> 1),
+    CHILDRENS(days -> days > 3 ? ((days - 3) * 1.5) + 1.5 : 1.5, days -> 1),
     NEW(days -> days * 3d, days -> days > 2 ? 2 : 1);
 
     final Function<Integer, Double> amountEquation;
