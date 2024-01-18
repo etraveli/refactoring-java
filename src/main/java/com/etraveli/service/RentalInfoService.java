@@ -1,4 +1,4 @@
-package com.etraveli;
+package com.etraveli.service;
 
 import com.etraveli.model.Customer;
 import com.etraveli.model.Movie;
@@ -12,11 +12,11 @@ import java.util.Locale;
 
 import static com.etraveli.util.Constants.*;
 
-public class RentalInfo {
+public class RentalInfoService implements RentalService {
     private final MovieRepository movieRepository;
-    private static final Logger logger = LogManager.getLogger(RentalInfo.class);
+    private static final Logger logger = LogManager.getLogger(RentalInfoService.class);
 
-    public RentalInfo(MovieRepository movieRepository) {
+    public RentalInfoService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
@@ -34,16 +34,13 @@ public class RentalInfo {
             logger.error(RENTAL_RECORD_LOGGING_INVALID_CUSTOMER);
             return RENTAL_RECORD_INVALID_CUSTOMER;
         }
+        StringBuilder result = new StringBuilder(String.format(Locale.US, RENTAL_RECORD_CUSTOMER, customer.name()));
         double totalRentalAmount = 0;
         int frequentEnterPoints = 0;
-        StringBuilder result = new StringBuilder(String.format(Locale.US, RENTAL_RECORD_CUSTOMER, customer.name()));
 
         for (MovieRental rental : customer.rentals()) {
             Movie movie = movieRepository.getMovieById(rental.movieId());
-            if (rental.days() < 0 || StringUtils.isBlank(movie.title()) || movie.code() == null) {
-                if (logger.isWarnEnabled()) {
-                    logger.warn(RENTAL_RECORD_LOGGING_SKIP, customer.name(), movie.title(), movie.code(), rental.days());
-                }
+            if (!isRentalValid(rental, movie, customer)) {
                 continue;
             }
 
@@ -57,5 +54,16 @@ public class RentalInfo {
         result.append(String.format(Locale.US, RENTAL_RECORD_FREQUENT_POINTS, frequentEnterPoints));
 
         return result.toString();
+    }
+
+    private boolean isRentalValid(MovieRental rental, Movie movie, Customer customer) {
+        if (rental.days() < 0 || StringUtils.isBlank(movie.title()) || movie.code() == null) {
+            if (logger.isWarnEnabled()) {
+                logger.warn(RENTAL_RECORD_LOGGING_SKIP, customer.name(), movie.title(), movie.code(), rental.days());
+            }
+            return false;
+        } else {
+            return true;
+        }
     }
 }

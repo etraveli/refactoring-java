@@ -1,8 +1,12 @@
 package com.etraveli;
 
 import com.etraveli.model.Customer;
+import com.etraveli.repository.CustomerRepository;
 import com.etraveli.repository.InitialCustomerRepository;
 import com.etraveli.repository.InitialMovieRepository;
+import com.etraveli.repository.MovieRepository;
+import com.etraveli.service.RentalInfoService;
+import com.etraveli.service.RentalService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,16 +19,14 @@ public class Main {
             return;
         }
 
+        MovieRepository movieRepository = new InitialMovieRepository();
+        CustomerRepository customerRepository = new InitialCustomerRepository();
+        RentalService rentalInfoService = new RentalInfoService(movieRepository);
+
         try {
             for (String arg : args) {
-                InitialMovieRepository movieRepository = new InitialMovieRepository();
-                InitialCustomerRepository customerRepository = new InitialCustomerRepository();
-                RentalInfo rentalInfo = new RentalInfo(movieRepository);
-
                 Customer requestedCustomer = customerRepository.getCustomerById(arg);
-
-                String rentalInfoResult = rentalInfo.getRentalInfoForCustomer(requestedCustomer);
-
+                String rentalInfoResult = rentalInfoService.getRentalInfoForCustomer(requestedCustomer);
                 logger.info(rentalInfoResult);
             }
         } catch (Exception ex) {

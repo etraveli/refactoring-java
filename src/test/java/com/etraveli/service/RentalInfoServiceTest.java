@@ -1,4 +1,4 @@
-package com.etraveli;
+package com.etraveli.service;
 
 import com.etraveli.model.Customer;
 import com.etraveli.repository.CustomerRepository;
@@ -13,7 +13,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-class RentalInfoTest {
+class RentalInfoServiceTest {
     private static MovieRepository movieRepository;
     private static CustomerRepository customerRepository;
 
@@ -27,11 +27,11 @@ class RentalInfoTest {
     @MethodSource("provideCustomersForGettingRentals")
     void regularMoviesTest(String customerId, String expectedRentalInfo) {
         // Arrange
-        RentalInfo rentalInfo = new RentalInfo(movieRepository);
+        RentalInfoService rentalInfoService = new RentalInfoService(movieRepository);
 
         // Act
         Customer stomerCustomer = customerRepository.getCustomerById(customerId);
-        String rentalInfoResult = rentalInfo.getRentalInfoForCustomer(stomerCustomer);
+        String rentalInfoResult = rentalInfoService.getRentalInfoForCustomer(stomerCustomer);
 
         // Assert
         Assertions.assertEquals(expectedRentalInfo, rentalInfoResult);
