@@ -1,3 +1,8 @@
 package com.etraveli.model;
 
-public record Movie(String title, MovieCode code) {}
+/**
+ * @param title name of the movie
+ * @param code  the code value of the movie
+ */
+public record Movie(String title, MovieCode code) {
+}
