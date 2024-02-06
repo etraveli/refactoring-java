@@ -1,4 +1,4 @@
-The MovieRental project primarily aims to provide an API that gives rental information about movies to customers. 
+The MovieRental project primarily aims to provide an API that gives rental information about movies to customers. The goal is to calculate the amount owed by customers and the earned frequent points based on their rental activities
 • The project has been designed using the Spring framework, with layers including controller, configuration, service, model, customer exception, and constants. 
 Refactored the application using Maven and Spring Boot version 3.2.0.
 
