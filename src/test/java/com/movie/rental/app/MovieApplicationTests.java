@@ -29,8 +29,8 @@ public class MovieApplicationTests {
 	}
 
 	@Test
-	@DisplayName("Test case to check the rentalinfo")
-	public void testValidRentalInfo() {
+	@DisplayName("Test case to check the REGULAR rentalinfo")
+	public void testRegularValidRentalInfo() {
 		Customer customer = new Customer();
 		List<MovieRental> rentals = new ArrayList<>();
 		rentals.add(new MovieRental("F001", 3));
@@ -41,6 +41,43 @@ public class MovieApplicationTests {
 		String expectedRentalInfo = "Rental Record for Swathi\n" +
 			    "\tYou've Got Mail\t3.5\n" +
 			    "Amount owed is 3.5\n" +
+			    "You earned 1 frequent points";
+		
+		assertEquals(rentalInfo.replaceAll("\\s+",""), expectedRentalInfo.replaceAll("\\s+",""));
+		
+	}
+	
+	@Test
+	@DisplayName("Test case to check the CHILDRENS rentalinfo")
+	public void testChildrensValidRentalInfo() {
+		Customer customer = new Customer();
+		List<MovieRental> rentals = new ArrayList<>();
+		rentals.add(new MovieRental("F003", 3));
+		customer.setRentals(rentals);
+		customer.setName("SwathiNikhil");
+		String rentalInfo = movieRentalService.getRentalInfo(customer);
+		String expectedRentalInfo = "Rental Record for SwathiNikhil\n" +
+			    "\tCars\t1.5\n" +
+			    "Amount owed is 1.5\n" +
+			    "You earned 1 frequent points";
+		
+		assertEquals(rentalInfo.replaceAll("\\s+",""), expectedRentalInfo.replaceAll("\\s+",""));
+		
+	}
+	
+	@Test
+	@DisplayName("Test case to check the NEW rentalinfo")
+	public void testNewValidRentalInfo() {
+		Customer customer = new Customer();
+		List<MovieRental> rentals = new ArrayList<>();
+		rentals.add(new MovieRental("F004", 2));
+		customer.setRentals(rentals);
+		customer.setName("SwathiNikhil");
+		String rentalInfo = movieRentalService.getRentalInfo(customer);
+		System.out.println(rentalInfo);
+		String expectedRentalInfo = "Rental Record for SwathiNikhil\n" +
+			    "\tFast & Furious X\t6.0\n" +
+			    "Amount owed is 6.0\n" +
 			    "You earned 1 frequent points";
 		
 		assertEquals(rentalInfo.replaceAll("\\s+",""), expectedRentalInfo.replaceAll("\\s+",""));
@@ -113,6 +150,24 @@ public class MovieApplicationTests {
 		Assertions.assertThrows(InvalidCustomerException.class, () -> movieRentalService.getRentalInfo(customer));
 	}
 
+	@Test
+	@DisplayName("Test case to check the REGULAR matrix rentalinfo")
+	public void testRegValidRentalInfo() {
+		Customer customer = new Customer();
+		List<MovieRental> rentals = new ArrayList<>();
+		rentals.add(new MovieRental("F002", 2));
+		customer.setRentals(rentals);
+		customer.setName("SwathiNikhilNV");
+		String rentalInfo = movieRentalService.getRentalInfo(customer);
+		
+		String expectedRentalInfo = "Rental Record for SwathiNikhilNV\n" +
+			    "\tMatrix\t2.0\n" +
+			    "Amount owed is 2.0\n" +
+			    "You earned 1 frequent points";
+		
+		assertEquals(rentalInfo.replaceAll("\\s+",""), expectedRentalInfo.replaceAll("\\s+",""));
+		
+	}
 	@Test
 	@DisplayName("Test case to check the invalid movie id")
 	public void testInvalidMovieId() {
