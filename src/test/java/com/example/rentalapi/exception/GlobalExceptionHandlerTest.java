@@ -56,4 +56,13 @@ public class GlobalExceptionHandlerTest {
         assertTrue(responseEntity.getBody().contains(RentalConstants.ERROR_TEXT));
         assertTrue(responseEntity.getBody().contains(exception.getMessage()));
     }
+    @Test
+    @DisplayName(RentalConstants.TEST_CASE_DISPLAYNAME_INVALID_RENTAL_DAYS_EXCEPTION)
+    void handleInvalidRentalDaysException_ShouldReturnBadRequest() {
+        InvalidRentalDaysException exception = new InvalidRentalDaysException("Invalid rental days");
+        ResponseEntity<String> response = globalExceptionHandler.handleInvalidRentalDaysException(exception);
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertTrue(response.getBody().contains(RentalConstants.ERROR_TEXT));
+        assertTrue(response.getBody().contains(exception.getMessage()));
+    }
 }

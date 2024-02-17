@@ -14,7 +14,10 @@ public class RentalConstants {
     public static final String INVALID_CUSTOMER_EXCEPTION_MESSAGE = "Invalid customer information.";
     public static final String INVALID_MOVIE_EXCEPTION_MESSAGE = "Invalid movie information.";
     public static final String INVALID_MOVIE_CODE_EXCEPTION_MESSAGE = "Invalid movie code.";
+    public static final String INVALID_RENTAL_DAYS_EXCEPTION_MESSAGE = "Invalid rental days for movieId %s. Days should be greater than zero.";
     public static final String UNEXPECTED_EXCEPTION_MESSAGE = "An unexpected error occurred: ";
+    public static final String TEST_CASE_DISPLAYNAME_INVALID_RENTAL_DAYS_EXCEPTION = "handleInvalidRentalDaysException_ShouldReturnBadRequest";
+
     public static final String ERROR_TEXT = "Error: ";
     
     public static final String RENTAL_RECORD_INTRO = "Rental Record for ";

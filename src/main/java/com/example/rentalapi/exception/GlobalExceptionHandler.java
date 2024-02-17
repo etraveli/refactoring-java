@@ -29,4 +29,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(RentalConstants.ERROR_TEXT + e.getMessage());
     } 
     
+    @ExceptionHandler(InvalidRentalDaysException.class)
+    public ResponseEntity<String> handleInvalidRentalDaysException(InvalidRentalDaysException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                             .body(RentalConstants.ERROR_TEXT + e.getMessage());
+    } 
+    
 }

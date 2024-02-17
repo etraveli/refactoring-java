@@ -14,7 +14,7 @@ Modular Structure: The code is organized in a service class (RentalServiceImpl) 
 
 Dependency Injection: Utilizes Spring's dependency injection for the MovieService, enhancing testability and flexibility.
 
-Exception Handling: Introduces custom exceptions (InvalidCustomerException, InvalidMovieException) and handles exceptions more gracefully.
+Exception Handling: Introduces custom exceptions (InvalidCustomerException, InvalidMovieException, InvalidMovieCodeException, InvalidRentalDaysException) and handles exceptions more gracefully.
 
 Use of Constants: Utilizes constants from RentalConstants for error messages and other string literals, enhancing maintainability.
 

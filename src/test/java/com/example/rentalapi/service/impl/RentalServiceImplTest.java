@@ -19,6 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.example.rentalapi.constants.RentalConstants;
 import com.example.rentalapi.exception.InvalidCustomerException;
 import com.example.rentalapi.exception.InvalidMovieException;
+import com.example.rentalapi.exception.InvalidRentalDaysException;
 import com.example.rentalapi.model.Customer;
 import com.example.rentalapi.model.Movie;
 import com.example.rentalapi.model.MovieRental;
@@ -75,6 +76,22 @@ public class RentalServiceImplTest {
         when(movieService.getAllMovies()).thenReturn(Map.of());
         InvalidMovieException exception = assertThrows(InvalidMovieException.class, () -> rentalService.generateRentalStatement(customer));
         assertEquals(RentalConstants.INVALID_MOVIE_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+    
+    @Test
+    @DisplayName(RentalConstants.TEST_CASE_DISPLAYNAME_INVALID_RENTAL_DAYS_EXCEPTION)
+    void generateRentalStatement_WithInvalidRentalDays_ShouldThrowException() {
+        // Arrange
+        Customer customer = new Customer("John Doe");
+        MovieRental rental = new MovieRental("InvalidMovie", 0);
+        customer.setRentals(List.of(rental));
+        when(movieService.getAllMovies()).thenReturn(Map.of());
+
+        // Act and Assert
+        InvalidRentalDaysException exception = assertThrows(InvalidRentalDaysException.class,
+                () -> rentalService.generateRentalStatement(customer));
+
+        assertEquals(String.format(RentalConstants.INVALID_RENTAL_DAYS_EXCEPTION_MESSAGE, rental.getMovieId()), exception.getMessage());
     }
 
 }

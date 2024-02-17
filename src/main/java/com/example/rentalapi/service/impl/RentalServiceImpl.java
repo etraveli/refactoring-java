@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.example.rentalapi.constants.RentalConstants;
 import com.example.rentalapi.exception.InvalidCustomerException;
 import com.example.rentalapi.exception.InvalidMovieException;
+import com.example.rentalapi.exception.InvalidRentalDaysException;
 import com.example.rentalapi.model.Customer;
 import com.example.rentalapi.model.Movie;
 import com.example.rentalapi.model.MovieRental;
@@ -67,9 +68,13 @@ public class RentalServiceImpl implements RentalService {
 	}
 
 	private void validateRentalAndMovie(MovieRental rental, Map<String, Movie> movies) {
+		if (rental.getDays() <= 0) {
+	        throw new InvalidRentalDaysException(String.format(RentalConstants.INVALID_RENTAL_DAYS_EXCEPTION_MESSAGE, rental.getMovieId()));
+	    }
 	    if (rental == null || rental.getMovieId() == null || !movies.containsKey(rental.getMovieId())) {
 	        throw new InvalidMovieException(RentalConstants.INVALID_MOVIE_EXCEPTION_MESSAGE);
 	    }
+	    
 	}
 
 
