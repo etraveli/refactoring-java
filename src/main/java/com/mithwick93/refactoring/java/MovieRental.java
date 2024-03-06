@@ -1,3 +1,5 @@
+package com.mithwick93.refactoring.java;
+
 public class MovieRental {
     private String movieId;
     private int days;
