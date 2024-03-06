@@ -1,3 +1,5 @@
+package com.mithwick93.refactoring.java;
+
 public class Movie {
     private String title;
     private String code;

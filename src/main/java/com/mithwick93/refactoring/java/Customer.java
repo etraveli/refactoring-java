@@ -1,3 +1,5 @@
+package com.mithwick93.refactoring.java;
+
 import java.util.List;
 
 public class Customer {
