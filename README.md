@@ -11,6 +11,12 @@ Reason how you have been thinking and the decisions you took.
 You can hand in the result any way you feel (git patch, pull-request or ZIP-file).
 Note: the Git history must be included.
 
+## How to run the tests
+
+   ```
+   mvn clean package
+   ```
+
 ## How to run the application
 
 1. Build the application
