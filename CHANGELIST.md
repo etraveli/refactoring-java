@@ -13,3 +13,9 @@
     - Reasoning
         - Unit tests are essential for refactoring. They help to understand the existing code and make sure that the
           refactored code works as expected.
+3. Integrate with Github CI actions
+    - Changes
+        - Add a Github CI action to build and test the project
+    - Reasoning
+        - Continuous integration is essential for a project. It helps to catch bugs early and ensure that the project
+          is always in a working state.
