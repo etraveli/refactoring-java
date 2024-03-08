@@ -2,6 +2,7 @@ package com.mithwick93.refactoring.java;
 
 import com.mithwick93.refactoring.java.entity.Customer;
 import com.mithwick93.refactoring.java.entity.Movie;
+import com.mithwick93.refactoring.java.entity.MovieCode;
 import com.mithwick93.refactoring.java.entity.MovieRental;
 
 import java.util.HashMap;
@@ -11,10 +12,10 @@ public class RentalInfo {
 
     public String statement(Customer customer) {
         HashMap<String, Movie> movies = new HashMap();
-        movies.put("F001", new Movie("You've Got Mail", "regular"));
-        movies.put("F002", new Movie("Matrix", "regular"));
-        movies.put("F003", new Movie("Cars", "childrens"));
-        movies.put("F004", new Movie("Fast & Furious X", "new"));
+        movies.put("F001", new Movie("You've Got Mail", MovieCode.REGULAR));
+        movies.put("F002", new Movie("Matrix", MovieCode.REGULAR));
+        movies.put("F003", new Movie("Cars", MovieCode.CHILDREN));
+        movies.put("F004", new Movie("Fast & Furious X", MovieCode.NEW_RELEASE));
 
         validateCustomer(customer, movies);
 
@@ -25,16 +26,16 @@ public class RentalInfo {
             double thisAmount = 0;
 
             // determine amount for each movie
-            if (movies.get(r.movieId()).code().equals("regular")) {
+            if (movies.get(r.movieId()).code() == MovieCode.REGULAR) {
                 thisAmount = 2;
                 if (r.days() > 2) {
                     thisAmount = ((r.days() - 2) * 1.5) + thisAmount;
                 }
             }
-            if (movies.get(r.movieId()).code().equals("new")) {
+            if (movies.get(r.movieId()).code() == MovieCode.NEW_RELEASE) {
                 thisAmount = r.days() * 3;
             }
-            if (movies.get(r.movieId()).code().equals("childrens")) {
+            if (movies.get(r.movieId()).code() == MovieCode.CHILDREN) {
                 thisAmount = 1.5;
                 if (r.days() > 3) {
                     thisAmount = ((r.days() - 3) * 1.5) + thisAmount;
@@ -44,7 +45,7 @@ public class RentalInfo {
             //add frequent bonus points
             frequentEnterPoints++;
             // add bonus for a two day new release rental
-            if (movies.get(r.movieId()).code() == "new" && r.days() > 2) frequentEnterPoints++;
+            if (movies.get(r.movieId()).code() == MovieCode.NEW_RELEASE && r.days() > 2) frequentEnterPoints++;
 
             //print figures for this rental
             result += "\t" + movies.get(r.movieId()).title() + "\t" + thisAmount + "\n";
