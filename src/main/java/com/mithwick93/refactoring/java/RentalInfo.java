@@ -1,5 +1,9 @@
 package com.mithwick93.refactoring.java;
 
+import com.mithwick93.refactoring.java.entity.Customer;
+import com.mithwick93.refactoring.java.entity.Movie;
+import com.mithwick93.refactoring.java.entity.MovieRental;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,34 +20,34 @@ public class RentalInfo {
 
         double totalAmount = 0;
         int frequentEnterPoints = 0;
-        String result = "Rental Record for " + customer.getName() + "\n";
-        for (MovieRental r : customer.getRentals()) {
+        String result = "Rental Record for " + customer.name() + "\n";
+        for (MovieRental r : customer.rentals()) {
             double thisAmount = 0;
 
             // determine amount for each movie
-            if (movies.get(r.getMovieId()).getCode().equals("regular")) {
+            if (movies.get(r.movieId()).code().equals("regular")) {
                 thisAmount = 2;
-                if (r.getDays() > 2) {
-                    thisAmount = ((r.getDays() - 2) * 1.5) + thisAmount;
+                if (r.days() > 2) {
+                    thisAmount = ((r.days() - 2) * 1.5) + thisAmount;
                 }
             }
-            if (movies.get(r.getMovieId()).getCode().equals("new")) {
-                thisAmount = r.getDays() * 3;
+            if (movies.get(r.movieId()).code().equals("new")) {
+                thisAmount = r.days() * 3;
             }
-            if (movies.get(r.getMovieId()).getCode().equals("childrens")) {
+            if (movies.get(r.movieId()).code().equals("childrens")) {
                 thisAmount = 1.5;
-                if (r.getDays() > 3) {
-                    thisAmount = ((r.getDays() - 3) * 1.5) + thisAmount;
+                if (r.days() > 3) {
+                    thisAmount = ((r.days() - 3) * 1.5) + thisAmount;
                 }
             }
 
             //add frequent bonus points
             frequentEnterPoints++;
             // add bonus for a two day new release rental
-            if (movies.get(r.getMovieId()).getCode() == "new" && r.getDays() > 2) frequentEnterPoints++;
+            if (movies.get(r.movieId()).code() == "new" && r.days() > 2) frequentEnterPoints++;
 
             //print figures for this rental
-            result += "\t" + movies.get(r.getMovieId()).getTitle() + "\t" + thisAmount + "\n";
+            result += "\t" + movies.get(r.movieId()).title() + "\t" + thisAmount + "\n";
             totalAmount = totalAmount + thisAmount;
         }
         // add footer lines
@@ -58,24 +62,24 @@ public class RentalInfo {
             throw new IllegalArgumentException(Constants.CUSTOMER_CANNOT_BE_NULL_ERROR);
         }
 
-        if (customer.getName() == null || customer.getName().isEmpty()) {
+        if (customer.name() == null || customer.name().isEmpty()) {
             throw new IllegalArgumentException(Constants.CUSTOMER_NAME_CANNOT_BE_NULL_OR_EMPTY_ERROR);
         }
 
-        if (customer.getRentals() == null || customer.getRentals().isEmpty()) {
+        if (customer.rentals() == null || customer.rentals().isEmpty()) {
             throw new IllegalArgumentException(Constants.CUSTOMER_RENTALS_CANNOT_BE_NULL_OR_EMPTY_ERROR);
         }
 
-        for (MovieRental r : customer.getRentals()) {
-            if (r.getMovieId() == null || r.getMovieId().isEmpty()) {
+        for (MovieRental r : customer.rentals()) {
+            if (r.movieId() == null || r.movieId().isEmpty()) {
                 throw new IllegalArgumentException(Constants.CUSTOMER_RENTAL_MOVIE_ID_CANNOT_BE_NULL_OR_EMPTY_ERROR);
             }
 
-            if (!movies.containsKey(r.getMovieId())) {
+            if (!movies.containsKey(r.movieId())) {
                 throw new IllegalArgumentException(Constants.CUSTOMER_RENTAL_MOVIE_NOT_FOUND_ERROR);
             }
 
-            if (r.getDays() <= 0) {
+            if (r.days() <= 0) {
                 throw new IllegalArgumentException(Constants.CUSTOMER_RENTAL_DAYS_CANNOT_BE_LESS_THAN_OR_EQUAL_TO_ZERO_ERROR);
             }
         }
