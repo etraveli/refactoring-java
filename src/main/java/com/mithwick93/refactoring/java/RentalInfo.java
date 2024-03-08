@@ -1,6 +1,7 @@
 package com.mithwick93.refactoring.java;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class RentalInfo {
 
@@ -10,6 +11,8 @@ public class RentalInfo {
         movies.put("F002", new Movie("Matrix", "regular"));
         movies.put("F003", new Movie("Cars", "childrens"));
         movies.put("F004", new Movie("Fast & Furious X", "new"));
+
+        validateCustomer(customer, movies);
 
         double totalAmount = 0;
         int frequentEnterPoints = 0;
@@ -48,5 +51,33 @@ public class RentalInfo {
         result += "You earned " + frequentEnterPoints + " frequent points\n";
 
         return result;
+    }
+
+    private void validateCustomer(Customer customer, Map<String, Movie> movies) {
+        if (customer == null) {
+            throw new IllegalArgumentException(Constants.CUSTOMER_CANNOT_BE_NULL_ERROR);
+        }
+
+        if (customer.getName() == null || customer.getName().isEmpty()) {
+            throw new IllegalArgumentException(Constants.CUSTOMER_NAME_CANNOT_BE_NULL_OR_EMPTY_ERROR);
+        }
+
+        if (customer.getRentals() == null || customer.getRentals().isEmpty()) {
+            throw new IllegalArgumentException(Constants.CUSTOMER_RENTALS_CANNOT_BE_NULL_OR_EMPTY_ERROR);
+        }
+
+        for (MovieRental r : customer.getRentals()) {
+            if (r.getMovieId() == null || r.getMovieId().isEmpty()) {
+                throw new IllegalArgumentException(Constants.CUSTOMER_RENTAL_MOVIE_ID_CANNOT_BE_NULL_OR_EMPTY_ERROR);
+            }
+
+            if (!movies.containsKey(r.getMovieId())) {
+                throw new IllegalArgumentException(Constants.CUSTOMER_RENTAL_MOVIE_NOT_FOUND_ERROR);
+            }
+
+            if (r.getDays() <= 0) {
+                throw new IllegalArgumentException(Constants.CUSTOMER_RENTAL_DAYS_CANNOT_BE_LESS_THAN_OR_EQUAL_TO_ZERO_ERROR);
+            }
+        }
     }
 }

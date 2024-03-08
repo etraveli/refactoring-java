@@ -18,49 +18,58 @@ public class RentalInfoTest {
     }
 
     @Test
-    void givenNullCustomer_whenStatement_thenThrowNullPointerException() {
+    void givenNullCustomer_whenStatement_thenThrowIllegalArgumentException() {
         Customer customer = null;
-        assertThrows(NullPointerException.class, () -> rentalInfo.statement(customer));
+
+        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
     }
 
     @Test
-    void givenInvalidMovieRental_whenStatement_thenThrowNullPointerException() {
-        List<MovieRental> movieRentals = List.of(new MovieRental("F005", 3));
-        Customer customer = new Customer("C. U. Stomer", movieRentals);
-
-        assertThrows(NullPointerException.class, () -> rentalInfo.statement(customer));
-    }
-
-    @Test
-    void givenCustomerWithNoRentalsAndNoName_whenStatement_thenReturnCorrectStatement() {
+    void givenCustomerWithNoRentalsAndNoName_whenStatement_thenThrowIllegalArgumentException() {
         List<MovieRental> movieRentals = new ArrayList<>();
         Customer customer = new Customer("", movieRentals);
 
-        String expected = """
-                Rental Record for\s
-                Amount owed is 0.0
-                You earned 0 frequent points
-                """;
-
-        String result = rentalInfo.statement(customer);
-
-        assertEquals(expected, result);
+        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
     }
 
     @Test
-    void givenCustomerWithNoRentals_whenStatement_thenReturnCorrectStatement() {
+    void givenCustomerWithNoRentals_whenStatement_thenIllegalArgumentException() {
         List<MovieRental> movieRentals = new ArrayList<>();
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        String expected = """
-                Rental Record for C. U. Stomer
-                Amount owed is 0.0
-                You earned 0 frequent points
-                """;
+        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+    }
 
-        String result = rentalInfo.statement(customer);
+    @Test
+    void givenCustomerWithRentalWithNullId_whenStatement_thenIllegalArgumentException() {
+        List<MovieRental> movieRentals = List.of(new MovieRental(null, 3));
+        Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertEquals(expected, result);
+        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+    }
+
+    @Test
+    void givenInvalidMovieRental_whenStatement_thenThrowIllegalArgumentException() {
+        List<MovieRental> movieRentals = List.of(new MovieRental("F005", 3));
+        Customer customer = new Customer("C. U. Stomer", movieRentals);
+
+        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+    }
+
+    @Test
+    void givenCustomerWithRentalWithZeroDays_whenStatement_thenIllegalArgumentException() {
+        List<MovieRental> movieRentals = List.of(new MovieRental("F001", 0));
+        Customer customer = new Customer("C. U. Stomer", movieRentals);
+
+        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+    }
+
+    @Test
+    void givenCustomerWithRentalWithNegativeDays_whenStatement_thenIllegalArgumentException() {
+        List<MovieRental> movieRentals = List.of(new MovieRental("F001", -4));
+        Customer customer = new Customer("C. U. Stomer", movieRentals);
+
+        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
     }
 
     @Test
