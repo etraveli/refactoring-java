@@ -13,9 +13,19 @@
     - Reasoning
         - Unit tests are essential for refactoring. They help to understand the existing code and make sure that the
           refactored code works as expected.
-3. Integrate with Github CI actions
+3. Integrate with GitHub CI actions
     - Changes
-        - Add a Github CI action to build and test the project
+        - Add a GitHub CI action to build and test the project
     - Reasoning
         - Continuous integration is essential for a project. It helps to catch bugs early and ensure that the project
           is always in a working state.
+4. Validate input
+    - Changes
+        - Add input validation for the statement method in RentalInfo class
+        - This might be a breaking change because now the application gives IllegalArgumentException if the input is
+          invalid
+        - Updated unit tests to include input validation
+        - Declare a constants class to store the constants
+    - Reasoning
+        - Input validation is essential for restricting the domain of the input. It helps to prevent invalid input from
+          causing unexpected behavior in the program.
