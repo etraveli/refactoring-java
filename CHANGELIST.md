@@ -29,3 +29,10 @@
     - Reasoning
         - Input validation is essential for restricting the domain of the input. It helps to prevent invalid input from
           causing unexpected behavior in the program.
+5. Restructure the entity classes
+    - Changes
+        - Make the entity classes record classes
+        - Add Java doc comments to the entity classes
+    - Reasoning
+        - Record classes are a new feature in Java 16. They are a concise way to define classes. They are immutable and
+          provide a compact way to define data classes.

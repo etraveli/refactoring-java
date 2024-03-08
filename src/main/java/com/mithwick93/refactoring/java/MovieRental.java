@@ -1,19 +1,10 @@
 package com.mithwick93.refactoring.java;
 
-public class MovieRental {
-    private String movieId;
-    private int days;
-
-    public MovieRental(String movieId, int days) {
-        this.movieId = movieId;
-        this.days = days;
-    }
-
-    public String getMovieId() {
-        return movieId;
-    }
-
-    public int getDays() {
-        return days;
-    }
+/**
+ * MovieRental class to represent a movie rental
+ *
+ * @param movieId movie id
+ * @param days    number of days the movie is rented for
+ */
+public record MovieRental(String movieId, int days) {
 }

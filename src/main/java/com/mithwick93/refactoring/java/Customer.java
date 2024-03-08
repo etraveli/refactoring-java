@@ -2,20 +2,11 @@ package com.mithwick93.refactoring.java;
 
 import java.util.List;
 
-public class Customer {
-    private String name;
-    private List<MovieRental> rentals;
-
-    public Customer(String name, List<MovieRental> rentals) {
-        this.name = name;
-        this.rentals = rentals;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<MovieRental> getRentals() {
-        return rentals;
-    }
+/**
+ * Customer class to represent a customer with a name and a list of rentals
+ *
+ * @param name    of the customer
+ * @param rentals List of current rentals the customer has
+ */
+public record Customer(String name, List<MovieRental> rentals) {
 }
