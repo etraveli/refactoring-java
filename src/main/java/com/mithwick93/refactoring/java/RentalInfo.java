@@ -1,5 +1,9 @@
 package com.mithwick93.refactoring.java;
 
+import com.mithwick93.refactoring.java.entity.Customer;
+import com.mithwick93.refactoring.java.entity.Movie;
+import com.mithwick93.refactoring.java.entity.MovieRental;
+
 import java.util.HashMap;
 import java.util.Map;
 

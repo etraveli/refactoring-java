@@ -1,5 +1,7 @@
 package com.mithwick93.refactoring.java;
 
+import com.mithwick93.refactoring.java.entity.Customer;
+import com.mithwick93.refactoring.java.entity.MovieRental;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

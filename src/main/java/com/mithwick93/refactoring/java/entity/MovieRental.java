@@ -1,4 +1,4 @@
-package com.mithwick93.refactoring.java;
+package com.mithwick93.refactoring.java.entity;
 
 /**
  * MovieRental class to represent a movie rental

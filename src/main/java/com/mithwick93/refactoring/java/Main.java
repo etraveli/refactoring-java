@@ -1,5 +1,8 @@
 package com.mithwick93.refactoring.java;
 
+import com.mithwick93.refactoring.java.entity.Customer;
+import com.mithwick93.refactoring.java.entity.MovieRental;
+
 import java.util.Arrays;
 
 public class Main {

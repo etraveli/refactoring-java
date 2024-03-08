@@ -1,4 +1,4 @@
-package com.mithwick93.refactoring.java;
+package com.mithwick93.refactoring.java.entity;
 
 /**
  * Movie class to store the details of the movie

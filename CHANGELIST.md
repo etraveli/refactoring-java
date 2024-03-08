@@ -33,6 +33,7 @@
     - Changes
         - Make the entity classes record classes
         - Add Java doc comments to the entity classes
+        - Move the entity classes to a separate entity package
     - Reasoning
         - Record classes are a new feature in Java 16. They are a concise way to define classes. They are immutable and
           provide a compact way to define data classes.
