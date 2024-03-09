@@ -1,16 +1,16 @@
-package com.mithwick93.refactoring.java.service;
+package com.mithwick93.refactoring.java.service.helper;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class StatementGeneratorServiceTest {
+class StatementGeneratorHelperTest {
 
     @Test
     void givenInitializedProperly_whenGenerate_thenReturnCorrectStatement() {
-        StatementGeneratorService statementGeneratorService = new StatementGeneratorService("John Doe");
-        statementGeneratorService.addMovieStatement("The Reverent", 3.0, 1);
+        StatementGeneratorHelper statementGeneratorHelper = new StatementGeneratorHelper("John Doe");
+        statementGeneratorHelper.addMovieStatement("The Reverent", 3.0, 1);
 
         String expected = """
                 Rental Record for John Doe
@@ -19,7 +19,7 @@ class StatementGeneratorServiceTest {
                 You earned 1 frequent points
                 """;
 
-        String result = statementGeneratorService.generate();
+        String result = statementGeneratorHelper.generate();
 
         assertNotNull(result);
         assertEquals(expected, result);
@@ -27,7 +27,7 @@ class StatementGeneratorServiceTest {
 
     @Test
     void givenInitializedNotProperly_whenGenerate_thenReturnDefaultStatement() {
-        StatementGeneratorService statementGeneratorService = new StatementGeneratorService("");
+        StatementGeneratorHelper statementGeneratorHelper = new StatementGeneratorHelper("");
 
         String expected = """
                 Rental Record for\s
@@ -35,7 +35,7 @@ class StatementGeneratorServiceTest {
                 You earned 0 frequent points
                 """;
 
-        String result = statementGeneratorService.generate();
+        String result = statementGeneratorHelper.generate();
 
         assertNotNull(result);
         assertEquals(expected, result);

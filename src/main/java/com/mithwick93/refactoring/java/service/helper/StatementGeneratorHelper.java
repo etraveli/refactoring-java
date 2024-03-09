@@ -1,10 +1,10 @@
-package com.mithwick93.refactoring.java.service;
+package com.mithwick93.refactoring.java.service.helper;
 
 /**
- * StatementGeneratorService class to generate the statement for the
+ * StatementGeneratorHelper class to help generate the statement for the
  * customer.
  */
-public class StatementGeneratorService {
+public class StatementGeneratorHelper {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String TAB = "\t";
 
@@ -13,7 +13,7 @@ public class StatementGeneratorService {
     private double totalAmount;
     private int frequentPoints;
 
-    public StatementGeneratorService(final String customerName) {
+    public StatementGeneratorHelper(final String customerName) {
         this.customerName = customerName;
         this.movieStatementsBuilder = new StringBuilder();
     }

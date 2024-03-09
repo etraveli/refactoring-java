@@ -5,6 +5,7 @@ import com.mithwick93.refactoring.java.entity.Customer;
 import com.mithwick93.refactoring.java.entity.Movie;
 import com.mithwick93.refactoring.java.entity.MovieRental;
 import com.mithwick93.refactoring.java.repositroy.MovieRepository;
+import com.mithwick93.refactoring.java.service.helper.StatementGeneratorHelper;
 
 import java.math.BigInteger;
 import java.util.Map;
@@ -28,8 +29,8 @@ public class RentalInformationService {
     public String statement(final Customer customer) {
         validateCustomer(customer, movieRepository.getMovies());
 
-        StatementGeneratorService statementGeneratorService
-                = new StatementGeneratorService(customer.name());
+        StatementGeneratorHelper statementGeneratorHelper
+                = new StatementGeneratorHelper(customer.name());
         customer.rentals().forEach(movieRental -> {
             Movie movie = movieRepository.getMovie(movieRental.movieId());
             String movieTitle = movie.title();
@@ -39,14 +40,14 @@ public class RentalInformationService {
             double amount = getRentAmount(movieCode, days);
             int frequentPoints = getFrequentPoints(movieCode, days);
 
-            statementGeneratorService.addMovieStatement(
+            statementGeneratorHelper.addMovieStatement(
                     movieTitle,
                     amount,
                     frequentPoints
             );
         });
 
-        return statementGeneratorService.generate();
+        return statementGeneratorHelper.generate();
     }
 
     /**
