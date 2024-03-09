@@ -1,7 +1,6 @@
 package com.mithwick93.refactoring.java.repositroy.impl;
 
 import com.mithwick93.refactoring.java.entity.Movie;
-import com.mithwick93.refactoring.java.entity.MovieCode;
 import com.mithwick93.refactoring.java.repositroy.MovieRepository;
 
 import java.util.Map;
@@ -36,10 +35,10 @@ public class MovieRepositoryImpl implements MovieRepository {
      */
     private Map<String, Movie> initializeMovies() {
         return Map.of(
-                "F001", new Movie("You've Got Mail", MovieCode.REGULAR),
-                "F002", new Movie("Matrix", MovieCode.REGULAR),
-                "F003", new Movie("Cars", MovieCode.CHILDREN),
-                "F004", new Movie("Fast & Furious X", MovieCode.NEW_RELEASE)
+                "F001", new Movie("You've Got Mail", Movie.MovieCode.REGULAR),
+                "F002", new Movie("Matrix", Movie.MovieCode.REGULAR),
+                "F003", new Movie("Cars", Movie.MovieCode.CHILDREN),
+                "F004", new Movie("Fast & Furious X", Movie.MovieCode.NEW_RELEASE)
         );
     }
 

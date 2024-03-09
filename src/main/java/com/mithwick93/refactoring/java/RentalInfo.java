@@ -2,7 +2,6 @@ package com.mithwick93.refactoring.java;
 
 import com.mithwick93.refactoring.java.entity.Customer;
 import com.mithwick93.refactoring.java.entity.Movie;
-import com.mithwick93.refactoring.java.entity.MovieCode;
 import com.mithwick93.refactoring.java.entity.MovieRental;
 import com.mithwick93.refactoring.java.repositroy.MovieRepository;
 import com.mithwick93.refactoring.java.service.CustomerStatementGeneratorService;
@@ -33,7 +32,7 @@ public class RentalInfo {
         customer.rentals().forEach(movieRental -> {
             Movie movie = movieRepository.getMovie(movieRental.movieId());
             String movieTitle = movie.title();
-            MovieCode movieCode = movie.code();
+            Movie.MovieCode movieCode = movie.code();
             int days = movieRental.days();
 
             double amount = getRentAmount(movieCode, days);
@@ -52,7 +51,7 @@ public class RentalInfo {
      * @param days      days for which movie is rented
      * @return rent amount
      */
-    private double getRentAmount(MovieCode movieCode, int days) {
+    private double getRentAmount(Movie.MovieCode movieCode, int days) {
         // initialize with base amount
         double amount = movieCode.getBaseRate();
 
@@ -72,7 +71,7 @@ public class RentalInfo {
      * @param days      days for which movie is rented
      * @return frequent points
      */
-    private int getFrequentPoints(MovieCode movieCode, int days) {
+    private int getFrequentPoints(Movie.MovieCode movieCode, int days) {
         // initialize with regular frequent points
         int frequentPoints = movieCode.getFrequentPoints();
 
