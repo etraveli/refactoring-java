@@ -53,3 +53,11 @@
         - A movie repository is a better way to manage the movies. It provides a way to store and retrieve the movies
           from a data store.
         - This separates managing movies from the main application logic
+8. Refactor movie repository
+    - Changes
+        - Extract the movie repository interface
+        - Move implementation of movie repository to a separate package
+        - Refactor the code to use the movie repository interface
+    - Reasoning
+        - Extracting the movie repository interface makes it easier to test the code. It also makes it easier to change
+          the implementation of the movie repository in the future. 

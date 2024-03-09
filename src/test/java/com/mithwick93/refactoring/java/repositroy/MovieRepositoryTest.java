@@ -1,6 +1,7 @@
 package com.mithwick93.refactoring.java.repositroy;
 
 import com.mithwick93.refactoring.java.entity.Movie;
+import com.mithwick93.refactoring.java.repositroy.impl.MovieRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +15,7 @@ class MovieRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        movieRepository = new MovieRepository();
+        movieRepository = new MovieRepositoryImpl();
     }
 
     @Test
