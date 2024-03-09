@@ -44,3 +44,12 @@
     - Reasoning
         - Enums are a better way to represent a fixed set of constants. They provide type safety and are more readable
           than strings.
+7. Introduce movie repository
+    - Changes
+        - Add a movie repository to store the movies
+        - Add unit tests for the movie repository
+        - Update the code to use the movie repository using dependency injection
+    - Reasoning
+        - A movie repository is a better way to manage the movies. It provides a way to store and retrieve the movies
+          from a data store.
+        - This separates managing movies from the main application logic
