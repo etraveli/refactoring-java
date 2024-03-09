@@ -1,4 +1,4 @@
-package com.mithwick93.refactoring.java;
+package com.mithwick93.refactoring.java.service;
 
 import com.mithwick93.refactoring.java.entity.Customer;
 import com.mithwick93.refactoring.java.entity.MovieRental;
@@ -13,20 +13,20 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class RentalInfoTest {
-    private RentalInfo rentalInfo;
+public class RentalInformationServiceTest {
+    private RentalInformationService rentalInformationService;
 
     @BeforeEach
     void setUp() {
         MovieRepository movieRepository = new MovieRepositoryImpl();
-        rentalInfo = new RentalInfo(movieRepository);
+        rentalInformationService = new RentalInformationService(movieRepository);
     }
 
     @Test
     void givenNullCustomer_whenStatement_thenThrowIllegalArgumentException() {
         Customer customer = null;
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.statement(customer));
     }
 
     @Test
@@ -34,7 +34,7 @@ public class RentalInfoTest {
         List<MovieRental> movieRentals = new ArrayList<>();
         Customer customer = new Customer("", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.statement(customer));
     }
 
     @Test
@@ -42,7 +42,7 @@ public class RentalInfoTest {
         List<MovieRental> movieRentals = new ArrayList<>();
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.statement(customer));
     }
 
     @Test
@@ -50,7 +50,7 @@ public class RentalInfoTest {
         List<MovieRental> movieRentals = List.of(new MovieRental(null, 3));
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.statement(customer));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class RentalInfoTest {
         List<MovieRental> movieRentals = List.of(new MovieRental("F005", 3));
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.statement(customer));
     }
 
     @Test
@@ -66,7 +66,7 @@ public class RentalInfoTest {
         List<MovieRental> movieRentals = List.of(new MovieRental("F001", 0));
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.statement(customer));
     }
 
     @Test
@@ -74,7 +74,7 @@ public class RentalInfoTest {
         List<MovieRental> movieRentals = List.of(new MovieRental("F001", -4));
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInfo.statement(customer));
+        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.statement(customer));
     }
 
     @Test
@@ -93,7 +93,7 @@ public class RentalInfoTest {
                 You earned 2 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }
@@ -110,7 +110,7 @@ public class RentalInfoTest {
                 You earned 1 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }
@@ -127,7 +127,7 @@ public class RentalInfoTest {
                 You earned 1 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }
@@ -144,7 +144,7 @@ public class RentalInfoTest {
                 You earned 1 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }
@@ -161,7 +161,7 @@ public class RentalInfoTest {
                 You earned 1 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }
@@ -178,7 +178,7 @@ public class RentalInfoTest {
                 You earned 1 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }
@@ -195,7 +195,7 @@ public class RentalInfoTest {
                 You earned 2 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }
@@ -212,7 +212,7 @@ public class RentalInfoTest {
                 You earned 1 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }
@@ -229,7 +229,7 @@ public class RentalInfoTest {
                 You earned 1 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }
@@ -246,7 +246,7 @@ public class RentalInfoTest {
                 You earned 1 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }
@@ -270,7 +270,7 @@ public class RentalInfoTest {
                 You earned 4 frequent points
                 """;
 
-        String result = rentalInfo.statement(customer);
+        String result = rentalInformationService.statement(customer);
 
         assertEquals(expected, result);
     }

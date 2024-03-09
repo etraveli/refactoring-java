@@ -1,21 +1,21 @@
-package com.mithwick93.refactoring.java;
+package com.mithwick93.refactoring.java.service;
 
+import com.mithwick93.refactoring.java.Constants;
 import com.mithwick93.refactoring.java.entity.Customer;
 import com.mithwick93.refactoring.java.entity.Movie;
 import com.mithwick93.refactoring.java.entity.MovieRental;
 import com.mithwick93.refactoring.java.repositroy.MovieRepository;
-import com.mithwick93.refactoring.java.service.StatementGeneratorService;
 
 import java.math.BigInteger;
 import java.util.Map;
 
 /**
- * RentalInfo class to generate the statement for the customer.
+ * RentalInformationService class to generate the statement for the customer.
  */
-public class RentalInfo {
+public class RentalInformationService {
     private final MovieRepository movieRepository;
 
-    public RentalInfo(final MovieRepository movieRepository) {
+    public RentalInformationService(final MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
