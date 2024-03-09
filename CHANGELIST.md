@@ -37,3 +37,10 @@
     - Reasoning
         - Record classes are a new feature in Java 16. They are a concise way to define classes. They are immutable and
           provide a compact way to define data classes.
+6. Replace movie code strings with enums
+    - Changes
+        - Replace the movie code strings with enums
+        - Update the code to use the enums
+    - Reasoning
+        - Enums are a better way to represent a fixed set of constants. They provide type safety and are more readable
+          than strings.
