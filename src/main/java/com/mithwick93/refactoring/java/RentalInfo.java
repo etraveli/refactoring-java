@@ -4,31 +4,32 @@ import com.mithwick93.refactoring.java.entity.Customer;
 import com.mithwick93.refactoring.java.entity.Movie;
 import com.mithwick93.refactoring.java.entity.MovieRental;
 import com.mithwick93.refactoring.java.repositroy.MovieRepository;
-import com.mithwick93.refactoring.java.service.CustomerStatementGeneratorService;
+import com.mithwick93.refactoring.java.service.StatementGeneratorService;
 
 import java.math.BigInteger;
 import java.util.Map;
 
 /**
- * RentalInfo class to generate the statement for the customer
+ * RentalInfo class to generate the statement for the customer.
  */
 public class RentalInfo {
     private final MovieRepository movieRepository;
 
-    public RentalInfo(MovieRepository movieRepository) {
+    public RentalInfo(final MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
     }
 
     /**
-     * Generate the statement for the customer
+     * Generate the statement for the customer.
      *
      * @param customer customer for which statement is to be generated
      * @return statement for the customer
      */
-    public String statement(Customer customer) {
+    public String statement(final Customer customer) {
         validateCustomer(customer, movieRepository.getMovies());
 
-        CustomerStatementGeneratorService customerStatementGeneratorService = new CustomerStatementGeneratorService(customer.name());
+        StatementGeneratorService statementGeneratorService
+                = new StatementGeneratorService(customer.name());
         customer.rentals().forEach(movieRental -> {
             Movie movie = movieRepository.getMovie(movieRental.movieId());
             String movieTitle = movie.title();
@@ -38,20 +39,28 @@ public class RentalInfo {
             double amount = getRentAmount(movieCode, days);
             int frequentPoints = getFrequentPoints(movieCode, days);
 
-            customerStatementGeneratorService.addMovieStatement(movieTitle, amount, frequentPoints);
+            statementGeneratorService.addMovieStatement(
+                    movieTitle,
+                    amount,
+                    frequentPoints
+            );
         });
 
-        return customerStatementGeneratorService.generate();
+        return statementGeneratorService.generate();
     }
 
     /**
-     * Get the rent amount for the movie based on the movie code and no of rented days
+     * Get the rent amount for the movie based on the movie code and no of
+     * rented days.
      *
      * @param movieCode movie code
      * @param days      days for which movie is rented
      * @return rent amount
      */
-    private double getRentAmount(Movie.MovieCode movieCode, int days) {
+    private double getRentAmount(
+            final Movie.MovieCode movieCode,
+            final int days
+    ) {
         // initialize with base amount
         double amount = movieCode.getBaseRate();
 
@@ -65,18 +74,25 @@ public class RentalInfo {
     }
 
     /**
-     * Get the frequent points for the movie based on the movie code and no of rented days
+     * Get the frequent points for the movie based on the movie code and no of
+     * rented days.
      *
      * @param movieCode movie code
      * @param days      days for which movie is rented
      * @return frequent points
      */
-    private int getFrequentPoints(Movie.MovieCode movieCode, int days) {
+    private int getFrequentPoints(
+            final Movie.MovieCode movieCode,
+            final int days
+    ) {
         // initialize with regular frequent points
         int frequentPoints = movieCode.getFrequentPoints();
 
-        // add additional frequent points if the movie is eligible for more frequent points and days are more than the threshold
-        if (movieCode.isEligibleForMoreFrequentPoints() && days > movieCode.getDaysThresholdForMoreFrequentPoints()) {
+        // add additional frequent points if the movie is eligible for more
+        // frequent points and days are more than the threshold
+        if (movieCode.isEligibleForMoreFrequentPoints()
+                && days > movieCode.getDaysThresholdForMoreFrequentPoints()
+        ) {
             frequentPoints += movieCode.getAdditionalFrequentPoints();
         }
 
@@ -84,35 +100,50 @@ public class RentalInfo {
     }
 
     /**
-     * Validate the customer and the rentals
+     * Validate the customer and the rentals.
      *
      * @param customer customer to validate
      * @param movies   movies to validate the rentals
      */
-    private void validateCustomer(Customer customer, Map<String, Movie> movies) {
+    private void validateCustomer(
+            final Customer customer,
+            final Map<String, Movie> movies
+    ) {
         if (customer == null) {
-            throw new IllegalArgumentException(Constants.CUSTOMER_CANNOT_BE_NULL_ERROR);
+            throw new IllegalArgumentException(
+                    Constants.CUSTOMER_CANNOT_BE_NULL_ERROR
+            );
         }
 
         if (customer.name() == null || customer.name().isEmpty()) {
-            throw new IllegalArgumentException(Constants.CUSTOMER_NAME_CANNOT_BE_NULL_OR_EMPTY_ERROR);
+            throw new IllegalArgumentException(
+                    Constants.CUSTOMER_NAME_CANNOT_BE_NULL_OR_EMPTY_ERROR
+            );
         }
 
         if (customer.rentals() == null || customer.rentals().isEmpty()) {
-            throw new IllegalArgumentException(Constants.CUSTOMER_RENTALS_CANNOT_BE_NULL_OR_EMPTY_ERROR);
+            throw new IllegalArgumentException(
+                    Constants.CUSTOMER_RENTALS_CANNOT_BE_NULL_OR_EMPTY_ERROR
+            );
         }
 
         for (MovieRental r : customer.rentals()) {
             if (r.movieId() == null || r.movieId().isEmpty()) {
-                throw new IllegalArgumentException(Constants.CUSTOMER_RENTAL_MOVIE_ID_CANNOT_BE_NULL_OR_EMPTY_ERROR);
+                throw new IllegalArgumentException(
+                        Constants.CUSTOMER_RENTAL_MOVIE_ID_CANNOT_BE_NULL_OR_EMPTY_ERROR
+                );
             }
 
             if (!movies.containsKey(r.movieId())) {
-                throw new IllegalArgumentException(Constants.CUSTOMER_RENTAL_MOVIE_NOT_FOUND_ERROR);
+                throw new IllegalArgumentException(
+                        Constants.CUSTOMER_RENTAL_MOVIE_NOT_FOUND_ERROR
+                );
             }
 
             if (r.days() <= 0) {
-                throw new IllegalArgumentException(Constants.CUSTOMER_RENTAL_DAYS_CANNOT_BE_LESS_THAN_OR_EQUAL_TO_ZERO_ERROR);
+                throw new IllegalArgumentException(
+                        Constants.CUSTOMER_RENTAL_DAYS_CANNOT_BE_LESS_THAN_OR_EQUAL_TO_ZERO_ERROR
+                );
             }
         }
     }
