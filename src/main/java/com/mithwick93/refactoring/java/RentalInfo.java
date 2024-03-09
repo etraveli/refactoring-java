@@ -4,38 +4,38 @@ import com.mithwick93.refactoring.java.entity.Customer;
 import com.mithwick93.refactoring.java.entity.Movie;
 import com.mithwick93.refactoring.java.entity.MovieCode;
 import com.mithwick93.refactoring.java.entity.MovieRental;
+import com.mithwick93.refactoring.java.repositroy.MovieRepository;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class RentalInfo {
+    private final MovieRepository movieRepository;
+
+    public RentalInfo(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
 
     public String statement(Customer customer) {
-        HashMap<String, Movie> movies = new HashMap();
-        movies.put("F001", new Movie("You've Got Mail", MovieCode.REGULAR));
-        movies.put("F002", new Movie("Matrix", MovieCode.REGULAR));
-        movies.put("F003", new Movie("Cars", MovieCode.CHILDREN));
-        movies.put("F004", new Movie("Fast & Furious X", MovieCode.NEW_RELEASE));
-
-        validateCustomer(customer, movies);
+        validateCustomer(customer, movieRepository.getMovies());
 
         double totalAmount = 0;
         int frequentEnterPoints = 0;
         String result = "Rental Record for " + customer.name() + "\n";
         for (MovieRental r : customer.rentals()) {
+            Movie movie = movieRepository.getMovie(r.movieId());
             double thisAmount = 0;
 
             // determine amount for each movie
-            if (movies.get(r.movieId()).code() == MovieCode.REGULAR) {
+            if (movie.code() == MovieCode.REGULAR) {
                 thisAmount = 2;
                 if (r.days() > 2) {
                     thisAmount = ((r.days() - 2) * 1.5) + thisAmount;
                 }
             }
-            if (movies.get(r.movieId()).code() == MovieCode.NEW_RELEASE) {
+            if (movie.code() == MovieCode.NEW_RELEASE) {
                 thisAmount = r.days() * 3;
             }
-            if (movies.get(r.movieId()).code() == MovieCode.CHILDREN) {
+            if (movie.code() == MovieCode.CHILDREN) {
                 thisAmount = 1.5;
                 if (r.days() > 3) {
                     thisAmount = ((r.days() - 3) * 1.5) + thisAmount;
@@ -45,10 +45,11 @@ public class RentalInfo {
             //add frequent bonus points
             frequentEnterPoints++;
             // add bonus for a two day new release rental
-            if (movies.get(r.movieId()).code() == MovieCode.NEW_RELEASE && r.days() > 2) frequentEnterPoints++;
+            if (movie.code() == MovieCode.NEW_RELEASE && r.days() > 2)
+                frequentEnterPoints++;
 
             //print figures for this rental
-            result += "\t" + movies.get(r.movieId()).title() + "\t" + thisAmount + "\n";
+            result += "\t" + movie.title() + "\t" + thisAmount + "\n";
             totalAmount = totalAmount + thisAmount;
         }
         // add footer lines
