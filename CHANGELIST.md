@@ -61,3 +61,12 @@
     - Reasoning
         - Extracting the movie repository interface makes it easier to test the code. It also makes it easier to change
           the implementation of the movie repository in the future. 
+9. Refactor rental statement logic
+    - Changes
+        - Extract constants and associate directly with the movie code
+        - Extract calculating rental for each movie to a separate method
+        - Extract calculating frequent enter points to a separate method
+    - Reasoning
+        - Extracting the constants and the logic to separate methods makes the code more readable and maintainable.
+        - Each method now has a single responsibility.
+        - The main statement method is now more readable and easier to understand.

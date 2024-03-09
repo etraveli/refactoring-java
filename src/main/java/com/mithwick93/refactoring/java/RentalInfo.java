@@ -6,6 +6,7 @@ import com.mithwick93.refactoring.java.entity.MovieCode;
 import com.mithwick93.refactoring.java.entity.MovieRental;
 import com.mithwick93.refactoring.java.repositroy.MovieRepository;
 
+import java.math.BigInteger;
 import java.util.Map;
 
 public class RentalInfo {
@@ -15,38 +16,26 @@ public class RentalInfo {
         this.movieRepository = movieRepository;
     }
 
+    /**
+     * Generate the statement for the customer
+     *
+     * @param customer customer for which statement is to be generated
+     * @return statement for the customer
+     */
     public String statement(Customer customer) {
         validateCustomer(customer, movieRepository.getMovies());
 
         double totalAmount = 0;
-        int frequentEnterPoints = 0;
+        int frequentPoints = 0;
         String result = "Rental Record for " + customer.name() + "\n";
+
         for (MovieRental r : customer.rentals()) {
             Movie movie = movieRepository.getMovie(r.movieId());
-            double thisAmount = 0;
 
             // determine amount for each movie
-            if (movie.code() == MovieCode.REGULAR) {
-                thisAmount = 2;
-                if (r.days() > 2) {
-                    thisAmount = ((r.days() - 2) * 1.5) + thisAmount;
-                }
-            }
-            if (movie.code() == MovieCode.NEW_RELEASE) {
-                thisAmount = r.days() * 3;
-            }
-            if (movie.code() == MovieCode.CHILDREN) {
-                thisAmount = 1.5;
-                if (r.days() > 3) {
-                    thisAmount = ((r.days() - 3) * 1.5) + thisAmount;
-                }
-            }
-
+            double thisAmount = getRentAmount(movie.code(), r.days());
             //add frequent bonus points
-            frequentEnterPoints++;
-            // add bonus for a two day new release rental
-            if (movie.code() == MovieCode.NEW_RELEASE && r.days() > 2)
-                frequentEnterPoints++;
+            frequentPoints += getFrequentPoints(movie.code(), r.days());
 
             //print figures for this rental
             result += "\t" + movie.title() + "\t" + thisAmount + "\n";
@@ -54,11 +43,56 @@ public class RentalInfo {
         }
         // add footer lines
         result += "Amount owed is " + totalAmount + "\n";
-        result += "You earned " + frequentEnterPoints + " frequent points\n";
+        result += "You earned " + frequentPoints + " frequent points\n";
 
         return result;
     }
 
+    /**
+     * Get the rent amount for the movie based on the movie code and no of rented days
+     *
+     * @param movieCode movie code
+     * @param days      days for which movie is rented
+     * @return rent amount
+     */
+    private double getRentAmount(MovieCode movieCode, int days) {
+        // initialize with base amount
+        double amount = movieCode.getBaseRate();
+
+        // add amount for the days after max base rate days
+        int daysAfterMaxBaseRate = days - movieCode.getMaxBaseRateDays();
+        if (daysAfterMaxBaseRate > BigInteger.ZERO.intValue()) {
+            amount += daysAfterMaxBaseRate * movieCode.getDailyRate();
+        }
+
+        return amount;
+    }
+
+    /**
+     * Get the frequent points for the movie based on the movie code and no of rented days
+     *
+     * @param movieCode movie code
+     * @param days      days for which movie is rented
+     * @return frequent points
+     */
+    private int getFrequentPoints(MovieCode movieCode, int days) {
+        // initialize with regular frequent points
+        int frequentPoints = movieCode.getFrequentPoints();
+
+        // add additional frequent points if the movie is eligible for more frequent points and days are more than the threshold
+        if (movieCode.isEligibleForMoreFrequentPoints() && days > movieCode.getDaysThresholdForMoreFrequentPoints()) {
+            frequentPoints += movieCode.getAdditionalFrequentPoints();
+        }
+
+        return frequentPoints;
+    }
+
+    /**
+     * Validate the customer and the rentals
+     *
+     * @param customer customer to validate
+     * @param movies   movies to validate the rentals
+     */
     private void validateCustomer(Customer customer, Map<String, Movie> movies) {
         if (customer == null) {
             throw new IllegalArgumentException(Constants.CUSTOMER_CANNOT_BE_NULL_ERROR);
