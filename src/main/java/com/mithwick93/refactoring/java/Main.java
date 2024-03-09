@@ -5,6 +5,7 @@ import com.mithwick93.refactoring.java.entity.MovieRental;
 import com.mithwick93.refactoring.java.repositroy.MovieRepository;
 import com.mithwick93.refactoring.java.repositroy.impl.MovieRepositoryImpl;
 import com.mithwick93.refactoring.java.service.RentalInformationService;
+import com.mithwick93.refactoring.java.service.impl.RentalInformationServiceImpl;
 
 import java.util.Arrays;
 
@@ -22,8 +23,10 @@ public final class Main {
                 """;
 
         MovieRepository movieRepository = new MovieRepositoryImpl();
-        String result = new RentalInformationService(movieRepository)
-                .statement(
+        RentalInformationService rentalInformationService =
+                new RentalInformationServiceImpl(movieRepository);
+        String result = rentalInformationService
+                .getStatement(
                         new Customer(
                                 "C. U. Stomer",
                                 Arrays.asList(

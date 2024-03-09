@@ -79,3 +79,14 @@
         - Extracting the rental statement string generation to a separate class makes the code more readable and
           maintainable.
         - It separates the logic of generating the rental statement string from the main application logic.
+11. Refactor code structure
+    - Changes
+        - Move MovieCode inside Movie record
+        - Enforce check style rules where possible
+        - Rename and move classes to better packages
+        - Rename methods and variables to better names
+    - Reasoning
+        - The code structure is now more organized and follows the best practices.
+        - The code is now more readable and maintainable.
+        - The code is now more consistent and follows the check style rules.
+        - The code is now more modular and follows the single responsibility principle.
