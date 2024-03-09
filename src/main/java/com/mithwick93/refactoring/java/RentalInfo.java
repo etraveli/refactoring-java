@@ -5,10 +5,14 @@ import com.mithwick93.refactoring.java.entity.Movie;
 import com.mithwick93.refactoring.java.entity.MovieCode;
 import com.mithwick93.refactoring.java.entity.MovieRental;
 import com.mithwick93.refactoring.java.repositroy.MovieRepository;
+import com.mithwick93.refactoring.java.service.CustomerStatementGeneratorService;
 
 import java.math.BigInteger;
 import java.util.Map;
 
+/**
+ * RentalInfo class to generate the statement for the customer
+ */
 public class RentalInfo {
     private final MovieRepository movieRepository;
 
@@ -25,27 +29,20 @@ public class RentalInfo {
     public String statement(Customer customer) {
         validateCustomer(customer, movieRepository.getMovies());
 
-        double totalAmount = 0;
-        int frequentPoints = 0;
-        String result = "Rental Record for " + customer.name() + "\n";
+        CustomerStatementGeneratorService customerStatementGeneratorService = new CustomerStatementGeneratorService(customer.name());
+        customer.rentals().forEach(movieRental -> {
+            Movie movie = movieRepository.getMovie(movieRental.movieId());
+            String movieTitle = movie.title();
+            MovieCode movieCode = movie.code();
+            int days = movieRental.days();
 
-        for (MovieRental r : customer.rentals()) {
-            Movie movie = movieRepository.getMovie(r.movieId());
+            double amount = getRentAmount(movieCode, days);
+            int frequentPoints = getFrequentPoints(movieCode, days);
 
-            // determine amount for each movie
-            double thisAmount = getRentAmount(movie.code(), r.days());
-            //add frequent bonus points
-            frequentPoints += getFrequentPoints(movie.code(), r.days());
+            customerStatementGeneratorService.addMovieStatement(movieTitle, amount, frequentPoints);
+        });
 
-            //print figures for this rental
-            result += "\t" + movie.title() + "\t" + thisAmount + "\n";
-            totalAmount = totalAmount + thisAmount;
-        }
-        // add footer lines
-        result += "Amount owed is " + totalAmount + "\n";
-        result += "You earned " + frequentPoints + " frequent points\n";
-
-        return result;
+        return customerStatementGeneratorService.generate();
     }
 
     /**
