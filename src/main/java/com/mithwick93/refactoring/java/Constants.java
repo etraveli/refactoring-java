@@ -1,5 +1,8 @@
 package com.mithwick93.refactoring.java;
 
+/**
+ * Constants class to hold the constants.
+ */
 public final class Constants {
     public static final String CUSTOMER_CANNOT_BE_NULL_ERROR
             = "Customer cannot be null";
