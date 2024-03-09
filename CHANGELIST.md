@@ -60,7 +60,7 @@
         - Refactor the code to use the movie repository interface
     - Reasoning
         - Extracting the movie repository interface makes it easier to test the code. It also makes it easier to change
-          the implementation of the movie repository in the future. 
+          the implementation of the movie repository in the future.
 9. Refactor rental statement logic
     - Changes
         - Extract constants and associate directly with the movie code
@@ -70,3 +70,12 @@
         - Extracting the constants and the logic to separate methods makes the code more readable and maintainable.
         - Each method now has a single responsibility.
         - The main statement method is now more readable and easier to understand.
+10. Refactor rental statement string generation
+    - Changes
+        - Extract rental statement string generation to a separate class
+        - Update the code to use the rental statement string generator
+        - Add unit tests for the rental statement string generator
+    - Reasoning
+        - Extracting the rental statement string generation to a separate class makes the code more readable and
+          maintainable.
+        - It separates the logic of generating the rental statement string from the main application logic.
