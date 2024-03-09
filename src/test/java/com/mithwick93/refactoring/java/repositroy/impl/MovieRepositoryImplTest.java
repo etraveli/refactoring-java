@@ -1,15 +1,17 @@
-package com.mithwick93.refactoring.java.repositroy;
+package com.mithwick93.refactoring.java.repositroy.impl;
 
 import com.mithwick93.refactoring.java.entity.Movie;
-import com.mithwick93.refactoring.java.repositroy.impl.MovieRepositoryImpl;
+import com.mithwick93.refactoring.java.repositroy.MovieRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-class MovieRepositoryTest {
+class MovieRepositoryImplTest {
 
     private MovieRepository movieRepository;
 

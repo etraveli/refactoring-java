@@ -1,16 +1,16 @@
-package com.mithwick93.refactoring.java.service;
+package com.mithwick93.refactoring.java.service.helper;
 
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class CustomerStatementGeneratorServiceTest {
+class StatementGeneratorHelperTest {
 
     @Test
     void givenInitializedProperly_whenGenerate_thenReturnCorrectStatement() {
-        CustomerStatementGeneratorService customerStatementGeneratorService = new CustomerStatementGeneratorService("John Doe");
-        customerStatementGeneratorService.addMovieStatement("The Reverent", 3.0, 1);
+        StatementGeneratorHelper statementGeneratorHelper = new StatementGeneratorHelper("John Doe");
+        statementGeneratorHelper.addMovieStatement("The Reverent", 3.0, 1);
 
         String expected = """
                 Rental Record for John Doe
@@ -19,7 +19,7 @@ class CustomerStatementGeneratorServiceTest {
                 You earned 1 frequent points
                 """;
 
-        String result = customerStatementGeneratorService.generate();
+        String result = statementGeneratorHelper.getStatementText();
 
         assertNotNull(result);
         assertEquals(expected, result);
@@ -27,7 +27,7 @@ class CustomerStatementGeneratorServiceTest {
 
     @Test
     void givenInitializedNotProperly_whenGenerate_thenReturnDefaultStatement() {
-        CustomerStatementGeneratorService customerStatementGeneratorService = new CustomerStatementGeneratorService("");
+        StatementGeneratorHelper statementGeneratorHelper = new StatementGeneratorHelper("");
 
         String expected = """
                 Rental Record for\s
@@ -35,7 +35,7 @@ class CustomerStatementGeneratorServiceTest {
                 You earned 0 frequent points
                 """;
 
-        String result = customerStatementGeneratorService.generate();
+        String result = statementGeneratorHelper.getStatementText();
 
         assertNotNull(result);
         assertEquals(expected, result);
