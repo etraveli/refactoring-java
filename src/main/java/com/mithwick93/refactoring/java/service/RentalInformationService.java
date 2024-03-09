@@ -31,23 +31,41 @@ public class RentalInformationService {
 
         StatementGeneratorHelper statementGeneratorHelper
                 = new StatementGeneratorHelper(customer.name());
-        customer.rentals().forEach(movieRental -> {
-            Movie movie = movieRepository.getMovie(movieRental.movieId());
-            String movieTitle = movie.title();
-            Movie.MovieCode movieCode = movie.code();
-            int days = movieRental.days();
-
-            double amount = getRentAmount(movieCode, days);
-            int frequentPoints = getFrequentPoints(movieCode, days);
-
-            statementGeneratorHelper.addMovieStatement(
-                    movieTitle,
-                    amount,
-                    frequentPoints
-            );
-        });
+        customer.rentals().forEach(
+                movieRental -> calculateRentalInformation(
+                        movieRental,
+                        statementGeneratorHelper
+                )
+        );
 
         return statementGeneratorHelper.generate();
+    }
+
+    /**
+     * Calculate the rental information for the movie and add it to the
+     * statement.
+     *
+     * @param movieRental              movie rental for which information is to
+     *                                 be calculated
+     * @param statementGeneratorHelper statement generator helper
+     */
+    private void calculateRentalInformation(
+            final MovieRental movieRental,
+            final StatementGeneratorHelper statementGeneratorHelper
+    ) {
+        Movie movie = movieRepository.getMovie(movieRental.movieId());
+        String movieTitle = movie.title();
+        Movie.MovieCode movieCode = movie.code();
+        int days = movieRental.days();
+
+        double amount = getRentAmount(movieCode, days);
+        int frequentPoints = getFrequentPoints(movieCode, days);
+
+        statementGeneratorHelper.addMovieStatement(
+                movieTitle,
+                amount,
+                frequentPoints
+        );
     }
 
     /**
