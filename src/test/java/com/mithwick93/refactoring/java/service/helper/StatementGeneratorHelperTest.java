@@ -19,7 +19,7 @@ class StatementGeneratorHelperTest {
                 You earned 1 frequent points
                 """;
 
-        String result = statementGeneratorHelper.generate();
+        String result = statementGeneratorHelper.getStatementText();
 
         assertNotNull(result);
         assertEquals(expected, result);
@@ -35,7 +35,7 @@ class StatementGeneratorHelperTest {
                 You earned 0 frequent points
                 """;
 
-        String result = statementGeneratorHelper.generate();
+        String result = statementGeneratorHelper.getStatementText();
 
         assertNotNull(result);
         assertEquals(expected, result);

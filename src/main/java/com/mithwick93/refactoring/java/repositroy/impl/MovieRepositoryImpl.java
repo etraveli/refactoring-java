@@ -11,9 +11,6 @@ import java.util.Map;
 public class MovieRepositoryImpl implements MovieRepository {
     private final Map<String, Movie> movies;
 
-    /**
-     * Constructor to initialize the repository with some movies.
-     */
     public MovieRepositoryImpl() {
         this.movies = initializeMovies();
     }

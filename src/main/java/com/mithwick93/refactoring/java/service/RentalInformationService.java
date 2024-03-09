@@ -38,7 +38,7 @@ public class RentalInformationService {
                 )
         );
 
-        return statementGeneratorHelper.generate();
+        return statementGeneratorHelper.getStatementText();
     }
 
     /**
@@ -84,9 +84,9 @@ public class RentalInformationService {
         double amount = movieCode.getBaseRate();
 
         // add amount for the days after max base rate days
-        int daysAfterMaxBaseRate = days - movieCode.getMaxBaseRateDays();
-        if (daysAfterMaxBaseRate > BigInteger.ZERO.intValue()) {
-            amount += daysAfterMaxBaseRate * movieCode.getDailyRate();
+        int daysAfterMaxBaseRateDays = days - movieCode.getMaxBaseRateDays();
+        if (daysAfterMaxBaseRateDays > BigInteger.ZERO.intValue()) {
+            amount += daysAfterMaxBaseRateDays * movieCode.getDailyRate();
         }
 
         return amount;

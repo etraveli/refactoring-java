@@ -45,7 +45,7 @@ public class StatementGeneratorHelper {
      *
      * @return string representation of the customer statement
      */
-    public String generate() {
+    public String getStatementText() {
         String movieStatements = movieStatementsBuilder.toString();
         return "Rental Record for " + customerName + LINE_SEPARATOR
                 + movieStatements
