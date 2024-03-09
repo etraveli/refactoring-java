@@ -3,6 +3,7 @@ package com.mithwick93.refactoring.java;
 import com.mithwick93.refactoring.java.entity.Customer;
 import com.mithwick93.refactoring.java.entity.MovieRental;
 import com.mithwick93.refactoring.java.repositroy.MovieRepository;
+import com.mithwick93.refactoring.java.repositroy.impl.MovieRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +18,7 @@ public class RentalInfoTest {
 
     @BeforeEach
     void setUp() {
-        MovieRepository movieRepository = new MovieRepository();
+        MovieRepository movieRepository = new MovieRepositoryImpl();
         rentalInfo = new RentalInfo(movieRepository);
     }
 
