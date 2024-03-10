@@ -2,8 +2,9 @@
 
 The code creates an information slip about movie rentals. The code has been refactored to improve its readability and
 maintainability.
+
 - The changes made to the code are documented in the [CHANGELIST.md](CHANGELIST.md)
-- Original code can be found in the[etraveli/refactoring-java](https://github.com/etraveli/refactoring-java)
+- Original code can be found in the [etraveli/refactoring-java](https://github.com/etraveli/refactoring-java)
 
 ## How to run the tests
 
