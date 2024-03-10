@@ -118,3 +118,10 @@
         - Define constants for magic numbers
     - Reasoning
         - The code is now more readable and maintainable
+16. Refactor data types - PR [#16](https://github.com/mithwick93/refactoring-java/pull/16)
+    - Changes
+        - Use BigDecimal for rental amount calculations
+        - Update README with dependency information
+    - Reasoning
+        - BigDecimal is a better data type for financial calculations. It provides more precision and avoids rounding
+          errors.

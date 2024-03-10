@@ -4,6 +4,8 @@ import com.mithwick93.refactoring.java.service.rentalstrategy.RentalStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class RegularMovieRentalStrategyTest {
@@ -17,9 +19,9 @@ class RegularMovieRentalStrategyTest {
     @Test
     void givenDaysRentedLessThanStandardRentalPeriod_whenGetRentalAmount_thenReturnRentalAmount() {
         int daysRented = 1;
-        double expectedRentalAmount = 2.0;
+        BigDecimal expectedRentalAmount = new BigDecimal("2.0");
 
-        double actualRentalAmount = rentalStrategy.getRentalAmount(daysRented);
+        BigDecimal actualRentalAmount = rentalStrategy.getRentalAmount(daysRented);
 
         assertEquals(expectedRentalAmount, actualRentalAmount, "Rental amount should be 2.0");
     }
@@ -27,9 +29,9 @@ class RegularMovieRentalStrategyTest {
     @Test
     void givenDaysRentedMoreThanStandardRentalPeriod_whenGetRentalAmount_thenReturnRentalAmount() {
         int daysRented = 5;
-        double expectedRentalAmount = 6.5;
+        BigDecimal expectedRentalAmount = new BigDecimal("6.5");
 
-        double actualRentalAmount = rentalStrategy.getRentalAmount(daysRented);
+        BigDecimal actualRentalAmount = rentalStrategy.getRentalAmount(daysRented);
 
         assertEquals(expectedRentalAmount, actualRentalAmount, "Rental amount should be 6.5");
     }

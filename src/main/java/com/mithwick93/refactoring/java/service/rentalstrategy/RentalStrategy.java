@@ -1,5 +1,7 @@
 package com.mithwick93.refactoring.java.service.rentalstrategy;
 
+import java.math.BigDecimal;
+
 /**
  * RentalStrategy interface implements strategy pattern to calculate rental
  * amount and frequent renter points.
@@ -13,7 +15,7 @@ public interface RentalStrategy {
      * @param daysRented days for which movie is rented
      * @return rental amount for the movie
      */
-    double getRentalAmount(int daysRented);
+    BigDecimal getRentalAmount(int daysRented);
 
     /**
      * Calculate the frequent points for the movie.
