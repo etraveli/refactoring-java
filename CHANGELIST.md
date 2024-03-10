@@ -112,3 +112,9 @@
         - Update CHANGELIST with the latest changes
     - Reasoning
         - The README and CHANGELIST are now up to date with the latest changes
+15. Refactor rental service variable names - PR [#15](https://github.com/mithwick93/refactoring-java/pull/15)
+    - Changes
+        - Update variable names to better names
+        - Define constants for magic numbers
+    - Reasoning
+        - The code is now more readable and maintainable
