@@ -1,5 +1,8 @@
 package com.mithwick93.refactoring.java.service.helper;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * StatementGeneratorHelper class to help generate the statement for the
  * customer.
@@ -7,15 +10,19 @@ package com.mithwick93.refactoring.java.service.helper;
 public class StatementGeneratorHelper {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String TAB = "\t";
+    private static final int PRECISION = 1;
 
     private final String customerName;
     private final StringBuilder movieStatementsBuilder;
-    private double totalAmount;
+    private BigDecimal totalAmount;
+
     private int frequentPoints;
 
     public StatementGeneratorHelper(final String customerName) {
         this.customerName = customerName;
         this.movieStatementsBuilder = new StringBuilder();
+        this.totalAmount = new BigDecimal("0.0")
+                .setScale(PRECISION, RoundingMode.HALF_UP);
     }
 
     /**
@@ -27,7 +34,7 @@ public class StatementGeneratorHelper {
      */
     public void addMovieStatement(
             final String name,
-            final double rentalAmount,
+            final BigDecimal rentalAmount,
             final int frequentPoints
     ) {
         this.movieStatementsBuilder
@@ -36,7 +43,7 @@ public class StatementGeneratorHelper {
                 .append(TAB)
                 .append(rentalAmount)
                 .append(LINE_SEPARATOR);
-        this.totalAmount += rentalAmount;
+        this.totalAmount = this.totalAmount.add(rentalAmount);
         this.frequentPoints += frequentPoints;
     }
 

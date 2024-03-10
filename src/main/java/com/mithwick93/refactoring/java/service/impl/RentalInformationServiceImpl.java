@@ -9,6 +9,7 @@ import com.mithwick93.refactoring.java.service.RentalInformationService;
 import com.mithwick93.refactoring.java.service.helper.StatementGeneratorHelper;
 import com.mithwick93.refactoring.java.service.rentalstrategy.RentalStrategy;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Map;
 
@@ -61,7 +62,7 @@ public class RentalInformationServiceImpl implements RentalInformationService {
         RentalStrategy rentalStrategy = movie.code().rentalStrategy();
         int days = movieRental.days();
 
-        double amount = rentalStrategy.getRentalAmount(days);
+        BigDecimal amount = rentalStrategy.getRentalAmount(days);
         int frequentPoints = rentalStrategy.getFrequentPoints(days);
 
         statementGeneratorHelper.addMovieStatement(

@@ -1,10 +1,15 @@
 # Refactoring Java
 
-The code creates an information slip about movie rentals. The code has been refactored to improve its readability and
-maintainability.
+The code creates an information slip about movie rentals.
 
+- The code is refactored to make it more readable, maintainable, and testable.
 - The changes made to the code are documented in the [CHANGELIST.md](CHANGELIST.md)
 - Original code can be found in the [etraveli/refactoring-java](https://github.com/etraveli/refactoring-java)
+
+## Dependencies
+
+1. Java 21
+2. Apache Maven >= 3.9.6
 
 ## How to run the tests
 

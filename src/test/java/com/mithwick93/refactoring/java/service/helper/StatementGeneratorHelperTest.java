@@ -2,6 +2,8 @@ package com.mithwick93.refactoring.java.service.helper;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -10,7 +12,7 @@ class StatementGeneratorHelperTest {
     @Test
     void givenInitializedProperly_whenGenerate_thenReturnCorrectStatement() {
         StatementGeneratorHelper statementGeneratorHelper = new StatementGeneratorHelper("John Doe");
-        statementGeneratorHelper.addMovieStatement("The Reverent", 3.0, 1);
+        statementGeneratorHelper.addMovieStatement("The Reverent", new BigDecimal("3.0"), 1);
 
         String expected = """
                 Rental Record for John Doe
