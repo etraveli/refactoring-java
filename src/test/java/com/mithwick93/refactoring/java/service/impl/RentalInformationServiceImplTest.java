@@ -27,7 +27,10 @@ public class RentalInformationServiceImplTest {
     void givenNullCustomer_whenStatement_thenThrowIllegalArgumentException() {
         Customer customer = null;
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer));
+        assertThrows(
+                IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer),
+                "Customer cannot be null"
+        );
     }
 
     @Test
@@ -35,7 +38,10 @@ public class RentalInformationServiceImplTest {
         List<MovieRental> movieRentals = null;
         Customer customer = new Customer(null, movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer));
+        assertThrows(
+                IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer),
+                "Customer name cannot be null"
+        );
     }
 
     @Test
@@ -43,7 +49,10 @@ public class RentalInformationServiceImplTest {
         List<MovieRental> movieRentals = null;
         Customer customer = new Customer("", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer));
+        assertThrows(
+                IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer),
+                "Customer name cannot be empty"
+        );
     }
 
     @Test
@@ -51,7 +60,10 @@ public class RentalInformationServiceImplTest {
         List<MovieRental> movieRentals = null;
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer));
+        assertThrows(
+                IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer),
+                "Customer rentals cannot be null"
+        );
     }
 
     @Test
@@ -59,7 +71,10 @@ public class RentalInformationServiceImplTest {
         List<MovieRental> movieRentals = new ArrayList<>();
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer));
+        assertThrows(
+                IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer),
+                "Customer rentals cannot be empty"
+        );
     }
 
     @Test
@@ -67,7 +82,10 @@ public class RentalInformationServiceImplTest {
         List<MovieRental> movieRentals = List.of(new MovieRental(null, 3));
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer));
+        assertThrows(
+                IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer),
+                "Movie id cannot be null"
+        );
     }
 
     @Test
@@ -75,7 +93,10 @@ public class RentalInformationServiceImplTest {
         List<MovieRental> movieRentals = List.of(new MovieRental("", 3));
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer));
+        assertThrows(
+                IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer),
+                "Movie id cannot be empty"
+        );
     }
 
     @Test
@@ -83,7 +104,10 @@ public class RentalInformationServiceImplTest {
         List<MovieRental> movieRentals = List.of(new MovieRental("F005", 3));
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer));
+        assertThrows(
+                IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer),
+                "Invalid movie id"
+        );
     }
 
     @Test
@@ -91,7 +115,10 @@ public class RentalInformationServiceImplTest {
         List<MovieRental> movieRentals = List.of(new MovieRental("F001", 0));
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer));
+        assertThrows(
+                IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer),
+                "Days cannot be zero"
+        );
     }
 
     @Test
@@ -99,7 +126,10 @@ public class RentalInformationServiceImplTest {
         List<MovieRental> movieRentals = List.of(new MovieRental("F001", -4));
         Customer customer = new Customer("C. U. Stomer", movieRentals);
 
-        assertThrows(IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer));
+        assertThrows(
+                IllegalArgumentException.class, () -> rentalInformationService.getStatement(customer),
+                "Days cannot be negative"
+        );
     }
 
     @Test
@@ -120,7 +150,7 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
     @Test
@@ -137,7 +167,7 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
     @Test
@@ -154,7 +184,7 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
     @Test
@@ -171,7 +201,7 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
     @Test
@@ -188,7 +218,7 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
     @Test
@@ -205,7 +235,7 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
     @Test
@@ -222,7 +252,7 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
     @Test
@@ -239,7 +269,7 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
     @Test
@@ -256,7 +286,7 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
     @Test
@@ -273,7 +303,7 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
 
@@ -297,6 +327,6 @@ public class RentalInformationServiceImplTest {
 
         String result = rentalInformationService.getStatement(customer);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result, "Statement should be as expected");
     }
 }
