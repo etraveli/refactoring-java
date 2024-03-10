@@ -17,7 +17,7 @@ public class NewReleaseMovieRentalStrategy implements RentalStrategy {
      * @return rental amount for the movie
      */
     @Override
-    public double getRentalAmount(int daysRented) {
+    public double getRentalAmount(final int daysRented) {
         return DAILY_RATE * daysRented;
     }
 
@@ -28,7 +28,7 @@ public class NewReleaseMovieRentalStrategy implements RentalStrategy {
      * @return frequent points for the movie
      */
     @Override
-    public int getFrequentPoints(int daysRented) {
+    public int getFrequentPoints(final int daysRented) {
         return daysRented > BONUS_FREQUENT_POINTS_THRESHOLD_DAYS
                 ? BONUS_FREQUENT_POINTS
                 : DEFAULT_FREQUENT_POINTS;

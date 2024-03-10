@@ -25,7 +25,7 @@ public record Movie(String title, MovieCode code) {
 
         private final RentalStrategy rentalStrategy;
 
-        MovieCode(Supplier<RentalStrategy> rentalStrategySupplier) {
+        MovieCode(final Supplier<RentalStrategy> rentalStrategySupplier) {
             this.rentalStrategy = rentalStrategySupplier.get();
         }
 

@@ -21,8 +21,8 @@ class StatementGeneratorHelperTest {
 
         String result = statementGeneratorHelper.getStatementText();
 
-        assertNotNull(result);
-        assertEquals(expected, result);
+        assertNotNull(result, "Statement should not be null");
+        assertEquals(expected, result, "Statement should be as expected");
     }
 
     @Test
@@ -37,7 +37,7 @@ class StatementGeneratorHelperTest {
 
         String result = statementGeneratorHelper.getStatementText();
 
-        assertNotNull(result);
-        assertEquals(expected, result);
+        assertNotNull(result, "Statement should not be null");
+        assertEquals(expected, result, "Statement should be as expected");
     }
 }

@@ -24,8 +24,8 @@ class MovieRepositoryImplTest {
     void givenMovieRepositoryInitialized_whenGetMovies_thenReturnMovieList() {
         Map<String, Movie> movies = movieRepository.getMovies();
 
-        assertNotNull(movies);
-        assertFalse(movies.isEmpty());
+        assertNotNull(movies, "Movies should not be null");
+        assertFalse(movies.isEmpty(), "Movies should not be empty");
     }
 
     @Test
@@ -34,9 +34,9 @@ class MovieRepositoryImplTest {
 
         Movie movie = movieRepository.getMovie(movieId);
 
-        assertNotNull(movie);
-        assertNotNull(movie.title());
-        assertNotNull(movie.code());
+        assertNotNull(movie, "Movie should not be null");
+        assertNotNull(movie.title(), "Movie title should not be null");
+        assertNotNull(movie.code(), "Movie code should not be null");
     }
 
     @Test
@@ -45,6 +45,6 @@ class MovieRepositoryImplTest {
 
         Movie movie = movieRepository.getMovie(movieId);
 
-        assertNull(movie);
+        assertNull(movie, "Movie should be null");
     }
 }

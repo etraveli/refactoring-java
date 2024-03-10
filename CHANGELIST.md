@@ -98,3 +98,11 @@
     - Reasoning
         - The test coverage is now 100% for the project
         - The project now has a jacoco plugin to measure the test coverage
+13. Implement strategy pattern for rental calculation
+    - Changes
+        - Implement strategy pattern for rental calculation
+        - Add unit tests for the strategy pattern
+        - Update the code to use the strategy pattern
+    - Reasoning
+        - The strategy pattern is a better way to manage the rental calculation logic. It provides a way to change the
+          rental calculation logic without changing the main application logic.

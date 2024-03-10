@@ -19,7 +19,7 @@ public class RegularMovieRentalStrategy implements RentalStrategy {
      * @return rental amount for the movie
      */
     @Override
-    public double getRentalAmount(int daysRented) {
+    public double getRentalAmount(final int daysRented) {
         double amount = STANDARD_RATE;
 
         int daysAfterMaxBaseRateDays = daysRented - STANDARD_RENTAL_PERIOD;
