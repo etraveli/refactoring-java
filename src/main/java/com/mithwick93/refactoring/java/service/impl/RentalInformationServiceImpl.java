@@ -9,6 +9,7 @@ import com.mithwick93.refactoring.java.service.RentalInformationService;
 import com.mithwick93.refactoring.java.service.helper.StatementGeneratorHelper;
 import com.mithwick93.refactoring.java.service.rentalstrategy.RentalStrategy;
 
+import java.math.BigInteger;
 import java.util.Map;
 
 /**
@@ -98,20 +99,22 @@ public class RentalInformationServiceImpl implements RentalInformationService {
             );
         }
 
-        for (MovieRental r : customer.rentals()) {
-            if (r.movieId() == null || r.movieId().isEmpty()) {
+        for (MovieRental movieRental : customer.rentals()) {
+            if (movieRental.movieId() == null
+                    || movieRental.movieId().isEmpty()
+            ) {
                 throw new IllegalArgumentException(
                         Constants.CUSTOMER_RENTAL_MOVIE_ID_CANNOT_BE_NULL_OR_EMPTY_ERROR
                 );
             }
 
-            if (!movies.containsKey(r.movieId())) {
+            if (!movies.containsKey(movieRental.movieId())) {
                 throw new IllegalArgumentException(
                         Constants.CUSTOMER_RENTAL_MOVIE_NOT_FOUND_ERROR
                 );
             }
 
-            if (r.days() <= 0) {
+            if (movieRental.days() <= BigInteger.ZERO.intValue()) {
                 throw new IllegalArgumentException(
                         Constants.CUSTOMER_RENTAL_DAYS_CANNOT_BE_LESS_THAN_OR_EQUAL_TO_ZERO_ERROR
                 );
