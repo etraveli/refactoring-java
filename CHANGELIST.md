@@ -90,3 +90,11 @@
         - The code is now more readable and maintainable.
         - The code is now more consistent and follows the check style rules.
         - The code is now more modular and follows the single responsibility principle.
+12. Improve test coverage
+    - Changes
+        - Add more unit tests to cover edge cases in validation
+        - Added jacoco plugin to measure test coverage
+        - Update README with link to ChangeList and how to generate and view test coverage report
+    - Reasoning
+        - The test coverage is now 100% for the project
+        - The project now has a jacoco plugin to measure the test coverage
