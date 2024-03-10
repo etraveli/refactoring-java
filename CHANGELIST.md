@@ -125,3 +125,10 @@
     - Reasoning
         - BigDecimal is a better data type for financial calculations. It provides more precision and avoids rounding
           errors.
+17. Refactor rental strategy - PR [#17]((https://github.com/mithwick93/refactoring-java/pull/17)
+    - Changes
+        - Convert rental strategy Interface to abstract class
+        - Add default implementation for calculate rental amount for the movie in the abstract class
+        - Code is not duplicated in the concrete classes
+    - Reasoning
+        - This improvement is to avoid code duplication and make the code more maintainable
