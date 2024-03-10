@@ -1,21 +1,37 @@
 # Refactoring Java
 
 The code creates an information slip about movie rentals.
-Rewrite and improve the code after your own liking.
 
-Think: you are responsible for the solution, this is a solution you will have to put your name on.
+- The code is refactored to make it more readable, maintainable, and testable.
+- The changes made to the code are documented in the [CHANGELIST.md](CHANGELIST.md)
+- Original code can be found in the [etraveli/refactoring-java](https://github.com/etraveli/refactoring-java)
 
+## Dependencies
 
-## Handing in the assignment
+1. Java 21
+2. Apache Maven >= 3.9.6
 
-Reason how you have been thinking and the decisions you took. 
-You can hand in the result any way you feel (git patch, pull-request or ZIP-file).
-Note: the Git history must be included.
+## How to run the tests
 
+1. Run the tests
+   ```
+   mvn clean test
+   ```
+2. Generate the test coverage report
+   ```
+   mvn clean verify
+   ```
+   The test coverage report can be found in the `target/site/jacoco/index.html` file.
 
-## To run the test:
+## How to run the application
 
-```
-javac src/*.java
-java -cp src Main
-```
+1. Build the application
+
+    ```
+    mvn clean package
+    ```
+2. Run the application
+
+    ```
+    java -jar target/refactoring-java-1.0-SNAPSHOT.jar
+    ```
