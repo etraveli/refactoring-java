@@ -7,8 +7,8 @@ import com.mithwick93.refactoring.java.entity.MovieRental;
 import com.mithwick93.refactoring.java.repositroy.MovieRepository;
 import com.mithwick93.refactoring.java.service.RentalInformationService;
 import com.mithwick93.refactoring.java.service.helper.StatementGeneratorHelper;
+import com.mithwick93.refactoring.java.service.rentalstrategy.RentalStrategy;
 
-import java.math.BigInteger;
 import java.util.Map;
 
 /**
@@ -57,67 +57,17 @@ public class RentalInformationServiceImpl implements RentalInformationService {
     ) {
         Movie movie = movieRepository.getMovie(movieRental.movieId());
         String movieTitle = movie.title();
-        Movie.MovieCode movieCode = movie.code();
+        RentalStrategy rentalStrategy = movie.code().rentalStrategy();
         int days = movieRental.days();
 
-        double amount = getRentAmount(movieCode, days);
-        int frequentPoints = getFrequentPoints(movieCode, days);
+        double amount = rentalStrategy.getRentalAmount(days);
+        int frequentPoints = rentalStrategy.getFrequentPoints(days);
 
         statementGeneratorHelper.addMovieStatement(
                 movieTitle,
                 amount,
                 frequentPoints
         );
-    }
-
-    /**
-     * Get the rent amount for the movie based on the movie code and no of
-     * rented days.
-     *
-     * @param movieCode movie code
-     * @param days      days for which movie is rented
-     * @return rent amount
-     */
-    private double getRentAmount(
-            final Movie.MovieCode movieCode,
-            final int days
-    ) {
-        // initialize with base amount
-        double amount = movieCode.getBaseRate();
-
-        // add amount for the days after max base rate days
-        int daysAfterMaxBaseRateDays = days - movieCode.getMaxBaseRateDays();
-        if (daysAfterMaxBaseRateDays > BigInteger.ZERO.intValue()) {
-            amount += daysAfterMaxBaseRateDays * movieCode.getDailyRate();
-        }
-
-        return amount;
-    }
-
-    /**
-     * Get the frequent points for the movie based on the movie code and no of
-     * rented days.
-     *
-     * @param movieCode movie code
-     * @param days      days for which movie is rented
-     * @return frequent points
-     */
-    private int getFrequentPoints(
-            final Movie.MovieCode movieCode,
-            final int days
-    ) {
-        // initialize with regular frequent points
-        int frequentPoints = movieCode.getFrequentPoints();
-
-        // add additional frequent points if the movie is eligible for more
-        // frequent points and days are more than the threshold
-        if (movieCode.isEligibleForMoreFrequentPoints()
-                && days > movieCode.getDaysThresholdForMoreFrequentPoints()
-        ) {
-            frequentPoints += movieCode.getAdditionalFrequentPoints();
-        }
-
-        return frequentPoints;
     }
 
     /**
