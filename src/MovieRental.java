@@ -1,17 +1,21 @@
+//TODO lombok
 public class MovieRental {
-    private String movieId;
-    private int days;
+    private Movie movie;
 
-    public MovieRental(String movieId, int days) {
-        this.movieId = movieId;
-        this.days = days;
+    private int totalRentalDays;
+
+    public MovieRental(Movie movie, int totalRentalDays) {
+        this.movie = movie;
+        this.totalRentalDays = totalRentalDays;
     }
 
-    public String getMovieId() {
-        return movieId;
+    public Movie getMovie() {
+        return movie;
     }
 
-    public int getDays() {
-        return days;
+    public int getTotalRentalDays() {
+        return totalRentalDays;
     }
+
+
 }

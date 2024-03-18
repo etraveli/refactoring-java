@@ -1,11 +1,15 @@
+//TODO lombok
 public class Movie {
-    private String title;
+    private int id;
     private String code;
+    private String title;
+    private MovieType movieType;
 
-    public Movie(String title, String code) {
-
-        this.title = title;
+    public Movie(int id, String code, String title, MovieType movieType) {
+        this.id = id;
         this.code = code;
+        this.title = title;
+        this.movieType = movieType;
     }
 
     public String getTitle() {
@@ -15,4 +19,11 @@ public class Movie {
     public String getCode() {
         return code;
     }
+
+
+    public MovieType getMovieType() {
+        return movieType;
+    }
+
+
 }

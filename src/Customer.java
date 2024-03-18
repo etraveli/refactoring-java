@@ -1,19 +1,16 @@
-import java.util.List;
-
+//TODO lombok
 public class Customer {
+    private int id;
     private String name;
-    private List<MovieRental> rentals;
 
-    public Customer(String name, List<MovieRental> rentals) {
+    public Customer(int id, String name) {
+        this.id = id;
         this.name = name;
-        this.rentals = rentals;
     }
+
 
     public String getName() {
         return name;
     }
 
-    public List<MovieRental> getRentals() {
-        return rentals;
-    }
 }
