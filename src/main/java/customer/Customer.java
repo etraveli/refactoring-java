@@ -1,4 +1,8 @@
+package main.java.customer;
+
 import java.util.List;
+
+import main.java.movie.MovieRental;
 
 public class Customer {
     private String name;

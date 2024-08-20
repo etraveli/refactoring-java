@@ -1,0 +1,10 @@
+{
+    "java.checkstyle.configuration": "${workspaceFolder}\\src\\checkstyle.xml",
+    "files.exclude": {
+        "**/*.class": true
+    },
+    "java.checkstyle.version": "10.17.0",
+    "files.watcherExclude": {
+        "**/*.class": true
+    }
+}

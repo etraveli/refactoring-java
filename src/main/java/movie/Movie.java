@@ -1,8 +1,10 @@
+package main.java.movie;
+
 public class Movie {
     private String title;
-    private String code;
+    private MovieGenre code;
 
-    public Movie(String title, String code) {
+    public Movie(String title, MovieGenre code) {
 
         this.title = title;
         this.code = code;
@@ -12,7 +14,7 @@ public class Movie {
         return title;
     }
 
-    public String getCode() {
+    public MovieGenre getCode() {
         return code;
     }
 }
